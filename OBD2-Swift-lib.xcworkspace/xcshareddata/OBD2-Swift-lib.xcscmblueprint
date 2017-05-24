@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B41D8D43081E8EE60B0FC4638629F80A0E0F70CA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B41D8D43081E8EE60B0FC4638629F80A0E0F70CA" : 9223372036854775807,
+    "01C4019DAB2F13C7FB458F088D0A991884C46F1A" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "462DD47C-982C-424F-90E8-FD5A8D58308F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B41D8D43081E8EE60B0FC4638629F80A0E0F70CA" : "OBD2-Swift-lib\/",
+    "01C4019DAB2F13C7FB458F088D0A991884C46F1A" : "OBD2-Swift-lib\/OBD2-Swift_Lib\/socket.io-client-swift\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "OBD2-Swift-lib",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "OBD2-Swift-lib.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/socketio\/socket.io-client-swift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "01C4019DAB2F13C7FB458F088D0A991884C46F1A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/gitlab.com\/MaxVitruk\/OBD2.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B41D8D43081E8EE60B0FC4638629F80A0E0F70CA"
+    }
+  ]
+}

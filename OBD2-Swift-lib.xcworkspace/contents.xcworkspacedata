@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:OBD2-Swift-lib-example/OBD2-Swift-lib-example.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/maxvitruk/Documents/OBD2-Swift-lib/OBD2-Swift_Lib/OBD2Swift.xcodeproj">
+   </FileRef>
+</Workspace>

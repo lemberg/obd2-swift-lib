@@ -35,6 +35,7 @@
 		921203F81ED5BA6200BD973F /* Sanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203F71ED5BA6200BD973F /* Sanner.swift */; };
 		921203FB1ED5BB6000BD973F /* SensorObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203FA1ED5BB6000BD973F /* SensorObserver.swift */; };
 		921203FD1ED5BB8F00BD973F /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203FC1ED5BB8F00BD973F /* Observable.swift */; };
+		924606C71ED7230200117F61 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924606C61ED7230200117F61 /* Package.swift */; };
 		9258F2F11EAF45E7006B7580 /* OBD2Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9258F2E71EAF45E7006B7580 /* OBD2Swift.framework */; };
 		926121E11ED6D2FA00D2AE9D /* StreamHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E01ED6D2FA00D2AE9D /* StreamHolder.swift */; };
 		926121E61ED6DA8700D2AE9D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E51ED6DA8700D2AE9D /* Parser.swift */; };
@@ -81,6 +82,7 @@
 		921203F71ED5BA6200BD973F /* Sanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sanner.swift; sourceTree = "<group>"; };
 		921203FA1ED5BB6000BD973F /* SensorObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorObserver.swift; sourceTree = "<group>"; };
 		921203FC1ED5BB8F00BD973F /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		924606C61ED7230200117F61 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		9258F2E71EAF45E7006B7580 /* OBD2Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OBD2Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9258F2F01EAF45E7006B7580 /* OBD2SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OBD2SwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		926121E01ED6D2FA00D2AE9D /* StreamHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHolder.swift; sourceTree = "<group>"; };
@@ -136,6 +138,15 @@
 			path = "OBD2-Swift/Observer";
 			sourceTree = SOURCE_ROOT;
 		};
+		924606C51ED722DD00117F61 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				924606C61ED7230200117F61 /* Package.swift */,
+			);
+			name = Model;
+			path = "OBD2-Swift/Model";
+			sourceTree = SOURCE_ROOT;
+		};
 		9258F2DD1EAF45E7006B7580 = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +168,7 @@
 		9258F2E91EAF45E7006B7580 /* OBD2Swift */ = {
 			isa = PBXGroup;
 			children = (
+				924606C51ED722DD00117F61 /* Model */,
 				926121E71ED6E7D400D2AE9D /* Command */,
 				926121E41ED6DA7100D2AE9D /* Parser */,
 				921203F91ED5BB0200BD973F /* Observer */,
@@ -401,6 +413,7 @@
 				921203F81ED5BA6200BD973F /* Sanner.swift in Sources */,
 				921203F51ED5B9A700BD973F /* Connector.swift in Sources */,
 				921203D81ED598C000BD973F /* DiagnosticTroubleCode.swift in Sources */,
+				924606C71ED7230200117F61 /* Package.swift in Sources */,
 				921203C61ED597F500BD973F /* ELM327ResponseParser.swift in Sources */,
 				921203C51ED597F500BD973F /* ELM327CommandType.swift in Sources */,
 				921203D11ED5983500BD973F /* WifiScanTool.swift in Sources */,

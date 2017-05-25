@@ -9,8 +9,8 @@
 import Foundation
 
 class Parser {
-  //MARK:- implementation ELM327
   static let string = StringParser()
+  static let package = PackageReader()
   
   class StringParser {
     let kResponseFinishedCode : UInt8	=	0x3E
@@ -86,36 +86,21 @@ class Parser {
   }
   
   //Parsing command response
-  class CommandParser {
-    var decodeBufLength = 0
-    var decodeBuf = [UInt8]()
-    
-    var bytes = [UInt8].init(repeating: 0, count: 512)
-    var length = 0
-    
-    init(with bytes: [UInt8], length : Int){
-      self.bytes = bytes
-      self.length = length
+  class PackageReader {
+    func read(package : Package) -> [ScanToolResponse] {
+      return parseResponse(package: package)
     }
     
-    var stringForResponse : String {
-      /*
-       const char* test = "41 00 90 18 80 00 \r41 00 BF 9F F9 91 ";
-       return [NSString stringWithCString:test encoding:NSASCIIStringEncoding];
-       */
+    private func optimize(package : inout Package){
+      while package.buffer.last == 0x00 || package.buffer.last == 0x20 {
+        package.buffer.removeLast()
+      }
+    }
+    
+    private func parseResponse(package p : Package) -> [ScanToolResponse] {
+      var package = p
+      optimize(package: &package)
       
-      let asciistr = bytes.map({Int8.init(bitPattern: $0)})
-      let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
-      
-      return respString
-    }
-    
-    func eraseBuffer(){
-      memset(&bytes, 0x00, length)
-      length = 0
-    }
-    
-    func parseResponse(protocol : ScanToolProtocol) -> [ScanToolResponse] {
       var responseArray = [ScanToolResponse]()
       
       /*
@@ -131,34 +116,23 @@ class Parser {
        
        */
       
-      
-      // Chop off the trailing space, if it's there
-      if bytes[length-1] == 0x20 {
-        bytes[length-1] = 0x00
-        length-=1
-      }
-      
-      let respString = stringForResponse
-      
-      if !ELM_ERROR(respString) && ELM_DATA_RESPONSE(respString) {
-        
-        // There may be more than one response, if multiple ECUs responded to
-        // a particular query, so split on the '\r' boundary
-        let responseComponents = respString.components(separatedBy: "\r")
+      if !package.isError && package.isData {
+        let responseComponents = package.strigDescriptor.components(separatedBy: "\r")
         
         for resp in responseComponents {
-          eraseBuffer()
-          
           if Parser.string.isSerching(resp) {
             // A common reply if PID search occuring for the first time
             // at this drive cycle
             break;
           }
           
+          var decodeBufLength = 0
+          var decodeBuf = [UInt8]()
+          
           // For each response data string, decode into an integer array for
           // easier processing
           
-          let chunks = respString.components(separatedBy: " ")
+          let chunks = resp.components(separatedBy: " ")
           
           for c in chunks {
             let value = Int(strtoul(c, nil, 16))
@@ -166,20 +140,21 @@ class Parser {
             decodeBufLength += 1
           }
           
-          let obj = decode(data: decodeBuf, length: decodeBufLength, protocol: `protocol`)
+          let obj = decode(data: decodeBuf, length: decodeBufLength)
           responseArray.append(obj)
         }
+
       }
       
       return responseArray
     }
     
-    func decode(data : [UInt8], length : Int, `protocol` : ScanToolProtocol) -> ScanToolResponse {
+    func decode(data : [UInt8], length : Int) -> ScanToolResponse {
       let resp = ScanToolResponse()
       var dataIndex = 0
       
       resp.scanToolName		  = "ELM327";
-      resp.`protocol`       = `protocol`
+//      resp.`protocol`       = `protocol`
       resp.responseData			= Data.init(bytes: data, count: length)
       resp.mode             = (data[dataIndex] ^ 0x40)
       dataIndex            += 1

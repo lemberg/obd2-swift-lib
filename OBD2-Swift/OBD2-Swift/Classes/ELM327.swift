@@ -65,8 +65,6 @@ func GET_PROTOCOL(elm_proto : Int8) -> ScanToolProtocol {
 
 
 open class ELM327 : WifiScanTool {
-
-  
   var initState : ELM327InitState = .UNKNOWN
   var parser : ELM327ResponseParser!
   var initOperations = [Any]()

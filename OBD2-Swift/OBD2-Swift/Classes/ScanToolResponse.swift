@@ -91,38 +91,5 @@ class ScanToolResponse {
   func setRawData(data : Data) {
     responseData = data
   }
-  
-  //MARK: - NSCoding Methods
-  
-  func encodeWithCoder(encoder : NSCoder) {
-    encoder.encode(scanToolName, forKey: "ScanToolName")
-    encoder.encode(`protocol`, forKey: "ScanToolProtocol")
-    encoder.encode(responseData)
-    encoder.encode(responseString, forKey: "ResponseString")
-    encoder.encode(isError, forKey: "IsError")
-    encoder.encode(timestamp, forKey: "Timestamp")
-    encoder.encode(priority, forKey: "Priority")
-    encoder.encode(targetAddress, forKey: "TargetAddress")
-    encoder.encode(ecuAddress, forKey: "ECUAddress")
-    encoder.encode(mode, forKey: "Mode")
-    encoder.encode(pid, forKey: "PID")
-    encoder.encode(crc, forKey: "CRC")
-  }
-  
-  init(decoder : NSCoder) {
-    self.scanToolName			= decoder.decodeObject(forKey: "ScanToolName") as? String ?? ""
-    //self.`protocol`			= decoder.decodeInteger(forKey: "ScanToolProtocol")
-    self.responseData				= decoder.decodeData()
-    self.responseString			= decoder.decodeObject(forKey: "ResponseString") as? String ?? ""
-    self.isError					= decoder.decodeBool(forKey: "IsError")
-    self.timestamp					= decoder.decodeObject(forKey: "Timestamp") as? Date ?? Date()
-    self.priority				= UInt8(decoder.decodeInt32(forKey: "Priority"))
-    self.targetAddress			= UInt8(decoder.decodeInt32(forKey: "TargetAddress"))
-    self.ecuAddress				= UInt8(decoder.decodeInt32(forKey: "ECUAddress"))
-    self.mode					= UInt8(decoder.decodeInt32(forKey: "Mode"))
-    self.pid					= UInt8(decoder.decodeInt32(forKey: "PID"))
-    self.crc					= UInt8(decoder.decodeInt32(forKey: "CRC"))
-    self.data					= decoder.decodeData()
-  }
 }
 

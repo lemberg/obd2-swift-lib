@@ -87,7 +87,7 @@ class Parser {
   
   //Parsing command response
   class PackageReader {
-    func read(package : Package) -> [ScanToolResponse] {
+    func read(package : Package) -> [Response] {
       return parseResponse(package: package)
     }
     
@@ -97,11 +97,11 @@ class Parser {
       }
     }
     
-    private func parseResponse(package p : Package) -> [ScanToolResponse] {
+    private func parseResponse(package p : Package) -> [Response] {
       var package = p
       optimize(package: &package)
       
-      var responseArray = [ScanToolResponse]()
+      var responseArray = [Response]()
       
       /*
        TODO:
@@ -143,29 +143,22 @@ class Parser {
           let obj = decode(data: decodeBuf, length: decodeBufLength)
           responseArray.append(obj)
         }
-
       }
       
       return responseArray
     }
     
-    func decode(data : [UInt8], length : Int) -> ScanToolResponse {
-      let resp = ScanToolResponse()
+    func decode(data : [UInt8], length : Int) -> Response {
+      var resp = Response()
       var dataIndex = 0
-      
-      resp.scanToolName		  = "ELM327";
-//      resp.`protocol`       = `protocol`
-      resp.responseData			= Data.init(bytes: data, count: length)
-      resp.mode             = (data[dataIndex] ^ 0x40)
-      dataIndex            += 1
+
+      resp.data			= Data.init(bytes: data, count: length)
+      resp.mode         = data[dataIndex] ^ 0x40
+      dataIndex         += 1
       
       if resp.mode == ScanToolMode.RequestCurrentPowertrainDiagnosticData.rawValue {
-        resp.pid			= data[dataIndex]
-        dataIndex += 1
-      }
-      
-      if(length > 2) {
-        resp.data	= Data.init(bytes: [data[dataIndex]], count: length-dataIndex)
+        resp.pid		= data[dataIndex]
+        dataIndex       += 1
       }
       
       return resp

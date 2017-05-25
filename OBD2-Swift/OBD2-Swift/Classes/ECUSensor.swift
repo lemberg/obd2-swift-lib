@@ -22,12 +22,12 @@ import Foundation
 
 // Macro to test if a given PID, when decoded, is an
 // alphanumeric string instead of a numeric value
-func IS_ALPHA_VALUE(pid : Int8) -> Bool{
+func IS_ALPHA_VALUE(pid : UInt8) -> Bool{
   return (pid == 0x03 || pid == 0x12 || pid == 0x13 || pid == 0x1C || pid == 0x1D || pid == 0x1E)
 }
 
 // Macro to test if a given PID has two measurements in the returned data
-func IS_MULTI_VALUE_SENSOR(pid : Int8)	-> Bool {
+func IS_MULTI_VALUE_SENSOR(pid : UInt8)	-> Bool {
   return (pid >= 0x14 && pid <= 0x1B) ||
     (pid >= 0x24 && pid <= 0x2B) ||
     (pid >= 0x34 && pid <= 0x3B)
@@ -136,14 +136,14 @@ class ECUSensor {
     guard let pid = self.pid else {
       return false
     }
-    return IS_ALPHA_VALUE(pid: pid)
+    return IS_ALPHA_VALUE(pid: UInt8(pid))
   }
   
   func isMultiValue() -> Bool {
     guard let pid = self.pid else {
       return false
     }
-    return IS_MULTI_VALUE_SENSOR(pid: pid)
+    return IS_MULTI_VALUE_SENSOR(pid: UInt8(pid))
   }
   
   func isMILActive() -> Bool {

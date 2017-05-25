@@ -254,14 +254,14 @@ func calcInstantMPG(vss : Double, maf : Double) -> Double {
 }
 
 
-func calcMILActive(data : Data) -> Int {
+func calcMILActive(data : Data) -> Bool {
   guard data.count < 4 else {
-    return 0
+    return false
   }
   
   let dataA = data[0]
   
-  return ((dataA & 0x80) != 0) ? 1 : 0
+  return (dataA & 0x80) != 0
 }
 
 func calcNumTroubleCodes(data : Data) -> Int {

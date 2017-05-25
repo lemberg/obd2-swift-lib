@@ -179,13 +179,13 @@
 				TargetAttributes = {
 					9258F3091EAF4664006B7580 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = FN2T3UCV4E;
+						DevelopmentTeam = Y4NQE77REC;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					9258F3201EAF4664006B7580 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = FN2T3UCV4E;
+						DevelopmentTeam = Y4NQE77REC;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 9258F3091EAF4664006B7580;
 					};
@@ -377,7 +377,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = FN2T3UCV4E;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Y4NQE77REC;
 				INFOPLIST_FILE = "OBD2-Swift-lib-example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lemberg.OBD2SwiftLibExample;
@@ -392,7 +393,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = FN2T3UCV4E;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Y4NQE77REC;
 				INFOPLIST_FILE = "OBD2-Swift-lib-example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lemberg.OBD2SwiftLibExample;
@@ -406,7 +408,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = FN2T3UCV4E;
+				DEVELOPMENT_TEAM = Y4NQE77REC;
 				INFOPLIST_FILE = "OBD2-Swift-lib-exampleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lemberg.OBD2-Swift-lib-exampleTests";
@@ -421,7 +423,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = FN2T3UCV4E;
+				DEVELOPMENT_TEAM = Y4NQE77REC;
 				INFOPLIST_FILE = "OBD2-Swift-lib-exampleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lemberg.OBD2-Swift-lib-exampleTests";

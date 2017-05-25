@@ -46,8 +46,8 @@ enum ScanToolProtocol : Int16 {
   case KWP2000SlowInit		= 0x0008
   case J1850PWM				= 0x0010
   case J1850VPW				= 0x0020
-  case CAN11bit250KB			= 0x0040
-  case CAN11bit500KB			= 0x0080
-  case CAN29bit250KB			= 0x0100
-  case CAN29bit500KB			= 0x0200
+  case CAN11bit250KB		= 0x0040
+  case CAN11bit500KB		= 0x0080
+  case CAN29bit250KB		= 0x0100
+  case CAN29bit500KB		= 0x0200
 }

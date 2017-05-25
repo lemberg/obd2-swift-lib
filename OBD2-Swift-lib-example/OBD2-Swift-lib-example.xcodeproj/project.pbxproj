@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		921203EB1ED5A7BB00BD973F /* OBD2Swift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 921203E91ED5A7BB00BD973F /* OBD2Swift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9258F30E1EAF4664006B7580 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258F30D1EAF4664006B7580 /* AppDelegate.swift */; };
 		9258F3101EAF4664006B7580 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258F30F1EAF4664006B7580 /* ViewController.swift */; };
 		9258F3131EAF4664006B7580 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9258F3111EAF4664006B7580 /* Main.storyboard */; };
@@ -27,7 +28,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		921203EC1ED5A7BB00BD973F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				921203EB1ED5A7BB00BD973F /* OBD2Swift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		921203E91ED5A7BB00BD973F /* OBD2Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OBD2Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9258F30A1EAF4664006B7580 /* OBD2-Swift-lib-example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OBD2-Swift-lib-example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9258F30D1EAF4664006B7580 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9258F30F1EAF4664006B7580 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +80,7 @@
 		9258F3011EAF4664006B7580 = {
 			isa = PBXGroup;
 			children = (
+				921203E91ED5A7BB00BD973F /* OBD2Swift.framework */,
 				9258F30C1EAF4664006B7580 /* OBD2-Swift-lib-example */,
 				9258F3241EAF4664006B7580 /* OBD2-Swift-lib-exampleTests */,
 				9258F30B1EAF4664006B7580 /* Products */,
@@ -121,6 +138,7 @@
 				9258F3061EAF4664006B7580 /* Sources */,
 				9258F3071EAF4664006B7580 /* Frameworks */,
 				9258F3081EAF4664006B7580 /* Resources */,
+				921203EC1ED5A7BB00BD973F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

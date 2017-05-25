@@ -65,7 +65,7 @@ struct SupportedPIDMap {
 
 class ScanToolResponse {
   var scanToolName = ""
-  var `protocol` = ScanToolProtocol.None
+  var `protocol` = ScanToolProtocol.none
   
   var responseData : Data?
   var responseString = ""

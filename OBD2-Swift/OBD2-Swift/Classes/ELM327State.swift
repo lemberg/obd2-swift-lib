@@ -67,7 +67,7 @@ enum ELM327Protocol {
 }
 
 let elm_protocol_map : [ScanToolProtocol] = [
-  .None,
+  .none,
   .J1850PWM,
   .J1850VPW,
   .ISO9141Keywords0808,
@@ -78,6 +78,6 @@ let elm_protocol_map : [ScanToolProtocol] = [
   .CAN11bit250KB,
   .CAN29bit250KB,
   .CAN29bit250KB,
-  .None,
-  .None
+  .none,
+  .none
 ]

@@ -35,7 +35,7 @@ open class ScanTool : NSObject {
   var	commandQueue : [ScanToolCommand] = []
 //  
   var state : ScanToolState = .STATE_INIT
-  var `protocol` : ScanToolProtocol = .None
+  var `protocol` : ScanToolProtocol = .none
   var	deviceType : ScanToolDeviceType = .Simulated
   var	waitingForVoltageCommand = false
 //  BOOL						_useLocation;
@@ -55,7 +55,7 @@ open class ScanTool : NSObject {
   var currentLocation : CLLocation?
   var scanToolName : String = ""
   var scanToolState : ScanToolState = .STATE_INIT
-  var scanToolProtocol : ScanToolProtocol = .None
+  var scanToolProtocol : ScanToolProtocol = .none
   var scanToolDeviceType : ScanToolDeviceType = .ELM327
   var wifiScanTool : Bool = false //isWifiScanTool
   var eaScanTool : Bool = false   //isEAScanTool
@@ -99,7 +99,7 @@ open class ScanTool : NSObject {
         return "CAN 29-Bit 250Kbps"
       case .CAN29bit500KB:
         return "CAN 29-Bit 500Kbps"
-      case .None:
+      case .none:
         return"Unknown Protocol"
     }
   }

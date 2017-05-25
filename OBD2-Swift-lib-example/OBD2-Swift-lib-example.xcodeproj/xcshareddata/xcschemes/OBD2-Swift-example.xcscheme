@@ -20,6 +20,48 @@
                ReferencedContainer = "container:OBD2-Swift-lib-example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9258F2E61EAF45E7006B7580"
+               BuildableName = "OBD2Swift.framework"
+               BlueprintName = "OBD2Swift"
+               ReferencedContainer = "container:../OBD2-Swift/OBD2Swift.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9258F3201EAF4664006B7580"
+               BuildableName = "OBD2-Swift-lib-exampleTests.xctest"
+               BlueprintName = "OBD2-Swift-lib-exampleTests"
+               ReferencedContainer = "container:OBD2-Swift-lib-example.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9258F2EF1EAF45E7006B7580"
+               BuildableName = "OBD2SwiftTests.xctest"
+               BlueprintName = "OBD2SwiftTests"
+               ReferencedContainer = "container:../OBD2-Swift/OBD2Swift.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,16 +70,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9258F3201EAF4664006B7580"
-               BuildableName = "OBD2-Swift-lib-exampleTests.xctest"
-               BlueprintName = "OBD2-Swift-lib-exampleTests"
-               ReferencedContainer = "container:OBD2-Swift-lib-example.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

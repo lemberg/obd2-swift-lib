@@ -39,7 +39,7 @@ enum ScanToolMode : UInt8 {
 }
 
 enum ScanToolProtocol : Int16 {
-  case None					= 0x0000
+  case none					= 0x0000
   case ISO9141Keywords0808	= 0x0001
   case ISO9141Keywords9494	= 0x0002
   case KWP2000FastInit		= 0x0004

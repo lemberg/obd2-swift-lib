@@ -181,7 +181,7 @@ open class ELM327 : WifiScanTool {
           let index =  asciistr[searchIndex] - 0x4E
           `protocol` = GET_PROTOCOL(elm_proto: index)
           
-          if `protocol` != .None {
+          if `protocol` != .none {
             initState = initState <<= 1
           }
           
@@ -203,7 +203,7 @@ open class ELM327 : WifiScanTool {
               parser = ELM327ResponseParser(with: buff, length: readBufLength)
             }
             
-            let responses = parser.parseResponse(protocol: .None)
+            let responses = parser.parseResponse(protocol: .none)
             var extendPIDSearch	= false
             
             for resp in responses {

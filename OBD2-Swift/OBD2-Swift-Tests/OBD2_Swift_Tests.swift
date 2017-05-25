@@ -7,9 +7,9 @@
 //
 
 import XCTest
-@testable import OBD2_Swift_Lib
+@testable import OBD2Swift
 
-class OBD2_Swift_LibTests: XCTestCase {
+class OBD2_Swift_Tests: XCTestCase {
     
     override func setUp() {
         super.setUp()

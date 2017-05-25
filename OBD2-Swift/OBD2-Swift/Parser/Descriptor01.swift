@@ -22,7 +22,7 @@ class Mode01Descriptor : DescriptorProtocol {
             return
         }
         
-        self.descriptor = GlobalSensorDescriptorTable[Int(pid)]
+        self.descriptor = SensorDescriptorTable[Int(pid)]
     }
     
     var mode : Mode {

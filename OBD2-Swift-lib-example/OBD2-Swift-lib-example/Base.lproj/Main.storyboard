@@ -34,7 +34,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwk-Qe-wLI">
-                                <rect key="frame" x="126" y="414" width="123" height="30"/>
+                                <rect key="frame" x="126" y="408" width="123" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="123" id="4vX-BO-bH3"/>
                                 </constraints>
@@ -45,13 +45,27 @@
                                     <action selector="requestSpeed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eLr-Ox-Y3b"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcc-RF-Yy4">
+                                <rect key="frame" x="126" y="228" width="123" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="123" id="b3l-xq-1Ex"/>
+                                </constraints>
+                                <state key="normal" title="VIN">
+                                    <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="requestVIN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BKG-bX-w5V"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.54901960780000003" blue="0.83137254900000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="IQR-Gd-xcf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="18a-lA-wde"/>
-                            <constraint firstItem="kwk-Qe-wLI" firstAttribute="top" secondItem="IQR-Gd-xcf" secondAttribute="bottom" constant="66" id="NLs-Gx-c7T"/>
+                            <constraint firstItem="kwk-Qe-wLI" firstAttribute="top" secondItem="IQR-Gd-xcf" secondAttribute="bottom" constant="60" id="NLs-Gx-c7T"/>
+                            <constraint firstItem="gcc-RF-Yy4" firstAttribute="leading" secondItem="IQR-Gd-xcf" secondAttribute="leading" id="gvJ-5F-Z0c"/>
                             <constraint firstItem="kwk-Qe-wLI" firstAttribute="leading" secondItem="IQR-Gd-xcf" secondAttribute="leading" id="lSx-zk-EX9"/>
                             <constraint firstItem="IQR-Gd-xcf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rgm-K9-Xg7"/>
+                            <constraint firstItem="IQR-Gd-xcf" firstAttribute="top" secondItem="gcc-RF-Yy4" secondAttribute="bottom" constant="60" id="xMN-RU-cRY"/>
                         </constraints>
                     </view>
                 </viewController>

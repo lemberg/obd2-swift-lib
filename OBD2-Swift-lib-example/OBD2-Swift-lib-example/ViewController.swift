@@ -40,8 +40,11 @@ class ViewController: UIViewController {
   }
 
   @IBAction func request( _ sender : UIButton){
+    obd.requestTroubleCodes()
+  }
+  
+  @IBAction func requestVIN( _ sender : UIButton){
     obd.requestVIN()
-    //obd.requestTroubleCodes()
   }
   
   @IBAction func requestSpeed( _ sender : UIButton){

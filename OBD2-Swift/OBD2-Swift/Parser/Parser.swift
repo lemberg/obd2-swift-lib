@@ -35,6 +35,10 @@ class Parser {
       return str.contains("NO DATA")
     }
     
+    func isStopped(_ str : String)	-> Bool	{
+      return str.contains("STOPPED")
+    }
+    
     func isSerching(_ str : String)	-> Bool	{
       return str.contains("SEARCHING...")
     }
@@ -141,7 +145,7 @@ class Parser {
         }
         
         for resp in responseComponents {
-          if Parser.string.isSerching(resp) {
+          if Parser.string.isSerching(resp) && Parser.string.isStopped(resp){
             // A common reply if PID search occuring for the first time
             // at this drive cycle
             break
@@ -156,12 +160,14 @@ class Parser {
             let value = Parser.string.toInt(hexString: c)
             decodeBuf.append(UInt8(value))
           }
+        }//TODO: - Handle negative
+        
+        if decodeBufLength == 0 {
+          decodeBufLength = decodeBuf.count
+        }else{
+          decodeBuf.removeSubrange(decodeBufLength..<decodeBuf.count)
         }
-        
-        //TODO: - Handle negative
-        
-        decodeBuf.removeSubrange(decodeBufLength..<decodeBuf.count)
-        
+
         response = decode(data: decodeBuf, length: decodeBufLength)
       }
       
@@ -174,8 +180,6 @@ class Parser {
 
       resp.data			= Data.init(bytes: data, count: length)
       resp.mode         = data[dataIndex] ^ 0x40
-      
-      print("MODE = \(resp.mode)")
       dataIndex         += 1
       
       if resp.mode == ScanToolMode.RequestCurrentPowertrainDiagnosticData.rawValue {

@@ -43,6 +43,10 @@ struct Package {
     return strigDescriptor.contains("?")
   }
   
+  var isStopped : Bool	{
+    return strigDescriptor.contains("STOPPED")
+  }
+  
   var isNoData : Bool	{
     return strigDescriptor.contains("NO DATA")
   }

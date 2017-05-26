@@ -56,7 +56,7 @@ struct Package {
   }
   
   var isData : Bool	{
-    let unwrapStr = strigDescriptor.characters.first ?? Character.init("")
+    let unwrapStr = strigDescriptor.characters.first ?? Character.init(" ")
     let str = String(describing: unwrapStr)
     let isDigit = Int(str) != nil
     return isDigit

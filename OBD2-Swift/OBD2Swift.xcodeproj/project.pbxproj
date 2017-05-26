@@ -20,7 +20,7 @@
 		921203CD1ED5982300BD973F /* ScanToolCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203CC1ED5982300BD973F /* ScanToolCommand.swift */; };
 		921203CF1ED5982B00BD973F /* ScanToolResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203CE1ED5982B00BD973F /* ScanToolResponseParser.swift */; };
 		921203D11ED5983500BD973F /* WifiScanTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D01ED5983500BD973F /* WifiScanTool.swift */; };
-		921203D31ED5987E00BD973F /* SensorDescriptorTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D21ED5987E00BD973F /* SensorDescriptorTable.swift */; };
+		921203D31ED5987E00BD973F /* GlobalSensorDescriptorTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D21ED5987E00BD973F /* GlobalSensorDescriptorTable.swift */; };
 		921203D81ED598C000BD973F /* DiagnosticTroubleCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D41ED598C000BD973F /* DiagnosticTroubleCode.swift */; };
 		921203D91ED598C000BD973F /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D51ED598C000BD973F /* ResponseType.swift */; };
 		921203DA1ED598C000BD973F /* ScanToolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D61ED598C000BD973F /* ScanToolState.swift */; };
@@ -72,7 +72,7 @@
 		921203CC1ED5982300BD973F /* ScanToolCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanToolCommand.swift; path = "OBD2-Swift/Classes/ScanToolCommand.swift"; sourceTree = SOURCE_ROOT; };
 		921203CE1ED5982B00BD973F /* ScanToolResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanToolResponseParser.swift; path = "OBD2-Swift/Classes/ScanToolResponseParser.swift"; sourceTree = SOURCE_ROOT; };
 		921203D01ED5983500BD973F /* WifiScanTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WifiScanTool.swift; path = "OBD2-Swift/Classes/WifiScanTool.swift"; sourceTree = SOURCE_ROOT; };
-		921203D21ED5987E00BD973F /* SensorDescriptorTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SensorDescriptorTable.swift; path = "OBD2-Swift/Classes/SensorDescriptorTable.swift"; sourceTree = SOURCE_ROOT; };
+		921203D21ED5987E00BD973F /* GlobalSensorDescriptorTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalSensorDescriptorTable.swift; path = "OBD2-Swift/Classes/GlobalSensorDescriptorTable.swift"; sourceTree = SOURCE_ROOT; };
 		921203D41ED598C000BD973F /* DiagnosticTroubleCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiagnosticTroubleCode.swift; path = "OBD2-Swift/Classes/DiagnosticTroubleCode.swift"; sourceTree = SOURCE_ROOT; };
 		921203D51ED598C000BD973F /* ResponseType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseType.swift; path = "OBD2-Swift/Classes/ResponseType.swift"; sourceTree = SOURCE_ROOT; };
 		921203D61ED598C000BD973F /* ScanToolState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanToolState.swift; path = "OBD2-Swift/Classes/ScanToolState.swift"; sourceTree = SOURCE_ROOT; };
@@ -291,7 +291,7 @@
 			children = (
 				921203B81ED597C400BD973F /* SensorList.swift */,
 				921203BA1ED597CD00BD973F /* ECUSensor.swift */,
-				921203D21ED5987E00BD973F /* SensorDescriptorTable.swift */,
+				921203D21ED5987E00BD973F /* GlobalSensorDescriptorTable.swift */,
 			);
 			name = Sensor;
 			sourceTree = "<group>";
@@ -453,7 +453,7 @@
 				921203C41ED597F500BD973F /* ELM327Command.swift in Sources */,
 				921203B71ED597BA00BD973F /* GloablCalculator.swift in Sources */,
 				9218B82A1ED75C5E00E90F82 /* SensorDescriptorTable.swift in Sources */,
-				921203D31ED5987E00BD973F /* SensorDescriptorTable.swift in Sources */,
+				921203D31ED5987E00BD973F /* GlobalSensorDescriptorTable.swift in Sources */,
 				921203CD1ED5982300BD973F /* ScanToolCommand.swift in Sources */,
 				9218B8261ED7569400E90F82 /* Mode.swift in Sources */,
 				9218B8281ED7598700E90F82 /* Descriptor03.swift in Sources */,

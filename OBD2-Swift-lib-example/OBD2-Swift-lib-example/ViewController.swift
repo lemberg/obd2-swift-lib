@@ -14,12 +14,14 @@ class ViewController: UIViewController {
   static var port = 35000
   
   //var scanTool = ELM327(host: host , port: port)
+  let obd = OBD2()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let obd = OBD2()
+
     obd.connect({ _, _ in })
+  
     // Do any additional setup after loading the view, typically from a nib.
     
     //scanTool.sensorScanTargets = [0x0C, 0x0D]
@@ -37,6 +39,9 @@ class ViewController: UIViewController {
     //scanTool.pauseScan()
   }
 
+  @IBAction func request( _ sender : UIButton){
+    obd.requestTroubleCodes()
+  }
 
 }
 

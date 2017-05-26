@@ -55,4 +55,8 @@ open class OBD2 {
   public func setSensors(){
     
   }
+  
+  public func requestTroubleCodes(){
+    scanner.request(command: Command.init(from: "03"))
+  }
 }

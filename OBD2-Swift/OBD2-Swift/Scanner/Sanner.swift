@@ -31,13 +31,12 @@ class `Scanner` : StreamHolder {
   var currentPIDGroup : UInt8 = 0x00
 
   var maxSize = 512
-  var readBuf = [UInt8](repeating: 0, count: 512)
+  var readBuf = [UInt8]()
   var readBufLength = 0
   
   weak var observer : SensorObserver?
   
   var connector : Connector?
-  var parser : ELM327ResponseParser?
   
   init(host : String, port : Int) {
     super.init()
@@ -73,6 +72,8 @@ class `Scanner` : StreamHolder {
   
   open func request(command : Command) {
     eraseBuffer()
+    
+    cachedWriteData.removeAll()
     
     guard let data = command.getData() else {
       //TODO:-failed
@@ -146,20 +147,21 @@ class `Scanner` : StreamHolder {
   }
   
   func readInput(){
-    let readLength = inputStream.read(&readBuf, maxLength: maxSize)
+    var buffer = [UInt8].init(repeating: 0, count: maxSize)
+    let readLength = inputStream.read(&buffer, maxLength: maxSize)
     guard readLength > 0 else {return}
-    var buff = readBuf
-    buff.removeSubrange(readLength..<maxSize)
+    buffer.removeSubrange(readLength..<maxSize)
     
-    readBufLength = readLength
+    readBuf += buffer
+    readBufLength += readLength
     
-    if ELM_READ_COMPLETE(buff) {
-      if (readBufLength - 3) > 0 && (readBufLength - 3) < buff.count {
-        buff[(readBufLength - 3)] = 0x00
+    if ELM_READ_COMPLETE(readBuf) {
+      if (readBufLength - 3) > 0 && (readBufLength - 3) < readBuf.count {
+        readBuf[(readBufLength - 3)] = 0x00
         readBufLength	-= 3
       }
       
-      let asciistr : [Int8] = buff.map({Int8.init(bitPattern: $0)})
+      let asciistr : [Int8] = readBuf.map({Int8.init(bitPattern: $0)})
       let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
       print(respString)
       
@@ -167,16 +169,10 @@ class `Scanner` : StreamHolder {
         initState	= .RESET
         state	= .STATE_INIT
       }else{
-        if let parser = parser {
-          parser.bytes = buff
-          parser.length = readBufLength
-        }else{
-          parser = ELM327ResponseParser(with: buff, length: readBufLength)
-        }
+        let package = Package(buffer: readBuf, length: readBufLength)
+        let responses = Parser.package.read(package: package)
         
-        if let responses	= parser?.parseResponse(protocol: `protocol`){
-          self.didReceiveResponses(responses: responses)
-        }
+        self.didReceiveResponses(responses: responses)
         
         state = .STATE_IDLE
         
@@ -194,19 +190,21 @@ class `Scanner` : StreamHolder {
   }
   
   func readInitResponse() {
-    let readLength = inputStream.read(&readBuf, maxLength: maxSize)
+    var buffer = [UInt8].init(repeating: 0, count: maxSize)
+    let readLength = inputStream.read(&buffer, maxLength: maxSize)
     guard readLength > 0 else {return}
-    var buff = readBuf
-    buff.removeSubrange(readLength..<maxSize)
-    readBufLength = readLength
+    buffer.removeSubrange(readLength..<maxSize)
     
-    if ELM_READ_COMPLETE(buff) {
-      if (readBufLength - 3) > 0 && (readBufLength - 3) < buff.count {
-        buff[(readBufLength - 3)] = 0x00
+    readBuf += buffer
+    readBufLength += readLength
+    
+    if ELM_READ_COMPLETE(readBuf) {
+      if (readBufLength - 3) > 0 && (readBufLength - 3) < readBuf.count {
+        readBuf[(readBufLength - 3)] = 0x00
         readBufLength	-= 3
       }
       
-      connector?.setup(using: buff)
+      connector?.setup(using: readBuf)
     }
   }
   
@@ -317,7 +315,7 @@ class `Scanner` : StreamHolder {
 //  }
   
   
-  private func didReceiveResponses(responses : [ScanToolResponse]) {
+  private func didReceiveResponses(responses : [Response]) {
     //INPORTANT = mode to int value == mode ^ 0x40 !!!!!!!!!
     
 //    guard responses.count > 0 else {
@@ -392,7 +390,7 @@ class `Scanner` : StreamHolder {
 
   private func eraseBuffer(){
     readBufLength = 0
-    memset(&readBuf, 0x00, readBuf.count)
+    readBuf.removeAll()
   }
 }
 

@@ -59,4 +59,12 @@ open class OBD2 {
   public func requestTroubleCodes(){
     scanner.request(command: Command.init(from: "03"))
   }
+  
+  public func requestVIN(){
+    scanner.request(command: Command.init(from: "0902"))
+  }
+  
+  public func request(command str: String){
+    scanner.request(command: Command.init(from: str))
+  }
 }

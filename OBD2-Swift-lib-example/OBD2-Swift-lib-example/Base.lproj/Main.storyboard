@@ -29,11 +29,28 @@
                                 <state key="normal" title="DTC">
                                     <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="request:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uaK-ju-3Mp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwk-Qe-wLI">
+                                <rect key="frame" x="126" y="414" width="123" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="123" id="4vX-BO-bH3"/>
+                                </constraints>
+                                <state key="normal" title="SPEED">
+                                    <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="requestSpeed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eLr-Ox-Y3b"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.54901960780000003" blue="0.83137254900000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="IQR-Gd-xcf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="18a-lA-wde"/>
+                            <constraint firstItem="kwk-Qe-wLI" firstAttribute="top" secondItem="IQR-Gd-xcf" secondAttribute="bottom" constant="66" id="NLs-Gx-c7T"/>
+                            <constraint firstItem="kwk-Qe-wLI" firstAttribute="leading" secondItem="IQR-Gd-xcf" secondAttribute="leading" id="lSx-zk-EX9"/>
                             <constraint firstItem="IQR-Gd-xcf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rgm-K9-Xg7"/>
                         </constraints>
                     </view>

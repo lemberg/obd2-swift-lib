@@ -72,10 +72,6 @@ class StreamHolder : NSObject {
     
     print("OutputStream status = \(outputStream.streamStatus)")
     print("Starting write wait")
-    
-    repeat {
-      status = outputStream.streamStatus
-    } while status == Stream.Status.writing
   }
   
   func write(data : Data) -> Int {

@@ -143,7 +143,7 @@ class `Scanner` : StreamHolder {
   
   func setupReady(){
     state = .STATE_IDLE
-    setSensorScanTargets(targets: defaultSensors)
+    setSensorScanTargets(targets: [])
   }
   
   func readInput(){
@@ -154,6 +154,10 @@ class `Scanner` : StreamHolder {
     
     readBuf += buffer
     readBufLength += readLength
+    
+    let asciistr : [Int8] = readBuf.map({Int8.init(bitPattern: $0)})
+    let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
+    print(respString)
     
     if ELM_READ_COMPLETE(readBuf) {
       if (readBufLength - 3) > 0 && (readBufLength - 3) < readBuf.count {
@@ -264,7 +268,7 @@ class `Scanner` : StreamHolder {
   }
   
   private func nextSensor() -> UInt8 {
-    if currentSensorIndex < sensorScanTargets.count {
+    if currentSensorIndex > sensorScanTargets.count {
       currentSensorIndex = 0
     }
     
@@ -315,7 +319,7 @@ class `Scanner` : StreamHolder {
 //  }
   
   
-  private func didReceiveResponses(responses : [Response]) {
+  private func didReceiveResponses(responses : Response) {
     //INPORTANT = mode to int value == mode ^ 0x40 !!!!!!!!!
     
 //    guard responses.count > 0 else {

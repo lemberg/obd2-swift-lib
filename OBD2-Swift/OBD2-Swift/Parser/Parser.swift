@@ -15,6 +15,10 @@ class Parser {
   class StringParser {
     let kResponseFinishedCode : UInt8	=	0x3E
     
+    func toInt(hexString str: String) -> Int {
+      return Int(strtoul(str, nil, 16))
+    }
+    
     func isReadComplete(_ buf : [UInt8]) -> Bool {
       return buf.last == kResponseFinishedCode
     }
@@ -87,7 +91,7 @@ class Parser {
   
   //Parsing command response
   class PackageReader {
-    func read(package : Package) -> [Response] {
+    func read(package : Package) -> Response {
       return parseResponse(package: package)
     }
     
@@ -97,11 +101,20 @@ class Parser {
       }
     }
     
-    private func parseResponse(package p : Package) -> [Response] {
+    private func compress(components : inout [String], outputSize : inout Int){
+      for (i,s) in components.enumerated() {
+        components[i] = s.replacingOccurrences(of: (i - 1).description  + ":", with: "")
+      }
+      
+      let headByteSyzeString = components.removeFirst()
+      outputSize = Parser.string.toInt(hexString: headByteSyzeString)
+    }
+    
+    private func parseResponse(package p : Package) -> Response {
       var package = p
       optimize(package: &package)
       
-      var responseArray = [Response]()
+      var response = Response()
       
       /*
        TODO:
@@ -117,35 +130,42 @@ class Parser {
        */
       
       if !package.isError && package.isData {
-        let responseComponents = package.strigDescriptor.components(separatedBy: "\r")
+        var responseComponents = package.strigDescriptor.components(separatedBy: "\r")
+        
+        var decodeBufLength = 0
+        var decodeBuf = [UInt8]()
+        
+        //Remove package descriptors from array
+        if responseComponents.count > 2 {
+          compress(components : &responseComponents, outputSize : &decodeBufLength)
+        }
         
         for resp in responseComponents {
           if Parser.string.isSerching(resp) {
             // A common reply if PID search occuring for the first time
             // at this drive cycle
-            break;
+            break
           }
-          
-          var decodeBufLength = 0
-          var decodeBuf = [UInt8]()
           
           // For each response data string, decode into an integer array for
           // easier processing
           
-          let chunks = resp.components(separatedBy: " ")
+          let chunks = resp.components(separatedBy: " ").filter({$0 != ""})
           
           for c in chunks {
-            let value = Int(strtoul(c, nil, 16))
+            let value = Parser.string.toInt(hexString: c)
             decodeBuf.append(UInt8(value))
-            decodeBufLength += 1
           }
-          
-          let obj = decode(data: decodeBuf, length: decodeBufLength)
-          responseArray.append(obj)
         }
+        
+        //TODO: - Handle negative
+        
+        decodeBuf.removeSubrange(decodeBufLength..<decodeBuf.count)
+        
+        response = decode(data: decodeBuf, length: decodeBufLength)
       }
       
-      return responseArray
+      return response
     }
     
     func decode(data : [UInt8], length : Int) -> Response {
@@ -154,6 +174,8 @@ class Parser {
 
       resp.data			= Data.init(bytes: data, count: length)
       resp.mode         = data[dataIndex] ^ 0x40
+      
+      print("MODE = \(resp.mode)")
       dataIndex         += 1
       
       if resp.mode == ScanToolMode.RequestCurrentPowertrainDiagnosticData.rawValue {

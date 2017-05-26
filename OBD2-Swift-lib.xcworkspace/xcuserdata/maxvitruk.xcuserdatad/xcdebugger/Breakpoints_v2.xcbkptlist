@@ -9,28 +9,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Parser/Parser.swift"
-            timestampString = "517474338.936715"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "decode(data:length:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517476279.767017"
+            timestampString = "517486637.787728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
             landmarkName = "initScanner()"
             landmarkType = "7">
          </BreakpointContent>
@@ -41,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517475992.476787"
+            filePath = "OBD2-Swift/OBD2-Swift/Parser/Parser.swift"
+            timestampString = "517499893.97419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "readInitResponse()"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "compress(components:outputSize:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517475992.476787"
+            filePath = "OBD2-Swift/OBD2-Swift/Parser/Parser.swift"
+            timestampString = "517499893.97419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "readInput()"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "parseResponse(package:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517475992.476787"
+            filePath = "OBD2-Swift/OBD2-Swift/Parser/Parser.swift"
+            timestampString = "517499893.97419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "readInput()"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "parseResponse(package:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517475992.476787"
+            filePath = "OBD2-Swift/OBD2-Swift/Parser/Parser.swift"
+            timestampString = "517499905.580634"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "readInput()"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "compress(components:outputSize:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517475992.476787"
+            filePath = "OBD2-Swift/OBD2-Swift/Parser/Parser.swift"
+            timestampString = "517499919.035928"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "readInput()"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "parseResponse(package:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -121,93 +105,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517475247.447625"
+            filePath = "OBD2-Swift/OBD2-Swift/Parser/Parser.swift"
+            timestampString = "517499927.102621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "request(command:)"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "decode(data:length:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517475247.447625"
+            filePath = "OBD2-Swift/OBD2-Swift/Parser/Parser.swift"
+            timestampString = "517500083.156836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "request(command:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517475992.476787"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "readInput()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517475992.476787"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
-            landmarkName = "readInput()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517476286.932195"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "readInitResponse()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OBD2-Swift/OBD2-Swift/Scanner/Sanner.swift"
-            timestampString = "517476287.944759"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
-            landmarkName = "readInitResponse()"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "parseResponse(package:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

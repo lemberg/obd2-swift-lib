@@ -29,19 +29,19 @@ func ELM_READ_COMPLETE(_ buf : [UInt8]) -> Bool {
   return buf.last == kResponseFinishedCode
 }
 
-func ELM_OK(_ str : String) -> Bool{
+func ELM_OK(_ str : String)             -> Bool{
   return str.contains("OK")
 }
 
-func ELM_ERROR(_ str : String)	-> Bool	{
+func ELM_ERROR(_ str : String)          -> Bool	{
   return str.contains("?")
 }
 
-func ELM_NO_DATA(_ str : String)	-> Bool	{
+func ELM_NO_DATA(_ str : String)        -> Bool	{
   return str.contains("NO DATA")
 }
 
-func ELM_SEARCHING(_ str : String)	-> Bool	{
+func ELM_SEARCHING(_ str : String)      -> Bool	{
   return str.contains("SEARCHING...")
 }
 
@@ -123,7 +123,7 @@ open class ELM327 : WifiScanTool {
     
     state				= .STATE_INIT
     initState			= .RESET
-    currentPIDGroup	= 0x00
+    currentPIDGroup     = 0x00
     
     while inputStream.streamStatus != Stream.Status.open && outputStream.streamStatus != Stream.Status.open {
       

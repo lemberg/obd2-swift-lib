@@ -110,8 +110,15 @@ class Parser {
         components[i] = s.replacingOccurrences(of: (i - 1).description  + ":", with: "")
       }
       
-      let headByteSyzeString = components.removeFirst()
-      outputSize = Parser.string.toInt(hexString: headByteSyzeString)
+      /* Mode $01 PID $00 request makes multiple chunks value w/o data size description.
+         Data size over 3 length like "41 00 BE 1B 30 13" could not be size descriptor
+         Size descriptor : 00E become 0x0E => 20 (Int)
+       */
+ 
+      if components.first?.characters.count ?? 0 <= 3 {
+        let headByteSyzeString = components.removeFirst()
+        outputSize = Parser.string.toInt(hexString: headByteSyzeString)
+      }
     }
     
     private func parseResponse(package p : Package) -> Response {
@@ -119,19 +126,6 @@ class Parser {
       optimize(package: &package)
       
       var response = Response()
-      
-      /*
-       TODO:
-       
-       41 00 BF 9F F9 91 41 00 90 18 80 00
-       
-       Deal with cases where the ELM327 does not properly insert a CR in between
-       a multi-ECU response packet (real-world example above - Mode $01 PID $00).
-       
-       Need to split on modulo 6 boundary and check to ensure total packet length
-       is a multiple of 6.  If not, we'll have to discard.
-       
-       */
       
       if !package.isError && package.isData {
         var responseComponents = package.strigDescriptor.components(separatedBy: "\r")
@@ -151,9 +145,7 @@ class Parser {
             break
           }
           
-          // For each response data string, decode into an integer array for
-          // easier processing
-          
+          // make byte array from string response
           let chunks = resp.components(separatedBy: " ").filter({$0 != ""})
           
           for c in chunks {
@@ -165,6 +157,7 @@ class Parser {
         if decodeBufLength == 0 {
           decodeBufLength = decodeBuf.count
         }else{
+          decodeBufLength = min(decodeBufLength, decodeBuf.count)
           decodeBuf.removeSubrange(decodeBufLength..<decodeBuf.count)
         }
 

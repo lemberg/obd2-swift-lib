@@ -49,7 +49,7 @@ class ViewController: UIViewController {
   
   @IBAction func requestSpeed( _ sender : UIButton){
     //obd.requestVIN()
-    obd.request(command : "010C")
+    obd.request(command : "0100")
   }
 
 }

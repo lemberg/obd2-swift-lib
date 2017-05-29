@@ -155,10 +155,6 @@ class `Scanner` : StreamHolder {
     readBuf += buffer
     readBufLength += readLength
     
-    let asciistr : [Int8] = readBuf.map({Int8.init(bitPattern: $0)})
-    let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
-    print(respString)
-    
     if ELM_READ_COMPLETE(readBuf) {
       if (readBufLength - 3) > 0 && (readBufLength - 3) < readBuf.count {
         readBuf[(readBufLength - 3)] = 0x00
@@ -176,7 +172,7 @@ class `Scanner` : StreamHolder {
         let package = Package(buffer: readBuf, length: readBufLength)
         let responses = Parser.package.read(package: package)
         
-        self.didReceiveResponses(responses: responses)
+        self.didReceiveResponses(response: responses)
         
         state = .STATE_IDLE
         
@@ -319,7 +315,7 @@ class `Scanner` : StreamHolder {
 //  }
   
   
-  private func didReceiveResponses(responses : Response) {
+  private func didReceiveResponses(response : Response) {
     //INPORTANT = mode to int value == mode ^ 0x40 !!!!!!!!!
     
 //    guard responses.count > 0 else {
@@ -327,27 +323,50 @@ class `Scanner` : StreamHolder {
 //      return
 //    }
 //
-//    for response in responses {
-//      let isMode01 = response.mode == ScanToolMode.RequestCurrentPowertrainDiagnosticData.rawValue
-//      let isMode02 = response.mode == ScanToolMode.RequestPowertrainFreezeFrameData.rawValue
-//      let isMode04 = response.mode == ScanToolMode.ClearResetEmissionRelatedDiagnosticInfo.rawValue
-//      
-//      if isMode01 || isMode02 {
-//        if let sensor = ECUSensor.sensorForPID(pid: response.pid) {
-//          sensor.currentResponse = response
-//          delegate?.didUpdateSensor(sensor: sensor)
-//        }else{
-//          delegate?.didReceiveResponse(scanTool: self, responses: responses)
-//        }
-//      }else if isMode04 {
-//        didClearTroubleCodes(response: response)
-//      }else if(response.mode == ScanToolMode.RequestVehicleInfo.rawValue){ // MODE 9
-//        didUpdate9Mode(response: response)
-//      }else if(response.mode == ScanToolMode.RequestEmissionRelatedDiagnosticTroubleCodes.rawValue){ // MODE 3
-//        didUpdate3Mode(response : response)
-//      }else if(response.mode == 64){ // AT Commands
-//        didUpdateATCommand(response: response)
+    
+    switch response.mode {
+    case Mode.CurrentData01.rawValue:
+      break
+    case Mode.FreezeFrame02.rawValue:
+      break
+    case Mode.DiagnosticTroubleCodes03.rawValue:
+      break
+//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
+//      break
+//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
+//      break
+//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
+//      break
+//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
+//      break
+//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
+//      break
+//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
+//      break
+//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
+      break
+    default:
+      break
+    }
+//    let isMode01 = response.mode == ScanToolMode.RequestCurrentPowertrainDiagnosticData.rawValue
+//    let isMode02 = response.mode == ScanToolMode.RequestPowertrainFreezeFrameData.rawValue
+//    let isMode04 = response.mode == ScanToolMode.ClearResetEmissionRelatedDiagnosticInfo.rawValue
+//    
+//    if isMode01 || isMode02 {
+//      if let sensor = ECUSensor.sensorForPID(pid: response.pid) {
+//        sensor.currentResponse = response
+//        delegate?.didUpdateSensor(sensor: sensor)
+//      }else{
+//        delegate?.didReceiveResponse(scanTool: self, responses: responses)
 //      }
+//    }else if isMode04 {
+//      didClearTroubleCodes(response: response)
+//    }else if(response.mode == ScanToolMode.RequestVehicleInfo.rawValue){ // MODE 9
+//      didUpdate9Mode(response: response)
+//    }else if(response.mode == ScanToolMode.RequestEmissionRelatedDiagnosticTroubleCodes.rawValue){ // MODE 3
+//      didUpdate3Mode(response : response)
+//    }else if(response.mode == 64){ // AT Commands
+//      didUpdateATCommand(response: response)
 //    }
   }
   

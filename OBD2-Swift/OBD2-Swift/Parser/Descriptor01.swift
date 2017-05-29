@@ -26,7 +26,7 @@ class Mode01Descriptor : DescriptorProtocol {
     }
     
     var mode : Mode {
-        return .RequestCurrentPowertrainDiagnosticData
+        return .CurrentData01
     }
 
     var pid : UInt8 {

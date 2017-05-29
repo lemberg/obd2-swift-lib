@@ -8,6 +8,11 @@
 
 import Foundation
 
+
+protocol ScanDelegate {
+  func didReceive()
+}
+
 open class OBD2 {
   private var host : String
   private var port : Int

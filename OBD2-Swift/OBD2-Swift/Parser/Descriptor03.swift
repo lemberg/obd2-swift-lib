@@ -13,11 +13,10 @@ class Mode03Descriptor : DescriptorProtocol {
     
     required init(describe response : Response) {
         self.response = response
+        self.mode = Mode(rawValue: response.mode) ?? .none
     }
     
-    var mode : Mode {
-        return .RequestEmissionRelatedDiagnosticTroubleCodes
-    }
+    var mode : Mode
     
     var pid : UInt8 {
         return response.pid

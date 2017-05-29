@@ -22,7 +22,7 @@ struct Package {
      const char* test = "41 00 90 18 80 00 \r41 00 BF 9F F9 91 ";
      return [NSString stringWithCString:test encoding:NSASCIIStringEncoding];
      */
-    var asciistr: [Int8]  {
+    var asciistr: [Int8] {
         return ascii()
     }
     
@@ -39,7 +39,7 @@ struct Package {
         return strigDescriptor.contains("OK")
     }
     
-    var isError: Bool	{
+    var isError: Bool {
         return strigDescriptor.contains("?")
     }
     
@@ -47,11 +47,11 @@ struct Package {
         return strigDescriptor.contains("STOPPED")
     }
     
-    var isNoData: Bool	{
+    var isNoData: Bool {
         return strigDescriptor.contains("NO DATA")
     }
     
-    var isSearching: Bool	{
+    var isSearching: Bool {
         return strigDescriptor.contains("SEARCHING...")
     }
     
@@ -59,14 +59,14 @@ struct Package {
         return strigDescriptor.hasPrefix("AUTO")
     }
     
-    var isData: Bool	{
+    var isData: Bool {
         let unwrapStr = strigDescriptor.characters.first ?? Character(" ")
         let str = String(describing: unwrapStr)
         let isDigit = Int(str) != nil
         return isDigit
     }
     
-    var isAT: Bool	{
+    var isAT: Bool {
         guard let char = asciistr.first else { return false }
         guard let int32 = Int32(exactly: char) else { return false }
         return isalpha(int32) == 0

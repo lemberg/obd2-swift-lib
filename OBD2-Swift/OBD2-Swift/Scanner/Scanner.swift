@@ -22,12 +22,12 @@ class `Scanner` : StreamHolder {
   var streamOperation : Operation!
   var scanOperationQueue : OperationQueue!
 
-  var	priorityCommandQueue : [Command] = []
-  var	commandQueue : [Command] = []
+  var priorityCommandQueue : [Command] = []
+  var commandQueue : [Command] = []
 
   var state : ScanToolState = .STATE_INIT
   var `protocol` : ScanToolProtocol = .none
-  var	waitingForVoltageCommand = false
+  var waitingForVoltageCommand = false
   var currentPIDGroup : UInt8 = 0x00
 
   var maxSize = 512
@@ -149,7 +149,12 @@ class `Scanner` : StreamHolder {
   func readInput(){
     var buffer = [UInt8].init(repeating: 0, count: maxSize)
     let readLength = inputStream.read(&buffer, maxLength: maxSize)
-    guard readLength > 0 else {return}
+    
+    guard readLength > 0 else {
+        //TODO: Hellen - throw error
+        return
+    }
+    
     buffer.removeSubrange(readLength..<maxSize)
     
     readBuf += buffer
@@ -192,7 +197,11 @@ class `Scanner` : StreamHolder {
   func readInitResponse() {
     var buffer = [UInt8].init(repeating: 0, count: maxSize)
     let readLength = inputStream.read(&buffer, maxLength: maxSize)
-    guard readLength > 0 else {return}
+    
+    guard readLength > 0 else {
+        //TODO: Hellen - throw error
+        return
+    }
     buffer.removeSubrange(readLength..<maxSize)
     
     readBuf += buffer
@@ -213,7 +222,7 @@ class `Scanner` : StreamHolder {
     
     state				= .STATE_INIT
     initState			= .RESET
-    currentPIDGroup	= 0x00
+    currentPIDGroup     = 0x00
     
     while inputStream.streamStatus != Stream.Status.open && outputStream.streamStatus != Stream.Status.open {/*loop */}
     
@@ -269,7 +278,7 @@ class `Scanner` : StreamHolder {
     }
     
     let number = sensorScanTargets[currentSensorIndex]
-    currentSensorIndex+=1
+    currentSensorIndex += 1
     
     return number
   }
@@ -344,7 +353,7 @@ class `Scanner` : StreamHolder {
 //    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
 //      break
 //    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
-      break
+//      break
     default:
       break
     }
@@ -372,7 +381,12 @@ class `Scanner` : StreamHolder {
   
   fileprivate func readVoltageResponse(){
     let readLength = inputStream.read(&readBuf, maxLength: readBufLength)
-    guard readLength > 0 else {return}
+
+    guard readLength > 0 else {
+        //TODO: Hellen  - throw error
+        return
+    }
+    
     var buff = readBuf
     buff.removeSubrange(readLength..<maxSize)
     

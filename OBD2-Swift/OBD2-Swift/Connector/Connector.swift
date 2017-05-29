@@ -14,7 +14,6 @@ class Connector {
   private var currentPIDGroup : UInt8 = 0x00
   weak var scanner : Scanner?
 
-  
   var state : State = .unknown
   
   func setup(using buffer : [UInt8]){
@@ -49,7 +48,8 @@ class Connector {
         setup(using: buffer)
         return
       }else{
-        //Fail to setup protocol
+        
+        // TODO: Error - Fail to setup protocol
       }
     case .version:
       state.next()
@@ -168,7 +168,7 @@ class Connector {
       cmd = Command.create(mode: .RequestCurrentPowertrainDiagnosticData,
                            pid: currentPIDGroup)
       break
-    default:
+    default: //TODO: Hellen - default realisation
       break
     }
     return cmd
@@ -182,9 +182,9 @@ extension Connector {
     case reset				= 1
     case echoOff			= 2
     case version 			= 4
-    case search       = 8
-    case `protocol`		= 16
-    case complete     = 32
+    case search             = 8
+    case `protocol`         = 16
+    case complete           = 32
     
     static var all : [State] {
       return [.unknown, .reset, .echoOff, .version, .search, .`protocol`, .complete]

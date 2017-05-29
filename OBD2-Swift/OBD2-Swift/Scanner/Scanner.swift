@@ -231,15 +231,12 @@ class `Scanner` : StreamHolder {
     state				= .STATE_INIT
     initState			= .RESET
     currentPIDGroup     = 0x00
-   
+    
     var openingStatus = false
-    var index = 0
-    let maxIterationsCount = 400
-
-    while !openingStatus && index < maxIterationsCount {
-        print("Opening stream... \(index)")
+    
+    let startDate = Date()
+    while !openingStatus && Date().timeIntervalSince(startDate) < 5.0 {
         openingStatus = inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open
-        index += 1
     }
     
     guard openingStatus else {

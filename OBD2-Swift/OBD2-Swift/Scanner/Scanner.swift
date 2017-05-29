@@ -243,7 +243,7 @@ class `Scanner` : StreamHolder {
     let maxIterationsCount = 400
 
     while !openingStatus && index < maxIterationsCount {
-        print("Opening stream... \(index)")
+//        print("Opening stream... \(index)")
         openingStatus = inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open
         index += 1
     }
@@ -326,17 +326,18 @@ class `Scanner` : StreamHolder {
     do {
        try initScanner()
     } catch InitScannerError.inputNotOpen {
-        print("Error: Input stream error")
+        print("Error: Input stream opening error.")
     } catch InitScannerError.outputNotOpen {
-        print("Error: Output stream error")
+        print("Error: Output stream opening error. ")
     } catch {
-        print("Error: Unrecognized init error")
+        print("Error: Unrecognized streams opening error")
     }
     
     while streamOperation?.isCancelled == false && currentRunLoop.run(mode: .defaultRunLoopMode, before: distantFutureDate) {/*loop */}
     
     close()
     //delegate?.scanDidCancel(scanTool: self)
+    
   }
   
   

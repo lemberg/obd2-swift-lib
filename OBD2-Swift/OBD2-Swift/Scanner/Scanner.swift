@@ -231,19 +231,13 @@ class `Scanner` : StreamHolder {
     state				= .STATE_INIT
     initState			= .RESET
     currentPIDGroup     = 0x00
-    
-      /*  Loop running indefinitely, until all streams will be open */
-//    while !(inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open) {
-//        /* loop */
-//        print("Opening input")
-//    }
    
     var openingStatus = false
     var index = 0
     let maxIterationsCount = 400
 
     while !openingStatus && index < maxIterationsCount {
-//        print("Opening stream... \(index)")
+        print("Opening stream... \(index)")
         openingStatus = inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open
         index += 1
     }

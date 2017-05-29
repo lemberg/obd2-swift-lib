@@ -9,8 +9,8 @@
 import Foundation
 
 //------------------------------------------------------------------------------
-//pragma mark -
-//pragma mark Global Sensor Table
+//MARK: -
+//MARK: Global Sensor Table
 
 
 

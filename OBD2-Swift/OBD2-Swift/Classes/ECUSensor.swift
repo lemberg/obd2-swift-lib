@@ -236,7 +236,7 @@ class ECUSensor {
     return metric ? descriptor.maxMetricValue : descriptor.maxImperialValue
   }
   
-  //pragma mark String Calculation Methods
+  //MARK: - String Calculation Methods
   
   func calculateStringForData(data : Data) -> String? {
     guard let pid = currentResponse?.pid  else {return nil}

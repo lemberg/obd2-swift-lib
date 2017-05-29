@@ -95,7 +95,7 @@ class Mode01Descriptor : DescriptorProtocol {
         return metric ? descriptor.maxMetricValue : descriptor.maxImperialValue
     }
     
-    //pragma mark String Calculation Methods
+    //MARK: - String Calculation Methods
     
     func calculateStringForData(data : Data) -> String? {
         switch pid {
@@ -108,7 +108,7 @@ class Mode01Descriptor : DescriptorProtocol {
         case 0x1C:
             return calculateDesignRequirements(data)
         case 0x1D:
-            return ""
+            return "" //TODO: pid 29 - Oxygen Sensor
         case 0x1E:
             return calculateAuxiliaryInputStatus(data)
         default:

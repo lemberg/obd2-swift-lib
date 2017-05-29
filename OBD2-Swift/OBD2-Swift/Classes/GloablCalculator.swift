@@ -274,8 +274,8 @@ func calcNumTroubleCodes(data : Data) -> Int {
 
 
 //------------------------------------------------------------------------------
-//pragma mark -
-//pragma mark Global Conversion Functions
+//MARK: -
+//MARK: Global Conversion Functions
 
 /*
  @method convertTemp

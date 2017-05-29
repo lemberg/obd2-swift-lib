@@ -113,9 +113,9 @@ class Connector {
      // previously received PIDs
      */
     
-    var pid = pidGroup + 1
+    var pid         = pidGroup + 1
     var supported	= false
-    let shiftSize = 7
+    let shiftSize   = 7
     
     for i in 0..<4 {
       for y in 0...7 {
@@ -168,7 +168,7 @@ class Connector {
       cmd = Command.create(mode: .RequestCurrentPowertrainDiagnosticData,
                            pid: currentPIDGroup)
       break
-    default: //TODO: Hellen - default realisation
+    default: //TODO: default realisation
       break
     }
     return cmd

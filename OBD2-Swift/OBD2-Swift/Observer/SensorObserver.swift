@@ -9,9 +9,9 @@
 import Foundation
 
 class SensorObserver {
-  private var observers : [AnyHashable : Observable] = [:]
+  private var observers: [AnyHashable : Observable] = [:]
   
-  func add(observer : Observable, for sensor: OBD2Sensor){
+  func add(observer: Observable, for sensor: OBD2Sensor){
     observers[sensor] = observer
   }
   
@@ -23,7 +23,7 @@ class SensorObserver {
     observers.removeAll()
   }
   
-  func dispatch(value : Any, for sensor : OBD2Sensor){
+  func dispatch(value: Any, for sensor: OBD2Sensor){
     observers[sensor]?.didChange(value: value, for: sensor)
   }
 }

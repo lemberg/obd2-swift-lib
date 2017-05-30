@@ -51,21 +51,21 @@ class Parser {
       let unwrapStr = str.characters.first ?? Character.init("")
       let str = String(describing: unwrapStr)
       let isDigit = Int(str) != nil
-      return isDigit || isSerching(str)
+      return isDigit // || isSerching(str)
     }
     
     func isATResponse(_ str : [Int8])	-> Bool	{
-      guard let char = str.first else {return false}
-      guard let int32 = Int32.init(exactly: char) else {return false}
+      guard let char = str.first else { return false }
+      guard let int32 = Int32.init(exactly: char) else { return false }
       return isalpha(int32) == 0
     }
-    
-    func getProtocol(fro index : Int8) -> ScanToolProtocol {
+        
+    func getProtocol(fro index: Int8) -> ScanProtocol {
       let i = Int(index)
-      return elm_protocol_map[i]
+      return elmProtocolMap[i]
     }
     
-    func protocolName(`protocol` : ScanToolProtocol) -> String {
+    func protocolName(`protocol`: ScanProtocol) -> String {
       switch `protocol` {
       case .ISO9141Keywords0808:
         return "ISO 9141-2 Keywords 0808"
@@ -95,17 +95,17 @@ class Parser {
   
   //Parsing command response
   class PackageReader {
-    func read(package : Package) -> Response {
+    func read(package: Package) -> Response {
       return parseResponse(package: package)
     }
     
-    private func optimize(package : inout Package){
+    private func optimize(package: inout Package){
       while package.buffer.last == 0x00 || package.buffer.last == 0x20 {
         package.buffer.removeLast()
       }
     }
     
-    private func compress(components : inout [String], outputSize : inout Int){
+    private func compress(components: inout [String], outputSize: inout Int){
       for (i,s) in components.enumerated() {
         components[i] = s.replacingOccurrences(of: (i - 1).description  + ":", with: "")
       }

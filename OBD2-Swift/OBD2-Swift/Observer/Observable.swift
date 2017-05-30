@@ -9,5 +9,5 @@
 import Foundation
 
 protocol Observable {
-  func didChange(value : Any, for sensor : OBD2Sensor)
+  func didChange(value: Any, for sensor: OBD2Sensor)
 }

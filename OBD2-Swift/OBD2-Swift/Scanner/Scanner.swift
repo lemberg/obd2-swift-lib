@@ -34,8 +34,8 @@ class `Scanner`: StreamHolder {
   var priorityCommandQueue: [Command] = []
   var commandQueue: [Command] = []
 
-  var state: ScanToolState = .STATE_INIT
-  var `protocol`: ScanToolProtocol = .none
+  var state: ScanState = .init
+  var `protocol`: ScanProtocol = .none
   var waitingForVoltageCommand = false
   var currentPIDGroup: UInt8 = 0x00
 
@@ -55,7 +55,7 @@ class `Scanner`: StreamHolder {
     delegate = self
   }
   
-  open func setupProtocol(buffer: [UInt8]) -> ScanToolProtocol {
+  open func setupProtocol(buffer: [UInt8]) -> ScanProtocol {
     let asciistr: [Int8] = buffer.map({Int8.init(bitPattern: $0)})
     let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
     
@@ -71,7 +71,7 @@ class `Scanner`: StreamHolder {
     let uintIndex =  asciistr[searchIndex] - 0x4E
     let index = Int(uintIndex)
 
-    self.`protocol` = elm_protocol_map[index]
+    self.`protocol` = elmProtocolMap[index]
     return self.`protocol`
   }
   
@@ -111,7 +111,7 @@ class `Scanner`: StreamHolder {
     supportedSensorList.removeAll()
     sensorScanTargets.removeAll()
     
-    state	= .STATE_INIT
+    state = .init
     
     scanOperationQueue = OperationQueue()
     streamOperation = BlockOperation(block: { [weak self] in
@@ -151,7 +151,7 @@ class `Scanner`: StreamHolder {
   }
   
   func setupReady(){
-    state = .STATE_IDLE
+    state = .idle
     setSensorScanTargets(targets: [])
   }
   
@@ -181,26 +181,27 @@ class `Scanner`: StreamHolder {
       
       if ELM_ERROR(respString) {
         initState	= .RESET
-        state       = .STATE_INIT
+        state       = .init
       } else {
         let package = Package(buffer: readBuf, length: readBufLength)
         let responses = Parser.package.read(package: package)
         
         self.didReceiveResponses(response: responses)
         
-        state = .STATE_IDLE
+        state = .idle
         
         if let cmd = dequeueCommand() {
           request(command: cmd)
         }
       }
-    }else{
-      state = .STATE_WAITING
+    } else {
+      state = .waiting
     }
     
-    if state == .STATE_IDLE || state == .STATE_INIT {
+    if state == .idle || state == .init {
       eraseBuffer()
     }
+    
   }
   
   func readInitResponse() throws {
@@ -228,7 +229,7 @@ class `Scanner`: StreamHolder {
   private func initScanner() throws {
     eraseBuffer()
     
-    state = .STATE_INIT
+    state = .init
     initState = .RESET
     currentPIDGroup = 0x00
     
@@ -423,7 +424,7 @@ class `Scanner`: StreamHolder {
     readBufLength = readLength
     
     if ELM_READ_COMPLETE(buff) {
-      state			= .STATE_PROCESSING
+      state			= .processing
       
       if (readBufLength - 3) > 0 && (readBufLength - 3) < buff.count {
         buff[(readBufLength - 3)] = 0x00
@@ -436,20 +437,20 @@ class `Scanner`: StreamHolder {
       
       if ELM_ERROR(respString) {
         initState	= .RESET
-        state       = .STATE_INIT
+        state       = .init
       } else {
         //delegate?.didReceiveVoltage(scanTool: self, voltage: respString)
-        state       = .STATE_IDLE
+        state       = .idle
         
         if let cmd = dequeueCommand() {
           request(command: cmd)
         }
       }
     } else {
-      state = .STATE_WAITING
+      state = .waiting
     }
     
-    if state == .STATE_IDLE || state == .STATE_INIT {
+    if state == .idle || state == .init {
       eraseBuffer()
       waitingForVoltageCommand	= false
     }
@@ -474,9 +475,9 @@ extension Scanner: StreamFlowDelegate {
     
     do {
     
-        if state == .STATE_INIT {
+        if state == .init {
           try readInitResponse()
-        } else if state == .STATE_IDLE || state == .STATE_WAITING {
+        } else if state == .idle || state == .waiting {
             waitingForVoltageCommand ? readVoltageResponse() : readInput()
 
         } else {

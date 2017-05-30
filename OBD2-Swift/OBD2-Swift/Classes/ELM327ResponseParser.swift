@@ -29,7 +29,7 @@ class ELM327ResponseParser : ScanToolResponseParser {
     length = 0
   }
   
-  override func parseResponse(protocol : ScanToolProtocol) -> [ScanToolResponse] {
+  override func parseResponse(protocol: ScanToolProtocol) -> [ScanToolResponse] {
     var responseArray = [ScanToolResponse]()
     
     /*
@@ -90,14 +90,14 @@ class ELM327ResponseParser : ScanToolResponseParser {
     return responseArray
   }
   
-  func decodeResponseData(data : [UInt8], length : Int, `protocol` : ScanToolProtocol) -> ScanToolResponse {
+  func decodeResponseData(data : [UInt8], length : Int, `protocol`: ScanToolProtocol) -> ScanToolResponse {
     let resp = ScanToolResponse()
     var dataIndex = 0
     
     resp.scanToolName		= "ELM327";
-    resp.`protocol`		= `protocol`
-    resp.responseData			= Data.init(bytes: data, count: length)
-    resp.mode              = (data[dataIndex] ^ 0x40)
+    resp.`protocol`         = `protocol`
+    resp.responseData		= Data.init(bytes: data, count: length)
+    resp.mode               = (data[dataIndex] ^ 0x40)
     dataIndex += 1
     
     if resp.mode == ScanToolMode.RequestCurrentPowertrainDiagnosticData.rawValue {

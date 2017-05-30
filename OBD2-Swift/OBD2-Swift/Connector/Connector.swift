@@ -11,15 +11,15 @@ import Foundation
 class Connector {
   typealias CallBack = (Bool, Error?)->()
   
-  private var currentPIDGroup : UInt8 = 0x00
-  weak var scanner : Scanner?
+  private var currentPIDGroup: UInt8 = 0x00
+  weak var scanner: Scanner?
 
-  var state : State = .unknown
+  var state: State = .unknown
   
   func setup(using buffer : [UInt8]){
     let respString = toString(buffer)
     
-    if isError(response: respString) {
+    if Parser.string.isError(respString) {
       state = .unknown
     }
     
@@ -33,7 +33,7 @@ class Connector {
       //delegate?.scanToolDidConnect(scanTool: self)
       break
     case .echoOff:
-      guard isOK(respString) else {
+      guard Parser.string.isOK(respString) else {
         //TODO: - Error
         print("Error response from ELM327 during Echo Off: \(String(describing: respString))")
         return
@@ -135,15 +135,7 @@ class Connector {
     
     return MORE_PIDS_SUPPORTED(bytes)
   }
-  
-  private func isError(response str : String) -> Bool {
-    return str.contains("?")
-  }
-  
-  private func isOK(_ str : String) -> Bool{
-    return str.contains("OK")
-  }
-  
+    
   private func toString(_ buffer : [UInt8]) -> String {
     let asciistr : [Int8] = buffer.map({Int8.init(bitPattern: $0)})
     return String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""

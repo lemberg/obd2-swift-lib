@@ -53,16 +53,20 @@ class StreamHolder: NSObject {
   }
   
   func writeCachedData() {
-    var status : Stream.Status = .error
+    
+    // TODO: are we needed?
+//    var status : Stream.Status = .error
     
     while cachedWriteData.count > 0 {
       let bytesWritten = write(data: cachedWriteData)
       print("bytesWritten = \(bytesWritten)")
       
       if bytesWritten == -1 {
+        // ~hell
         print("Write Error")
+        
         break
-      }else if bytesWritten > 0 && cachedWriteData.count > 0 {
+      } else if bytesWritten > 0 && cachedWriteData.count > 0 {
         print("Wrote \(bytesWritten) bytes")
         cachedWriteData.removeSubrange(0..<bytesWritten)
       }
@@ -70,8 +74,8 @@ class StreamHolder: NSObject {
     
     cachedWriteData.removeAll()
     
-    print("OutputStream status = \(outputStream.streamStatus)")
-    print("Starting write wait")
+    print("Writing output stream status = \(outputStream.streamStatus.rawValue)")
+    
   }
   
   func write(data: Data) -> Int {
@@ -104,9 +108,11 @@ class StreamHolder: NSObject {
     if eventCode == .openCompleted {
       print("NSStreamEventOpenCompleted")
       delegate?.didOpen(stream: inputStream)
+        
     } else if eventCode == .hasBytesAvailable {
       print("NSStreamEventHasBytesAvailable")
       delegate?.hasInput(on: inputStream)
+        
     } else if eventCode == .errorOccurred {
       print("NSStreamEventErrorOccurred")
       
@@ -121,9 +127,11 @@ class StreamHolder: NSObject {
     if eventCode == .openCompleted {
       delegate?.didOpen(stream: outputStream)
       print("NSStreamEventOpenCompleted")
+        
     } else if eventCode == .hasSpaceAvailable {
       print("NSStreamEventHasBytesAvailable")
       writeCachedData()
+        
     } else if eventCode == .errorOccurred {
       print("NSStreamEventErrorOccurred")
       if let error = inputStream.streamError {

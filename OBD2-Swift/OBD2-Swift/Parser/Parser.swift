@@ -19,31 +19,31 @@ class Parser {
       return Int(strtoul(str, nil, 16))
     }
     
-    func isReadComplete(_ buf : [UInt8]) -> Bool {
+    func isReadComplete(_ buf: [UInt8]) -> Bool {
       return buf.last == kResponseFinishedCode
     }
     
-    func isOK(_ str : String) -> Bool{
+    func isOK(_ str: String) -> Bool{
       return str.contains("OK")
     }
     
-    func isError(_ str : String)	-> Bool	{
+    func isError(_ str: String) -> Bool {
       return str.contains("?")
     }
     
-    func isNoData(_ str : String)	-> Bool	{
+    func isNoData(_ str: String) -> Bool {
       return str.contains("NO DATA")
     }
     
-    func isStopped(_ str : String)	-> Bool	{
+    func isStopped(_ str: String)	-> Bool	{
       return str.contains("STOPPED")
     }
     
-    func isSerching(_ str : String)	-> Bool	{
+    func isSerching(_ str: String)	-> Bool	{
       return str.contains("SEARCHING...")
     }
     
-    func isAuto(_ str : String) -> Bool {
+    func isAuto(_ str : String)     -> Bool {
       return str.hasPrefix("AUTO")
     }
     

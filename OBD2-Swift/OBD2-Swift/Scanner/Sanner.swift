@@ -102,15 +102,31 @@ class `Scanner` : StreamHolder {
     supportedSensorList.removeAll()
     sensorScanTargets.removeAll()
     
-    state	= .STATE_INIT
+    state = .STATE_INIT
     
-    scanOperationQueue = OperationQueue()
-    streamOperation = BlockOperation(block: { [weak self] in
-      self?.runStreams()
-    })
+    open()
+    let op = InitScanerOperation(inputStream: inputStream, outputStream: outputStream, command: .reset)
     
-    scanOperationQueue.addOperation(streamOperation)
-    scanOperationQueue.isSuspended = false
+    op.onBytesAvailable = { (stream) in
+        self.readInitResponse()
+    }
+    obdQueue.addOperation(op)
+//    let operation = BlockOperation {
+//        self.initScanner()
+//    }
+//    
+//    operation.completionBlock = {
+//        print("Init scaner operation end")
+//    }
+//    
+//    obdQueue.addOperation(operation)
+//    scanOperationQueue = OperationQueue()
+//    streamOperation = BlockOperation(block: { [weak self] in
+//      self?.runStreams()
+//    })
+//    
+//    scanOperationQueue.addOperation(streamOperation)
+//    scanOperationQueue.isSuspended = false
   }
   
   open func pauseScan(){

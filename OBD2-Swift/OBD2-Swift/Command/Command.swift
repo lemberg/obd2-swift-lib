@@ -9,6 +9,7 @@
 import Foundation
 
 class Command {
+    
   enum AT : String {
     case reset                = "AT WS"
     case headersOn            = "AT H1"
@@ -17,7 +18,7 @@ class Command {
     case `protocol`           = "AT DP"
     case protocolNumber       = "AT DPN"
     case versionId            = "AT I"
-    case deviceDescription		= "AT @1"
+    case deviceDescription	  = "AT @1"
     case readDeviceIdentifier = "AT @2"
     case setDeviceIdentifier  = "AT @3"
   }

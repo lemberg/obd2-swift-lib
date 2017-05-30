@@ -9,6 +9,7 @@
 import Foundation
 
 struct Response {
+    
     var timestamp : Date
     var mode : UInt8 = 0
     var pid : UInt8 = 0

@@ -25,29 +25,29 @@ class Command {
   
   enum Make {
     case AT
-    case defaul
+    case `default`
   }
   
-  var	type = Command.Make.defaul
+  var type = Command.Make.default
   var description = ""
   
-  init(from string : String) {
+  init(from string: String) {
     self.description = string
   }
   
-  convenience init(from type : Command.AT) {
+  convenience init(from type: Command.AT) {
     self.init(from: type.rawValue)
   }
   
-  static func create(mode : ScanToolMode, pid : UInt8, param : String? = nil)-> Command {
-    var cmd : Command!
+  static func create(mode: ScanToolMode, pid: UInt8, param: String? = nil) -> Command {
+    var cmd: Command!
     
     if pid >= 0x00 && pid <= 0x4E {
       let nsStr = NSString.init(format: "%02lx %02lx", mode.rawValue, pid)
-      cmd = Command(from : String(nsStr))
-    }else {
+      cmd = Command(from: String(nsStr))
+    } else {
       let nsStr = NSString.init(format: "%02lx", mode.rawValue)
-      cmd = Command(from : String(nsStr))
+      cmd = Command(from: String(nsStr))
     }
     
     if let param = param {
@@ -57,28 +57,29 @@ class Command {
     return cmd
   }
   
-  static var reset = Command(from : Command.AT.reset)
+  static var reset = Command(from: Command.AT.reset)
   
-  static var headersOn = Command(from : Command.AT.headersOn)
+  static var headersOn = Command(from: Command.AT.headersOn)
   
-  static var echoOff = Command(from : Command.AT.echoOff)
+  static var echoOff = Command(from: Command.AT.echoOff)
   
-  static var voltage = Command(from : Command.AT.voltage)
+  static var voltage = Command(from: Command.AT.voltage)
   
-  static var `protocol` = Command(from : Command.AT.protocol)
+  static var `protocol` = Command(from: Command.AT.protocol)
   
-  static var versionId = Command(from : Command.AT.versionId)
+  static var versionId = Command(from: Command.AT.versionId)
   
-  static var deviceDescription = Command(from : Command.AT.deviceDescription)
+  static var deviceDescription = Command(from: Command.AT.deviceDescription)
   
-  static var readDeviceIdentifier = Command(from :Command.AT.readDeviceIdentifier)
+  static var readDeviceIdentifier = Command(from: Command.AT.readDeviceIdentifier)
   
-  static func setDeviceIdentifier(identifier : String) -> Command {
-    return Command(from : Command.AT.setDeviceIdentifier.rawValue + " " + identifier)
+  static func setDeviceIdentifier(identifier: String) -> Command {
+    return Command(from: Command.AT.setDeviceIdentifier.rawValue + " " + identifier)
   }
   
   func getData() -> Data? {
     description.append(kCarriageReturn)
     return description.data(using: .ascii)
   }
+    
 }

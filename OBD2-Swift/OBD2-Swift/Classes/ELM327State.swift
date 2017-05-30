@@ -8,6 +8,7 @@
 
 import Foundation
 
+//TODO: rename
 enum ELM327InitState : UInt16 {
   case UNKNOWN			= 0x0000
   case RESET				= 0x0001
@@ -66,7 +67,7 @@ enum ELM327Protocol {
   case User2CAN11Bit50
 }
 
-let elm_protocol_map : [ScanToolProtocol] = [
+let elm_protocol_map: [ScanToolProtocol] = [
   .none,
   .J1850PWM,
   .J1850VPW,

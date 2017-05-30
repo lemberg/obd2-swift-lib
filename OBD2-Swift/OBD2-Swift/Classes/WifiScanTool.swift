@@ -91,7 +91,7 @@ open class WifiScanTool : ScanTool {
     
     cachedWriteData.removeAll()
     
-    print("OutputStream status = \(outputStream.streamStatus)")
+    print("OutputStream status = \(outputStream.streamStatus.rawValue)")
     print("Starting write wait")
     
     repeat {

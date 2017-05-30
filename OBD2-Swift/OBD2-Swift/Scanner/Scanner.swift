@@ -8,37 +8,46 @@
 
 import Foundation
 
-class `Scanner` : StreamHolder {
+enum ReadInputError: Error {
+    case initResponseUnreadable
+}
+
+enum InitScannerError: Error {
+    case outputTimeout
+    case inputTimeout
+}
+
+class `Scanner`: StreamHolder {
   let timeout	=	10.0
   
-  var defaultSensors : [UInt8] = [0x0C, 0x0D]
+  var defaultSensors: [UInt8] = [0x0C, 0x0D]
   //weak var delegate : ScanToolDelegate?
   
   var supportedSensorList = [Int]()
   open var sensorScanTargets = [UInt8]()
   
-  var initState : ELM327InitState = .UNKNOWN
+  var initState: ELM327InitState = .UNKNOWN
   var currentSensorIndex = 0
-  var streamOperation : Operation!
-  var scanOperationQueue : OperationQueue!
+  var streamOperation: Operation!
+  var scanOperationQueue: OperationQueue!
 
-  var	priorityCommandQueue : [Command] = []
-  var	commandQueue : [Command] = []
+  var priorityCommandQueue: [Command] = []
+  var commandQueue: [Command] = []
 
-  var state : ScanToolState = .STATE_INIT
-  var `protocol` : ScanToolProtocol = .none
-  var	waitingForVoltageCommand = false
-  var currentPIDGroup : UInt8 = 0x00
+  var state: ScanState = .init
+  var `protocol`: ScanProtocol = .none
+  var waitingForVoltageCommand = false
+  var currentPIDGroup: UInt8 = 0x00
 
   var maxSize = 512
   var readBuf = [UInt8]()
   var readBufLength = 0
   
-  weak var observer : SensorObserver?
+  weak var observer: SensorObserver?
   
-  var connector : Connector?
+  var connector: Connector?
   
-  init(host : String, port : Int) {
+  init(host: String, port: Int) {
     super.init()
     self.host = host
     self.port = port
@@ -46,8 +55,8 @@ class `Scanner` : StreamHolder {
     delegate = self
   }
   
-  open func setupProtocol(buffer : [UInt8]) -> ScanToolProtocol {
-    let asciistr : [Int8] = buffer.map({Int8.init(bitPattern: $0)})
+  open func setupProtocol(buffer: [UInt8]) -> ScanProtocol {
+    let asciistr: [Int8] = buffer.map({Int8.init(bitPattern: $0)})
     let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
     
     var searchIndex = 0
@@ -62,15 +71,15 @@ class `Scanner` : StreamHolder {
     let uintIndex =  asciistr[searchIndex] - 0x4E
     let index = Int(uintIndex)
 
-    self.`protocol` = elm_protocol_map[index]
+    self.`protocol` = elmProtocolMap[index]
     return self.`protocol`
   }
   
-  open func request(command : Command, with block : (_ buffer : [UInt8])->()) {
+  open func request(command: Command, with block: (_ buffer : [UInt8])->()) {
     //TODO:-
   }
   
-  open func request(command : Command) {
+  open func request(command: Command) {
     eraseBuffer()
     
     cachedWriteData.removeAll()
@@ -102,13 +111,13 @@ class `Scanner` : StreamHolder {
     supportedSensorList.removeAll()
     sensorScanTargets.removeAll()
     
-    state = .STATE_INIT
+    state = .init
     
     open()
     let op = InitScanerOperation(inputStream: inputStream, outputStream: outputStream, command: .reset)
     
     op.onBytesAvailable = { (stream) in
-        self.readInitResponse()
+        try? self.readInitResponse()
     }
     obdQueue.addOperation(op)
 //    let operation = BlockOperation {
@@ -158,14 +167,19 @@ class `Scanner` : StreamHolder {
   }
   
   func setupReady(){
-    state = .STATE_IDLE
+    state = .idle
     setSensorScanTargets(targets: [])
   }
   
-  func readInput(){
+  func readInput() {
     var buffer = [UInt8].init(repeating: 0, count: maxSize)
     let readLength = inputStream.read(&buffer, maxLength: maxSize)
-    guard readLength > 0 else {return}
+    
+    guard readLength > 0 else {
+        //TODO: no input response
+        return
+    }
+    
     buffer.removeSubrange(readLength..<maxSize)
     
     readBuf += buffer
@@ -183,32 +197,36 @@ class `Scanner` : StreamHolder {
       
       if ELM_ERROR(respString) {
         initState	= .RESET
-        state	= .STATE_INIT
-      }else{
+        state       = .init
+      } else {
         let package = Package(buffer: readBuf, length: readBufLength)
         let responses = Parser.package.read(package: package)
         
         self.didReceiveResponses(response: responses)
         
-        state = .STATE_IDLE
+        state = .idle
         
         if let cmd = dequeueCommand() {
           request(command: cmd)
         }
       }
-    }else{
-      state = .STATE_WAITING
+    } else {
+      state = .waiting
     }
     
-    if state == .STATE_IDLE || state == .STATE_INIT {
+    if state == .idle || state == .init {
       eraseBuffer()
     }
+    
   }
   
-  func readInitResponse() {
+  func readInitResponse() throws {
     var buffer = [UInt8].init(repeating: 0, count: maxSize)
     let readLength = inputStream.read(&buffer, maxLength: maxSize)
-    guard readLength > 0 else {return}
+    
+    guard readLength > 0 else {
+        throw ReadInputError.initResponseUnreadable
+    }
     buffer.removeSubrange(readLength..<maxSize)
     
     readBuf += buffer
@@ -224,22 +242,34 @@ class `Scanner` : StreamHolder {
     }
   }
   
-  private func initScanner(){
+  private func initScanner() throws {
     eraseBuffer()
     
-    state				= .STATE_INIT
-    initState			= .RESET
-    currentPIDGroup	= 0x00
+    state = .init
+    initState = .RESET
+    currentPIDGroup = 0x00
     
-    while inputStream.streamStatus != Stream.Status.open && outputStream.streamStatus != Stream.Status.open {/*loop */}
+    var openingStatus = false
+    
+    let startDate = Date()
+    while !openingStatus && Date().timeIntervalSince(startDate) < 5.0 {
+        openingStatus = inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open
+    }
+    
+    guard openingStatus else {
+        if inputStream.streamStatus == Stream.Status.open {
+            throw InitScannerError.outputTimeout
+        } else {
+            throw InitScannerError.inputTimeout
+        }
+    }
     
     request(command: Command.reset)
     
     connector?.state = Connector.State.reset
   }
   
-  
-  private func enqueueCommand(command : Command) {
+  private func enqueueCommand(command: Command) {
     priorityCommandQueue.append(command)
   }
   
@@ -248,7 +278,7 @@ class `Scanner` : StreamHolder {
   }
   
   private func dequeueCommand() -> Command? {
-    var cmd : Command?
+    var cmd: Command?
     
     if priorityCommandQueue.count > 0 {
       cmd = priorityCommandQueue.remove(at: 0)
@@ -285,7 +315,7 @@ class `Scanner` : StreamHolder {
     }
     
     let number = sensorScanTargets[currentSensorIndex]
-    currentSensorIndex+=1
+    currentSensorIndex += 1
     
     return number
   }
@@ -299,12 +329,22 @@ class `Scanner` : StreamHolder {
     open()
     //delegate?.scanDidStart(scanTool: self)
     
-    initScanner()
+    //TODO: Error cases
+    do {
+       try initScanner()
+    } catch InitScannerError.inputTimeout {
+        print("Error: Input stream opening error.")
+    } catch InitScannerError.outputTimeout {
+        print("Error: Output stream opening error. ")
+    } catch {
+        print("Error: Unrecognized streams opening error")
+    }
     
     while streamOperation?.isCancelled == false && currentRunLoop.run(mode: .defaultRunLoopMode, before: distantFutureDate) {/*loop */}
     
     close()
     //delegate?.scanDidCancel(scanTool: self)
+    
   }
   
   
@@ -331,7 +371,7 @@ class `Scanner` : StreamHolder {
 //  }
   
   
-  private func didReceiveResponses(response : Response) {
+  private func didReceiveResponses(response: Response) {
     //INPORTANT = mode to int value == mode ^ 0x40 !!!!!!!!!
     
 //    guard responses.count > 0 else {
@@ -360,8 +400,8 @@ class `Scanner` : StreamHolder {
 //    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
 //      break
 //    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
-      break
-    default:
+//      break
+    default: //TODO: default realisation
       break
     }
 //    let isMode01 = response.mode == ScanToolMode.RequestCurrentPowertrainDiagnosticData.rawValue
@@ -386,16 +426,21 @@ class `Scanner` : StreamHolder {
 //    }
   }
   
-  fileprivate func readVoltageResponse(){
+  fileprivate func readVoltageResponse()  {
     let readLength = inputStream.read(&readBuf, maxLength: readBufLength)
-    guard readLength > 0 else {return}
+
+    guard readLength > 0 else {
+        //TODO: no input response
+        return
+    }
+    
     var buff = readBuf
     buff.removeSubrange(readLength..<maxSize)
     
     readBufLength = readLength
     
     if ELM_READ_COMPLETE(buff) {
-      state			= .STATE_PROCESSING
+      state			= .processing
       
       if (readBufLength - 3) > 0 && (readBufLength - 3) < buff.count {
         buff[(readBufLength - 3)] = 0x00
@@ -408,20 +453,20 @@ class `Scanner` : StreamHolder {
       
       if ELM_ERROR(respString) {
         initState	= .RESET
-        state	= .STATE_INIT
-      }else{
+        state       = .init
+      } else {
         //delegate?.didReceiveVoltage(scanTool: self, voltage: respString)
-        state = .STATE_IDLE
+        state       = .idle
         
         if let cmd = dequeueCommand() {
           request(command: cmd)
         }
       }
-    }else{
-      state = .STATE_WAITING
+    } else {
+      state = .waiting
     }
     
-    if state == .STATE_IDLE || state == .STATE_INIT {
+    if state == .idle || state == .init {
       eraseBuffer()
       waitingForVoltageCommand	= false
     }
@@ -433,22 +478,34 @@ class `Scanner` : StreamHolder {
   }
 }
 
-extension Scanner : StreamFlowDelegate {
-  func didOpen(stream : Stream){
+extension Scanner: StreamFlowDelegate {
+  func didOpen(stream: Stream){
     
   }
   
-  func error(_ error : Error, on stream : Stream){
+  func error(_ error: Error, on stream: Stream){
     
   }
   
-  func hasInput(on stream : Stream){
-    if state == .STATE_INIT {
-      readInitResponse()
-    }else if state == .STATE_IDLE || state == .STATE_WAITING {
-      waitingForVoltageCommand ? readVoltageResponse() : readInput()
-    }else {
-      print("Received bytes in unknown state: \(state)")
+  func hasInput(on stream: Stream){
+    
+    do {
+    
+        if state == .init {
+          try readInitResponse()
+        } else if state == .idle || state == .waiting {
+            waitingForVoltageCommand ? readVoltageResponse() : readInput()
+
+        } else {
+          print("Error: Received bytes in unknown state: \(state)")
+        }
+        
+    } catch {
+        
+        print("Error: Init response unreadable. Need reconnect")
+        //TODO: try reconnect    
     }
+    
+    
   }
 }

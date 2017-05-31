@@ -8,11 +8,11 @@
 
 import Foundation
 
-class Mode01Descriptor : DescriptorProtocol {
-    var response : Response
+public class Mode01Descriptor : DescriptorProtocol {
+    public var response : Response
     var descriptor : SensorDescriptor
     
-    required init(describe response : Response) {
+    required public init(describe response : Response) {
         self.response = response
         let pid = response.pid
         
@@ -25,7 +25,7 @@ class Mode01Descriptor : DescriptorProtocol {
         self.descriptor = SensorDescriptorTable[Int(pid)]
     }
     
-    var mode : Mode {
+    public var mode : Mode {
         return .CurrentData01
     }
 
@@ -33,7 +33,7 @@ class Mode01Descriptor : DescriptorProtocol {
         return response.pid
     }
     
-    func isAlphaValue() -> Bool {
+    public func isAlphaValue() -> Bool {
         return IS_ALPHA_VALUE(pid: pid)
     }
     
@@ -67,7 +67,7 @@ class Mode01Descriptor : DescriptorProtocol {
         return val as? String ?? String(describing: val as? Float)
     }
     
-    func unitStringForMeasurement(metric : Bool) -> String {
+    public func unitStringForMeasurement(metric : Bool) -> String {
         return metric ? descriptor.metricUnit : descriptor.imperialUnit
     }
     

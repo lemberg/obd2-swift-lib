@@ -50,6 +50,17 @@ class ViewController: UIViewController {
   @IBAction func requestSpeed( _ sender : UIButton){
     //obd.requestVIN()
     obd.request(command : "0100")
+//    obd.request(command: CommandMode01.pid(number: 0)) { (descriptor) in
+//      descriptor.responce?.unitStringForMeasurement(metric: true)
+//    }
+    
+    obd.request(command: CommandE.Mode01.pid(number: 0)) { (descriptor) in
+      descriptor?.unitStringForMeasurement(metric: true)
+    }
+    
+    obd.request(command: CommandE.Mode03.troubleCode) { (descriptor) in
+      descriptor?.getTroubleCodes()
+    }
   }
 
 }

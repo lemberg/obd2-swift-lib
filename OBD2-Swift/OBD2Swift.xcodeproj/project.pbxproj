@@ -46,6 +46,7 @@
 		926121E11ED6D2FA00D2AE9D /* StreamHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E01ED6D2FA00D2AE9D /* StreamHolder.swift */; };
 		926121E61ED6DA8700D2AE9D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E51ED6DA8700D2AE9D /* Parser.swift */; };
 		926121E91ED6E7E300D2AE9D /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E81ED6E7E300D2AE9D /* Command.swift */; };
+		926180AA1EDEE0CD003367CF /* StringDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926180A91EDEE0CD003367CF /* StringDescriptor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		926121E01ED6D2FA00D2AE9D /* StreamHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHolder.swift; sourceTree = "<group>"; };
 		926121E51ED6DA8700D2AE9D /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		926121E81ED6E7E300D2AE9D /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		926180A91EDEE0CD003367CF /* StringDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringDescriptor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				9218B8231ED7563F00E90F82 /* DescriptorProtocol.swift */,
 				9218B8201ED7546200E90F82 /* Descriptor01.swift */,
 				9218B8271ED7598700E90F82 /* Descriptor03.swift */,
+				926180A91EDEE0CD003367CF /* StringDescriptor.swift */,
 				9218B8291ED75C5E00E90F82 /* SensorDescriptorTable.swift */,
 			);
 			name = Descriptor;
@@ -462,6 +465,7 @@
 				921203DD1ED598D000BD973F /* ScanToolResponse.swift in Sources */,
 				921203F21ED5B93200BD973F /* Status.swift in Sources */,
 				926121E61ED6DA8700D2AE9D /* Parser.swift in Sources */,
+				926180AA1EDEE0CD003367CF /* StringDescriptor.swift in Sources */,
 				921203FD1ED5BB8F00BD973F /* Observable.swift in Sources */,
 				9218B8211ED7546200E90F82 /* Descriptor01.swift in Sources */,
 				926121E11ED6D2FA00D2AE9D /* StreamHolder.swift in Sources */,

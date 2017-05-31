@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Command {
+public class Command {
   enum AT : String {
     case reset                = "AT WS"
     case headersOn            = "AT H1"
@@ -38,7 +38,7 @@ class Command {
     self.init(from: type.rawValue)
   }
   
-  static func create(mode : ScanToolMode, pid : UInt8, param : String? = nil)-> Command {
+  static func create(mode : Mode, pid : UInt8, param : String? = nil)-> Command {
     var cmd : Command!
     
     if pid >= 0x00 && pid <= 0x4E {

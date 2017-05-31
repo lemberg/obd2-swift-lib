@@ -287,7 +287,7 @@ class `Scanner` : StreamHolder {
     let next = self.nextSensor()
     
     if next <= 0x4E {
-      return Command.create(mode: .RequestCurrentPowertrainDiagnosticData, pid: next)
+      return Command.create(mode: .CurrentData01, pid: next)
     }else {
       return nil
     }

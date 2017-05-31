@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DescriptorProtocol {
+public protocol DescriptorProtocol {
     var response : Response {get set}
     var mode : Mode {get}
     init(describe response : Response)

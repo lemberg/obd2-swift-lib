@@ -165,7 +165,7 @@ class Connector {
       cmd = Command.versionId
       break
     case .search:
-      cmd = Command.create(mode: .RequestCurrentPowertrainDiagnosticData,
+      cmd = Command.create(mode: .CurrentData01,
                            pid: currentPIDGroup)
       break
     default: //TODO: default realisation

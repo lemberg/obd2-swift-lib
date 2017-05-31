@@ -48,6 +48,7 @@
 		926121E91ED6E7E300D2AE9D /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E81ED6E7E300D2AE9D /* Command.swift */; };
 		9B0659AF1EDD94E100C5B0BE /* ScanState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0659AE1EDD94E100C5B0BE /* ScanState.swift */; };
 		9B0659B11EDD99AA00C5B0BE /* ScanProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0659B01EDD99AA00C5B0BE /* ScanProtocol.swift */; };
+		9BE1FE431EDEC38600AD2147 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE1FE421EDEC38600AD2147 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		926121E81ED6E7E300D2AE9D /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		9B0659AE1EDD94E100C5B0BE /* ScanState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanState.swift; sourceTree = "<group>"; };
 		9B0659B01EDD99AA00C5B0BE /* ScanProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanProtocol.swift; sourceTree = "<group>"; };
+		9BE1FE421EDEC38600AD2147 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = "OBD2-Swift/Logger.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 				921203F31ED5B99300BD973F /* Connector */,
 				921203EF1ED5B51A00BD973F /* OBD2Facade.swift */,
 				921203F11ED5B93200BD973F /* Status.swift */,
+				9BE1FE421EDEC38600AD2147 /* Logger.swift */,
 				9258F3A71EAF7F95006B7580 /* Classes */,
 				921203DE1ED598DF00BD973F /* Info.plist */,
 				921203DF1ED598DF00BD973F /* OBD2Swift.h */,
@@ -393,7 +396,7 @@
 					};
 					9258F2EF1EAF45E7006B7580 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = FN2T3UCV4E;
+						DevelopmentTeam = J7LBYY3B34;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -459,6 +462,7 @@
 				921203BB1ED597CD00BD973F /* ECUSensor.swift in Sources */,
 				921203C41ED597F500BD973F /* ELM327Command.swift in Sources */,
 				9B0659B11EDD99AA00C5B0BE /* ScanProtocol.swift in Sources */,
+				9BE1FE431EDEC38600AD2147 /* Logger.swift in Sources */,
 				921203B71ED597BA00BD973F /* GloablCalculator.swift in Sources */,
 				9218B82A1ED75C5E00E90F82 /* SensorDescriptorTable.swift in Sources */,
 				921203D31ED5987E00BD973F /* GlobalSensorDescriptorTable.swift in Sources */,
@@ -649,7 +653,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = FN2T3UCV4E;
+				DEVELOPMENT_TEAM = J7LBYY3B34;
 				INFOPLIST_FILE = "OBD2-Swift-Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lemberg.OBD2-Swift-Tests";
@@ -662,7 +666,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = FN2T3UCV4E;
+				DEVELOPMENT_TEAM = J7LBYY3B34;
 				INFOPLIST_FILE = "OBD2-Swift-Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lemberg.OBD2-Swift-Tests";

@@ -51,12 +51,20 @@ class StreamHolder: NSObject {
     self.inputStream.close()
     self.outputStream.close()
   }
+    
   
   func writeCachedData() {
     
     // TODO: are we needed?
 //    var status : Stream.Status = .error
     
+    print("{ ")
+    guard outputStream.streamStatus != .writing && inputStream.streamStatus != .writing else {
+        print("Data is already writing..!")
+        //TODO: test with new operation queue
+        return
+    }
+
     while cachedWriteData.count > 0 {
       let bytesWritten = write(data: cachedWriteData)
       print("bytesWritten = \(bytesWritten)")
@@ -67,12 +75,24 @@ class StreamHolder: NSObject {
         
         break
       } else if bytesWritten > 0 && cachedWriteData.count > 0 {
-        print("Wrote \(bytesWritten) bytes")
+        print("Wrote \(bytesWritten) bytes from \(cachedWriteData.count) cashed bytes")
         cachedWriteData.removeSubrange(0..<bytesWritten)
       }
     }
     
+    print(" }")
+
     cachedWriteData.removeAll()
+    
+    if outputStream.streamStatus == .writing {
+        print("-- outputStream is writing!")
+        
+    }
+    
+    if inputStream.streamStatus == .writing {
+        print("--inputStream is writing!")
+        
+    }
     
     print("Writing output stream status = \(outputStream.streamStatus.rawValue)")
     

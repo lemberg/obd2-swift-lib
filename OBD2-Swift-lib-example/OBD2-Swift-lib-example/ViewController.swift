@@ -19,7 +19,6 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-
     obd.connect({ _, _ in })
   
     // Do any additional setup after loading the view, typically from a nib.

@@ -42,6 +42,12 @@ open class OBD2 {
   var cache : Any?
   
   public func connect(_ block : Connector.CallBack){
+    Logger.shared.redirectLogToDocuments()
+    Logger.shared.log("------------- Connection..")
+
+    
+    NSLog("--00001--")
+    
     scanner.startScan()
   }
   

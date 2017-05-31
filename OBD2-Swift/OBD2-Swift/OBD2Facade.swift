@@ -171,16 +171,31 @@ public struct CommandE {
     case digit(mode : Int, pid : Int)
     
     public var mode : Mode {
-      return .none
+      switch self {
+      case .string(let string):
+        return encodeMode(from: string)
+      case .digit(let mode, _):
+        return Mode.init(rawValue: Mode.RawValue(mode)) ?? .none
+      }
     }
     
     public var commandForRequest : Command {
       switch self {
       case .string(let string):
-        return Command(from: string)
+        let uppercasedStr = string.uppercased()
+        return Command(from: uppercasedStr)
       case .digit(let mode, let pid):
-        return Command.create(mode: Mode.init(rawValue: UInt8(mode)) ?? .none, pid: UInt8(pid))
+        let mode = Mode.init(rawValue: UInt8(mode)) ?? .none
+        return Command.create(mode: mode, pid: UInt8(pid))
       }
+    }
+    
+    private func encodeMode(from str : String) -> Mode {
+      let index = str.index(str.startIndex, offsetBy: 1)
+      let modeSubStr = str.substring(to: index)
+      let modeRaw = UInt8(modeSubStr) ?? 0
+      
+      return Mode.init(rawValue: modeRaw) ?? .none
     }
   }
 }

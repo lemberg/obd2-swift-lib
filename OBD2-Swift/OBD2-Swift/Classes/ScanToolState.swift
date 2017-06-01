@@ -8,17 +8,18 @@
 
 import Foundation
 
+
+//done @see ScanState.swift
 enum ScanToolState {
   case STATE_INIT
   case STATE_IDLE
   case STATE_WAITING
   case STATE_PROCESSING
   case STATE_ERROR
-  case NUM_STATES
 }
 
-
-enum ScanToolDeviceType{
+// legacy code
+enum ScanToolDeviceType {
   case BluTrax
   case ELM327
   case OBDKey
@@ -26,7 +27,8 @@ enum ScanToolDeviceType{
   case Simulated
 }
 
-enum ScanToolMode : UInt8 {
+//done @see Mode.swift
+enum ScanToolMode: UInt8 {
   case RequestCurrentPowertrainDiagnosticData = 0x01
   case RequestPowertrainFreezeFrameData = 0x02
   case RequestEmissionRelatedDiagnosticTroubleCodes = 0x03
@@ -38,6 +40,7 @@ enum ScanToolMode : UInt8 {
   case RequestVehicleInfo = 0x09
 }
 
+//done @see ScanProtocol.swift
 enum ScanToolProtocol : Int16 {
   case none					= 0x0000
   case ISO9141Keywords0808	= 0x0001

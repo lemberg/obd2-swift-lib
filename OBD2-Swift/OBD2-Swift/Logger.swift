@@ -31,31 +31,17 @@ enum LoggerSourceType {
     
 }
 
-/// The set of colors used when logging with colorized lines
-//public enum TerminalColor: String {
-//    
-//    case white = "\u{001B}[0;37m" // white
-//    case red = "\u{001B}[0;31m" // red
-//    case yellow = "\u{001B}[0;33m" // yellow
-//    case foreground = "\u{001B}[0;39m" // default foreground color
-//    case background = "\u{001B}[0;49m" // default background color
-//}
-
-
 class Logger {
     
-//    static let shared = Logger()
     static var isColored = false
     static var sourceType: LoggerSourceType = .console
-
+    static let queue = OperationQueue()
     
     static let filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Logger.txt") ?? "/OBD2Logger.txt"
     
     
     static func redirectLogToDocuments() {
         //TODO: ~hellen
-        // legacy code
-//        removeFile()
         
         do {
             try  " ".write(toFile: filePaths, atomically: true, encoding: String.Encoding.utf8)
@@ -66,15 +52,44 @@ class Logger {
     }
     
     static func warning(_ message:String) {
-        log(message, type: .warning)
+        newLog(message, type: .warning)
     }
     
     static func info(_ message:String) {
-        log(message, type: .info)
+        newLog(message, type: .info)
     }
     
     static func error(_ message:String) {
-        log(message, type: .error)
+        newLog(message, type: .error)
+
+    }
+    
+    
+    static func newLog(_ message:String, type: LoggerMessageType = .verbose) {
+        
+        queue.maxConcurrentOperationCount = 1
+        queue.addOperation {
+            
+            let log = "[\(Date().description)] [\(type)] \(message)"
+            print("\(log)")
+
+            var content = ""
+            if FileManager.default.fileExists(atPath: filePaths) {
+                content =  try! String(contentsOfFile: filePaths, encoding: String.Encoding.utf8)
+            }
+            
+            
+//            print("hell - pre-saving - \(log)")
+            do {
+                
+//                print("hell - saving - \(log)")
+                try  "\(content)\n - \(log)".write(toFile: filePaths, atomically: true, encoding: String.Encoding.utf8)
+                
+            } catch let error {
+                print("Failed writing to log file: \(filePaths), Error: " + error.localizedDescription)
+            }
+            
+        }
 
     }
     
@@ -130,12 +145,12 @@ class Logger {
         
     }
     
-    func removeFile() {
+    static func removeFile() {
         
         let fileManager = FileManager.default
         
         do {
-            try fileManager.removeItem(atPath: Logger.filePaths)
+            try fileManager.removeItem(atPath: filePaths)
         }
         catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")

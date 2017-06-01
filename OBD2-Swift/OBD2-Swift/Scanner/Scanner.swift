@@ -90,6 +90,7 @@ class `Scanner`: StreamHolder {
     }
     cachedWriteData.append(data)
     writeCachedData()
+    
   }
   
   open func setSensorScanTargets(targets : [UInt8]){

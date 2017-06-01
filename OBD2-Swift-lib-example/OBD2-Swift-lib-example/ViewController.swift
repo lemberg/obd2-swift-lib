@@ -19,10 +19,12 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    //clean file
+    Logger.cleanLoggerFile()
+    
     obd.connect({ _, _ in })
   
     // Do any additional setup after loading the view, typically from a nib.
-    
     //scanTool.sensorScanTargets = [0x0C, 0x0D]
 
   }
@@ -34,7 +36,6 @@ class ViewController: UIViewController {
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    
     //scanTool.pauseScan()
   }
 
@@ -44,14 +45,16 @@ class ViewController: UIViewController {
   
   @IBAction func requestVIN( _ sender : UIButton){
     obd.requestVIN()
-    
-    
   }
   
   @IBAction func requestSpeed( _ sender : UIButton){
     //obd.requestVIN()
     obd.request(command : "0100")
   }
+    
+    @IBAction func shareFile( _ sender : UIButton){
+        Logger.shareFile(on: self)
+    }
 
 }
 

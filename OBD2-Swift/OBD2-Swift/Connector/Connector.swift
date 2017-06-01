@@ -153,20 +153,19 @@ class Connector {
     var cmd : Command?
     switch (state) {
     case .reset:
-      cmd = Command.reset
+      cmd = CommandE.AT.reset.commandForRequest
       break
     case .echoOff:
-      cmd = Command.echoOff
+      cmd = CommandE.AT.echoOff.commandForRequest
       break
     case .`protocol`:
-      cmd = Command.protocol
+      cmd = CommandE.AT.protocol.commandForRequest
       break
     case .version:
-      cmd = Command.versionId
+      cmd = CommandE.AT.versionId.commandForRequest
       break
     case .search:
-      cmd = Command.create(mode: .CurrentData01,
-                           pid: currentPIDGroup)
+      cmd = CommandE.Custom.digit(mode: 1, pid: 0).commandForRequest
       break
     default: //TODO: default realisation
       break
@@ -182,9 +181,9 @@ extension Connector {
     case reset				= 1
     case echoOff			= 2
     case version 			= 4
-    case search             = 8
-    case `protocol`         = 16
-    case complete           = 32
+    case search       = 8
+    case `protocol`   = 16
+    case complete     = 32
     
     static var all : [State] {
       return [.unknown, .reset, .echoOff, .version, .search, .`protocol`, .complete]

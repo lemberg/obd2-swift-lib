@@ -100,7 +100,7 @@ public struct CommandE {
     public var commandForRequest : Command {
       switch self {
       case .pid(number: let pid):
-        return Command.create(mode: mode, pid: UInt8(pid))
+        return Command(mode: mode, pid: UInt8(pid))
       }
     }
   }
@@ -186,7 +186,7 @@ public struct CommandE {
         return Command(from: uppercasedStr)
       case .digit(let mode, let pid):
         let mode = Mode.init(rawValue: UInt8(mode)) ?? .none
-        return Command.create(mode: mode, pid: UInt8(pid))
+        return Command(mode: mode, pid: UInt8(pid))
       }
     }
     

@@ -9,10 +9,10 @@
 import Foundation
 
 class SensorObserver {
-  private var observers : [AnyHashable : Observable] = [:]
+  private var observers : [AnyHashable : Array<Observable>] = [:]
   
   func add(observer : Observable, for sensor: OBD2Sensor){
-    observers[sensor] = observer
+    observers[sensor]?.append(observer)
   }
   
   func remove(from sensor: OBD2Sensor){
@@ -24,6 +24,8 @@ class SensorObserver {
   }
   
   func dispatch(value : Any, for sensor : OBD2Sensor){
-    observers[sensor]?.didChange(value: value, for: sensor)
+    observers[sensor]?.forEach({
+      $0.didChange(value: value, for: sensor)
+    })
   }
 }

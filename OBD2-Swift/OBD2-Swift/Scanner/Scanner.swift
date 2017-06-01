@@ -247,7 +247,7 @@ class `Scanner` : StreamHolder {
         }
     }
     
-    request(command: Command.reset)
+    request(command: CommandE.AT.reset.commandForRequest)
     
     connector?.state = Connector.State.reset
   }
@@ -281,13 +281,13 @@ class `Scanner` : StreamHolder {
       // after the battery voltage reading
       
       waitingForVoltageCommand = true
-      return Command.voltage
+      return CommandE.AT.reset.commandForRequest
     }
     
     let next = self.nextSensor()
     
     if next <= 0x4E {
-      return Command.create(mode: .CurrentData01, pid: next)
+      return Command(mode: .CurrentData01, pid: next)
     }else {
       return nil
     }

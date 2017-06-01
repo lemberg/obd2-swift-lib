@@ -104,11 +104,11 @@ class Mode01Descriptor : DescriptorProtocol {
         case 0x12:
             return calculateSecondaryAirStatus(data)
         case 0x13:
-            return calculateOxygenSensorsPresent(data)
+            return calculateOxygenSensorsPresent(data) //Oxygen Sensors Present (2 banks)
         case 0x1C:
             return calculateDesignRequirements(data)
         case 0x1D:
-            return "" //TODO: pid 29 - Oxygen Sensor
+            return "" //TODO: Oxygen Sensors Present (4 banks)
         case 0x1E:
             return calculateAuxiliaryInputStatus(data)
         default:
@@ -220,6 +220,7 @@ class Mode01Descriptor : DescriptorProtocol {
         return returnString
     }
     
+    //not used method
     func calculateOxygenSensorsPresentB(_ data : Data) -> String {
         var returnString : String = ""
         let dataA = data[0]

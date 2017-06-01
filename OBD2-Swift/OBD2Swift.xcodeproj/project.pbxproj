@@ -48,6 +48,7 @@
 		926121E91ED6E7E300D2AE9D /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E81ED6E7E300D2AE9D /* Command.swift */; };
 		9B0659AF1EDD94E100C5B0BE /* ScanState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0659AE1EDD94E100C5B0BE /* ScanState.swift */; };
 		9B0659B11EDD99AA00C5B0BE /* ScanProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0659B01EDD99AA00C5B0BE /* ScanProtocol.swift */; };
+		CE0A6EA71EDEDA30001F092B /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0A6EA61EDEDA30001F092B /* StreamReader.swift */; };
 		CE8CD27A1EDDABF200D50B54 /* StreamWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CD2791EDDABF200D50B54 /* StreamWriter.swift */; };
 		CE8CD27C1EDDAC4000D50B54 /* StreamHandleOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CD27B1EDDAC4000D50B54 /* StreamHandleOperation.swift */; };
 		CE8CD27E1EDDAC5A00D50B54 /* OpenOBDConnectionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CD27D1EDDAC5A00D50B54 /* OpenOBDConnectionOperation.swift */; };
@@ -108,6 +109,7 @@
 		926121E81ED6E7E300D2AE9D /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		9B0659AE1EDD94E100C5B0BE /* ScanState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanState.swift; sourceTree = "<group>"; };
 		9B0659B01EDD99AA00C5B0BE /* ScanProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanProtocol.swift; sourceTree = "<group>"; };
+		CE0A6EA61EDEDA30001F092B /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		CE8CD2791EDDABF200D50B54 /* StreamWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamWriter.swift; sourceTree = "<group>"; };
 		CE8CD27B1EDDAC4000D50B54 /* StreamHandleOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHandleOperation.swift; sourceTree = "<group>"; };
 		CE8CD27D1EDDAC5A00D50B54 /* OpenOBDConnectionOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenOBDConnectionOperation.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				CE8CD27B1EDDAC4000D50B54 /* StreamHandleOperation.swift */,
 				CE8CD27D1EDDAC5A00D50B54 /* OpenOBDConnectionOperation.swift */,
 				CE8CD27F1EDDAC8100D50B54 /* InitScanerOperation.swift */,
+				CE0A6EA61EDEDA30001F092B /* StreamReader.swift */,
 			);
 			name = Scanner;
 			path = "OBD2-Swift/Scanner";
@@ -476,6 +479,7 @@
 				CE8CD2801EDDAC8100D50B54 /* InitScanerOperation.swift in Sources */,
 				921203D31ED5987E00BD973F /* GlobalSensorDescriptorTable.swift in Sources */,
 				921203CD1ED5982300BD973F /* ScanToolCommand.swift in Sources */,
+				CE0A6EA71EDEDA30001F092B /* StreamReader.swift in Sources */,
 				9218B8261ED7569400E90F82 /* Mode.swift in Sources */,
 				9218B8281ED7598700E90F82 /* Descriptor03.swift in Sources */,
 				921203C91ED5980F00BD973F /* ScanTool.swift in Sources */,

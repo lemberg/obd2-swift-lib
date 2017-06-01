@@ -9,19 +9,19 @@
 import Foundation
 
 
-protocol ObserverType {}
+class ObserverType : NSObject {}
 
 class Observer<T : CommandType> : ObserverType {
-  private var observers : [Mode : (_ descriptor : T.Descriptor?)->()] = [:]
+  private var observers : [Int : (_ descriptor : T.Descriptor?)->()] = [:]
   
   public func observe(command : T, block : @escaping (_ descriptor : T.Descriptor?)->()){
-    observers[command.mode] = block
+    observers[command.hashValue] = block
   }
   
   func dispatch(command : T, response : Response){
     let described = T.Descriptor(describe: response)
     
-    let callback = observers[response.mode]
+    let callback = observers[response.hashValue]
     callback?(described)
   }
   
@@ -31,16 +31,24 @@ class Observer<T : CommandType> : ObserverType {
 }
 
 class ObserverQueue {
-  private var observers : [Mode : ObserverType] = [:]
-  func add(observer : ObserverType, for mode : Mode){
-    observers[mode] = observer
+  static let shared = ObserverQueue()
+  
+  private init(){}
+  private var observers = Set<ObserverType>() // = [:]
+  
+  open func register(observer : ObserverType){
+    observers.insert(observer)
+  }
+  
+  open func unregister(observer : ObserverType){
+    observers.remove(observer)
   }
   
   func dispatch<T : CommandType>(command : T, response : Response){
-    let observer = observers[response.mode]
-    
-    if let obs = observer as? Observer<T> {
-      obs.dispatch(command: command, response: response)
+    observers.forEach {
+      if let obs = $0 as? Observer<T> {
+        obs.dispatch(command: command, response: response)
+      }
     }
   }
 }
@@ -53,6 +61,8 @@ class XWW {
     observer.observe(command: .pid(number: 1)) { (descriptor) in
       _ = descriptor?.descriptionStringForMeasurement()
     }
+    
+    ObserverQueue.shared.register(observer: observer)
     
     
   }

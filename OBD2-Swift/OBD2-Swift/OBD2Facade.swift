@@ -81,15 +81,29 @@ open class OBD2 {
   }
 }
 
-public protocol CommandType {
-  associatedtype Descriptor : DescriptorProtocol
+public protocol CommandPrototype : Hashable, Equatable {
   var mode : Mode {get}
   var commandForRequest : Command {get}
+}
+
+public protocol CommandType : CommandPrototype {
+  associatedtype Descriptor : DescriptorProtocol
 }
 
 public struct CommandE {
   public enum Mode01 : CommandType {
     public typealias Descriptor = Mode01Descriptor
+    
+    public var hashValue: Int {
+      switch self {
+      case .pid(number : let pid):
+        return Int(mode.rawValue) ^ pid
+      }
+    }
+    
+    public static func ==(lhs: Mode01, rhs: Mode01) -> Bool {
+      return lhs.hashValue == rhs.hashValue
+    }
     
     case pid(number : Int)
     
@@ -107,6 +121,14 @@ public struct CommandE {
   
   public enum Mode03 : CommandType {
     public typealias Descriptor = Mode03Descriptor
+    
+    public var hashValue: Int {
+      return Int(mode.rawValue) ^ 0
+    }
+    
+    public static func == (lhs: Mode03, rhs: Mode03) -> Bool {
+      return lhs.hashValue == rhs.hashValue
+    }
     
     case troubleCode
     
@@ -132,6 +154,14 @@ public struct CommandE {
     case deviceDescription
     case readDeviceIdentifier
     case setDeviceIdentifier
+    
+    public var hashValue: Int {
+      return Int(mode.rawValue ^ mode.rawValue)
+    }
+    
+    public static func == (lhs: AT, rhs: AT) -> Bool {
+      return lhs.hashValue == rhs.hashValue
+    }
     
     public var mode : Mode {
       return .none
@@ -170,12 +200,29 @@ public struct CommandE {
     case string(String)
     case digit(mode : Int, pid : Int)
     
+    public var hashValue: Int {
+      return Int(mode.rawValue ^ pid)
+    }
+    
+    public static func == (lhs: Custom, rhs: Custom) -> Bool {
+      return lhs.hashValue == rhs.hashValue
+    }
+    
     public var mode : Mode {
       switch self {
       case .string(let string):
         return encodeMode(from: string)
       case .digit(let mode, _):
         return Mode.init(rawValue: Mode.RawValue(mode)) ?? .none
+      }
+    }
+    
+    public var pid : UInt8 {
+      switch self {
+      case .string(let string):
+        return encodePid(from: string)
+      case .digit(_, let pid):
+        return UInt8(pid)
       }
     }
     
@@ -190,12 +237,22 @@ public struct CommandE {
       }
     }
     
-    private func encodeMode(from str : String) -> Mode {
+    private func encodeMode(from string : String) -> Mode {
+      let str = string.replacingOccurrences(of: " ", with: "")
       let index = str.index(str.startIndex, offsetBy: 1)
       let modeSubStr = str.substring(to: index)
       let modeRaw = UInt8(modeSubStr) ?? 0
       
       return Mode.init(rawValue: modeRaw) ?? .none
+    }
+    
+    private func encodePid(from string : String) -> UInt8 {
+      let str = string.replacingOccurrences(of: " ", with: "")
+      let index = str.index(str.startIndex, offsetBy: 1)
+      let pidSubStr = str.substring(from: index)
+      let pidRaw = UInt8(pidSubStr) ?? 0x00
+      
+      return pidRaw
     }
   }
 }

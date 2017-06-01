@@ -15,13 +15,13 @@ public class Mode01Descriptor : DescriptorProtocol {
     required public init(describe response : Response) {
         self.response = response
         let pid = response.pid
+        self.mode = Mode(rawValue: response.mode) ?? .none
         
         guard pid >= 0x0 && pid <= 0x4E else {
             assertionFailure("Unsuported pid group")
             self.descriptor = GlobalSensorDescriptorTable[0]
             return
         }
-        
         self.descriptor = SensorDescriptorTable[Int(pid)]
     }
     
@@ -83,7 +83,6 @@ public class Mode01Descriptor : DescriptorProtocol {
         if isAlphaValue() {
             return Int.min
         }
-        
         return metric ? descriptor.minMetricValue : descriptor.minImperialValue
     }
     

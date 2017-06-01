@@ -18,7 +18,7 @@ public class Mode03Descriptor : DescriptorProtocol {
     
     public var mode : Mode
     
-    var pid : UInt8 {
+    var pid: UInt8 {
         return response.pid
     }
     
@@ -30,7 +30,7 @@ public class Mode03Descriptor : DescriptorProtocol {
             return []
         }
         
-        let systemCode : [Character]	= [ "P", "C", "B", "U" ]
+        let systemCode: [Character]	= [ "P", "C", "B", "U" ]
         let asUInt8Array = String(systemCode).utf8.map{ UInt8($0) }
         
         let data = rData.withUnsafeBytes {

@@ -153,7 +153,7 @@ open class ELM327 : WifiScanTool {
       if ELM_ERROR(respString) {
         initState	= .RESET
         state	= .STATE_INIT
-      }else{
+      } else {
         switch initState {
         case .RESET:
           initState = initState <<= 1

@@ -137,6 +137,12 @@
 			children = (
 				921203F71ED5BA6200BD973F /* Scanner.swift */,
 				926121E01ED6D2FA00D2AE9D /* StreamHolder.swift */,
+				CE8CD2791EDDABF200D50B54 /* StreamWriter.swift */,
+				CE8CD27B1EDDAC4000D50B54 /* StreamHandleOperation.swift */,
+				CE8CD27D1EDDAC5A00D50B54 /* OpenOBDConnectionOperation.swift */,
+				CE8CD27F1EDDAC8100D50B54 /* InitScanerOperation.swift */,
+				CE0A6EA61EDEDA30001F092B /* StreamReader.swift */,
+				CE5493271EE0454C00AACFB6 /* CommandOperation.swift */,
 			);
 			name = Scanner;
 			path = "OBD2-Swift/Scanner";
@@ -168,6 +174,8 @@
 			isa = PBXGroup;
 			children = (
 				924606C61ED7230200117F61 /* Package.swift */,
+				9B0659AE1EDD94E100C5B0BE /* ScanState.swift */,
+				9B0659B01EDD99AA00C5B0BE /* ScanProtocol.swift */,
 				9218B81E1ED74B6B00E90F82 /* Response.swift */,
 				9218B8251ED7569400E90F82 /* Mode.swift */,
 			);
@@ -390,7 +398,7 @@
 					};
 					9258F2EF1EAF45E7006B7580 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = FN2T3UCV4E;
+						DevelopmentTeam = J7LBYY3B34;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -437,6 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B0659AF1EDD94E100C5B0BE /* ScanState.swift in Sources */,
 				921203DB1ED598C000BD973F /* SensorDescriptor.swift in Sources */,
 				921203FB1ED5BB6000BD973F /* SensorObserver.swift in Sources */,
 				921203F81ED5BA6200BD973F /* Scanner.swift in Sources */,
@@ -454,24 +463,31 @@
 				926121E91ED6E7E300D2AE9D /* Command.swift in Sources */,
 				921203BB1ED597CD00BD973F /* ECUSensor.swift in Sources */,
 				921203C41ED597F500BD973F /* ELM327Command.swift in Sources */,
+				9B0659B11EDD99AA00C5B0BE /* ScanProtocol.swift in Sources */,
 				921203B71ED597BA00BD973F /* GloablCalculator.swift in Sources */,
 				9218B82A1ED75C5E00E90F82 /* SensorDescriptorTable.swift in Sources */,
+				CE8CD2801EDDAC8100D50B54 /* InitScanerOperation.swift in Sources */,
 				921203D31ED5987E00BD973F /* GlobalSensorDescriptorTable.swift in Sources */,
 				921203CD1ED5982300BD973F /* ScanToolCommand.swift in Sources */,
+				CE0A6EA71EDEDA30001F092B /* StreamReader.swift in Sources */,
 				9218B8261ED7569400E90F82 /* Mode.swift in Sources */,
 				9218B8281ED7598700E90F82 /* Descriptor03.swift in Sources */,
 				921203C91ED5980F00BD973F /* ScanTool.swift in Sources */,
+				CE8CD27C1EDDAC4000D50B54 /* StreamHandleOperation.swift in Sources */,
 				921203DA1ED598C000BD973F /* ScanToolState.swift in Sources */,
 				921203DD1ED598D000BD973F /* ScanToolResponse.swift in Sources */,
 				921203F21ED5B93200BD973F /* Status.swift in Sources */,
 				926121E61ED6DA8700D2AE9D /* Parser.swift in Sources */,
 				926180AA1EDEE0CD003367CF /* StringDescriptor.swift in Sources */,
 				921203FD1ED5BB8F00BD973F /* Observable.swift in Sources */,
+				CE5493281EE0454C00AACFB6 /* CommandOperation.swift in Sources */,
 				9218B8211ED7546200E90F82 /* Descriptor01.swift in Sources */,
 				926121E11ED6D2FA00D2AE9D /* StreamHolder.swift in Sources */,
 				921203CB1ED5981600BD973F /* ScanToolDelegate.swift in Sources */,
 				921203CF1ED5982B00BD973F /* ScanToolResponseParser.swift in Sources */,
 				921203B91ED597C400BD973F /* SensorList.swift in Sources */,
+				CE8CD27A1EDDABF200D50B54 /* StreamWriter.swift in Sources */,
+				CE8CD27E1EDDAC5A00D50B54 /* OpenOBDConnectionOperation.swift in Sources */,
 				921203D91ED598C000BD973F /* ResponseType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -645,7 +661,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = FN2T3UCV4E;
+				DEVELOPMENT_TEAM = J7LBYY3B34;
 				INFOPLIST_FILE = "OBD2-Swift-Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lemberg.OBD2-Swift-Tests";
@@ -658,7 +674,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = FN2T3UCV4E;
+				DEVELOPMENT_TEAM = J7LBYY3B34;
 				INFOPLIST_FILE = "OBD2-Swift-Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lemberg.OBD2-Swift-Tests";

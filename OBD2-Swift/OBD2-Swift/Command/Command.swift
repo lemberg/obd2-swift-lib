@@ -11,7 +11,7 @@ import Foundation
 public class Command {
   var description = ""
   
-  init(from string : String) {
+  init(from string: String) {
     self.description = string
   }
   
@@ -35,4 +35,5 @@ public class Command {
     description.append(kCarriageReturn)
     return description.data(using: .ascii)
   }
+    
 }

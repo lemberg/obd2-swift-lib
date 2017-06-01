@@ -13,8 +13,6 @@ let VOLTAGE_TIMEOUT	=	10.0
 let INIT_TIMEOU =	10.0
 let PENDING_DTC_TIMEOUT =	10.0
 
-
-
 // The time, in seconds, after which a location is considered stale
 let LOCATION_DECAY_PERIOD =	5.0
 

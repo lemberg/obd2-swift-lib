@@ -41,15 +41,41 @@ open class OBD2 {
   var logger : Any?
   var cache : Any?
   
-  public func connect(_ block : Connector.CallBack){
-    Logger.shared.redirectLogToDocuments()
-    Logger.shared.log("------------- Connection..")
+  public func connect(_ block : Connector.CallBack) {
+    
+    
+    Logger.redirectLogToDocuments()
+    
+    Logger.info("Connection..")
+    
+    
+    DispatchQueue.global().async {
+        Logger.warning("global 1")
+    }
+    
+    DispatchQueue.main.async {
+        Logger.error("main 1")
+    }
+    
+    DispatchQueue.global().async {
+        Logger.warning("global 2")
+    }
+    
+    DispatchQueue.main.async {
+        Logger.error("main 2")
+    }
+
+    Logger.info("22")
+    Logger.info("33")
 
     
     NSLog("--00001--")
     
     scanner.startScan()
   }
+    
+    
+   
   
   public func disconnect(){
     //
@@ -73,9 +99,35 @@ open class OBD2 {
   
   public func requestVIN(){
     scanner.request(command: Command.init(from: "0902"))
+    testingDispatch()
   }
   
   public func request(command str: String){
     scanner.request(command: Command.init(from: str))
+    testingDispatch()
   }
+    
+    
+    func testingDispatch() {
+        
+        DispatchQueue.global().async {
+            Logger.warning("global 1")
+        }
+        
+        DispatchQueue.main.async {
+            Logger.error("main 1")
+        }
+        
+        DispatchQueue.global().async {
+            Logger.warning("global 2")
+        }
+        
+        DispatchQueue.main.async {
+            Logger.error("main 2")
+        }
+        
+        Logger.info("testig - 22")
+        Logger.info("testig - 33")
+        
+    }
 }

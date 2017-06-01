@@ -13,36 +13,120 @@ import Foundation
 ////    NSLog(string)
 //}
 
+enum LoggerMessageType {
+    
+    case debug
+    case error
+    case info
+    case verbose //default
+    case warning
+    
+}
+
+
+enum LoggerSourceType {
+    
+    case console
+    case file //default
+    
+}
+
+/// The set of colors used when logging with colorized lines
+//public enum TerminalColor: String {
+//    
+//    case white = "\u{001B}[0;37m" // white
+//    case red = "\u{001B}[0;31m" // red
+//    case yellow = "\u{001B}[0;33m" // yellow
+//    case foreground = "\u{001B}[0;39m" // default foreground color
+//    case background = "\u{001B}[0;49m" // default background color
+//}
+
+
 class Logger {
     
-    static let shared = Logger()
-    
-//    let fileName = "/Logger_test_file.txt"
-    let filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("/Logger_test_file.txt") ?? "/Users/hellensoloviy/Downloads/OBD2Logger.txt"
-//    let filePaths =  NSSearchPathForDirectoriesInDomains(.downloadsDirectory, .localDomainMask, true).first?.appending(Logger.shared.fileName) ?? "/Users/hellensoloviy/Downloads/OBD2Logger.txt"
-    
-    func redirectLogToDocuments() {
-//        freopen(Logger.shared.filePaths.cString(using: String.Encoding.ascii)!, "a+", stderr)
-//        freopen(Logger.shared.filePaths.cString(using: String.Encoding.ascii)!, "a+", stdin)
-//        freopen(Logger.shared.filePaths.cString(using: String.Encoding.ascii)!, "a+", stdout)
-        removeFile()
-    }
-    
-    func log(_ message:String) {
-        
-        var dump = ""
+//    static let shared = Logger()
+    static var isColored = false
+    static var sourceType: LoggerSourceType = .console
 
-        if FileManager.default.fileExists(atPath: filePaths) {
-            dump =  try! String(contentsOfFile: filePaths, encoding: String.Encoding.utf8)
+    
+    static let filePaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first?.appending("//OBD2Logger.txt") ?? "/OBD2Logger.txt"
+    
+    
+    static func redirectLogToDocuments() {
+        //TODO: ~hellen
+        // legacy code
+//        removeFile()
+        
+        do {
+            try  " ".write(toFile: filePaths, atomically: true, encoding: String.Encoding.utf8)
+        } catch let error {
+            print("Failed writing to log file: \(filePaths), Error: " + error.localizedDescription)
         }
         
+    }
+    
+    static func warning(_ message:String) {
+        log(message, type: .warning)
+    }
+    
+    static func info(_ message:String) {
+        log(message, type: .info)
+    }
+    
+    static func error(_ message:String) {
+        log(message, type: .error)
 
+    }
+    
+    static func log(_ message:String, type: LoggerMessageType = .verbose) {
+        
+//        guard sourceType == .file else {
+        
+        let log = "[\(Date().description)] [\(type)] \(message)"
+        print("hell - printing - \(log)")
+//            return
+//        }
+        
+        
+        var content = ""
+        if FileManager.default.fileExists(atPath: filePaths) {
+            content =  try! String(contentsOfFile: filePaths, encoding: String.Encoding.utf8)
+        }
+        
         do {
-            try  "\(dump)\n \(Date().description) -- \(message)".write(toFile: filePaths, atomically: true, encoding: String.Encoding.utf8)
+            
+            print("hell - saving - \(log)")
+            try  "\(content)\n - \(log)".write(toFile: filePaths, atomically: true, encoding: String.Encoding.utf8)
             
         } catch let error {
             print("Failed writing to log file: \(filePaths), Error: " + error.localizedDescription)
         }
+    
+        // Create a FileHandle instance
+        //
+//        let file: FileHandle? = FileHandle(forWritingAtPath: filePaths)
+//        if file != nil {
+//            // Set the data we want to write
+//            let data = "23423423423 \( message)".data(using: String.Encoding.utf8)
+//            
+//            // Write it to the file
+//            file?.write(data!)
+//            
+//            // Close the file
+//            file?.closeFile()
+//        }
+//        else {
+//            print("Ooops! Something went wrong!")
+//        }
+
+        
+        
+    }
+    
+    func shareFile() {
+        
+//        let fileManager = FileManager.default
+        //TODO: sharing
         
     }
     
@@ -51,10 +135,11 @@ class Logger {
         let fileManager = FileManager.default
         
         do {
-            try fileManager.removeItem(atPath: filePaths)
+            try fileManager.removeItem(atPath: Logger.filePaths)
         }
         catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")
+        
         }
     }
     

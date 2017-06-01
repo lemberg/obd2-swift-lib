@@ -45,10 +45,11 @@ enum StreamReaderError: Error {
 class StreamReader {
     
     private let bufferSize = 512
+    
     private(set) var readBuffer = [BufferType]()
     private(set) var readBufferLenght = 0
-    
     private(set) var stream:InputStream
+    private(set) var response: String?
     
     init(stream: InputStream) {
         self.stream = stream
@@ -78,10 +79,13 @@ class StreamReader {
             
             let asciistr : [Int8] = readBuffer.map( { Int8(bitPattern: $0) } )
             let respString = String(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
+            
             print(respString)
             
             if respString.elmError {
                 throw StreamReaderError.ELMError
+            } else {
+                response = respString
             }
             
             return true

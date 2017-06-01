@@ -38,17 +38,22 @@ class StreamHolder: NSObject {
         let openConnectionOperation = OpenOBDConnectionOperation(inputStream: inputStream, outputStream: outputStream)
         
         openConnectionOperation.completionBlock = {
-            print("open operation completed")
+            if let error = openConnectionOperation.error {
+                print("open operation completed with error \(error)")
+                self.obdQueue.cancelAllOperations()
+            } else {
+                print("open operation completed without errors")
+            }
         }
         obdQueue.addOperation(openConnectionOperation)
     }
     
     private func createStreams() {
-        var rs: InputStream?
-        var ws: OutputStream?
-        Stream.getStreamsToHost(withName: host, port: port, inputStream: &rs, outputStream: &ws)
-        guard let a = rs else { fatalError("Read stream not created") }
-        guard let b = ws else { fatalError("Read stream not created") }
+        var readStream: InputStream?
+        var writeStream: OutputStream?
+        Stream.getStreamsToHost(withName: host, port: port, inputStream: &readStream, outputStream: &writeStream)
+        guard let a = readStream else { fatalError("Read stream not created") }
+        guard let b = writeStream else { fatalError("Write stream not created") }
         self.inputStream = a
         self.outputStream = b
     }

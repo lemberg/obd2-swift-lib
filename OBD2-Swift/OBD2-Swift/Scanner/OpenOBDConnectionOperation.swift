@@ -36,7 +36,7 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
         }
     }
     
-    private var error:Error? {
+    private(set) var error:Error? {
         didSet {
             input.remove(from: .current, forMode: .defaultRunLoopMode)
             output.remove(from: .current, forMode: .defaultRunLoopMode)

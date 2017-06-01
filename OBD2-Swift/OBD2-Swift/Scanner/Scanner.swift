@@ -117,10 +117,6 @@ class `Scanner`: StreamHolder {
     
     let op = InitScanerOperation(inputStream: inputStream, outputStream: outputStream)
     
-    op.onBytesAvailable = { (stream) in
-        try? self.readInitResponse()
-    }
-    
     op.completionBlock = {
         print("Initialization complete")
     }

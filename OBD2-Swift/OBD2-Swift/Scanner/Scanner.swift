@@ -114,16 +114,26 @@ class `Scanner`: StreamHolder {
     state = .init
     
     open()
-    let op = InitScanerOperation(inputStream: inputStream, outputStream: outputStream, command: .reset)
+    
+    let op = InitScanerOperation(inputStream: inputStream, outputStream: outputStream)
     
     op.onBytesAvailable = { (stream) in
         try? self.readInitResponse()
     }
+    
+    op.completionBlock = {
+        print("Initialization complete")
+    }
+    
+    state = .init
+    initState = .RESET
+    currentPIDGroup = 0x00
+
     obdQueue.addOperation(op)
 //    let operation = BlockOperation {
 //        self.initScanner()
 //    }
-//    
+    
 //    operation.completionBlock = {
 //        print("Init scaner operation end")
 //    }
@@ -133,7 +143,7 @@ class `Scanner`: StreamHolder {
 //    streamOperation = BlockOperation(block: { [weak self] in
 //      self?.runStreams()
 //    })
-//    
+    
 //    scanOperationQueue.addOperation(streamOperation)
 //    scanOperationQueue.isSuspended = false
   }

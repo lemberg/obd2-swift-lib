@@ -13,6 +13,8 @@ class StreamHandleOperation: Operation, StreamDelegate {
     private(set) var input:InputStream
     private(set) var output:OutputStream
     
+    var timeout:Int = 30
+    
     init(inputStream: InputStream, outputStream: OutputStream) {
         self.input = inputStream
         self.output = outputStream
@@ -21,10 +23,16 @@ class StreamHandleOperation: Operation, StreamDelegate {
     
     override func main() {
         super.main()
-        input.schedule(in: .current, forMode: .defaultRunLoopMode)
-        output.schedule(in: .current, forMode: .defaultRunLoopMode)
+
+        if isCancelled {
+            return
+        }
+        
         self.input.delegate = self
         self.output.delegate = self
+
+        input.schedule(in: .current, forMode: .defaultRunLoopMode)
+        output.schedule(in: .current, forMode: .defaultRunLoopMode)
         execute()
         RunLoop.current.run()
     }

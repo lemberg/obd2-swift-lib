@@ -15,6 +15,7 @@ protocol StreamFlowDelegate {
 }
 
 class StreamHolder: NSObject {
+    
     var delegate : StreamFlowDelegate?
     
     var inputStream : InputStream!
@@ -34,9 +35,12 @@ class StreamHolder: NSObject {
     
     func open(){
         createStreams()
-        let initOperation = OpenOBDConnectionOperation(inputStream: inputStream, outputStream: outputStream)
+        let openConnectionOperation = OpenOBDConnectionOperation(inputStream: inputStream, outputStream: outputStream)
         
-        obdQueue.addOperation(initOperation)
+        openConnectionOperation.completionBlock = {
+            print("open operation completed")
+        }
+        obdQueue.addOperation(openConnectionOperation)
     }
     
     private func createStreams() {

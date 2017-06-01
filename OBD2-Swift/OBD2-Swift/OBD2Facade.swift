@@ -153,7 +153,7 @@ public struct CommandE {
     case versionId
     case deviceDescription
     case readDeviceIdentifier
-    case setDeviceIdentifier
+    case setDeviceIdentifier(String)
     
     public var hashValue: Int {
       return Int(mode.rawValue ^ mode.rawValue)
@@ -187,8 +187,8 @@ public struct CommandE {
         return Command(from: "AT @1")
       case .readDeviceIdentifier:
         return Command(from: "AT @2")
-      case .setDeviceIdentifier:
-        return Command(from: "AT @3")
+      case .setDeviceIdentifier(let identifier):
+        return Command(from: "AT @2 " + identifier)
       }
     }
   }

@@ -169,13 +169,13 @@ class Connector {
 
 extension Connector {
   enum State : UInt {
-    case unknown			= 0
-    case reset				= 1
-    case echoOff			= 2
-    case version 			= 4
-    case search       = 8
-    case `protocol`   = 16
-    case complete     = 32
+    case unknown			= 1
+    case reset				= 2
+    case echoOff			= 4
+    case version 			= 8
+    case search             = 16
+    case `protocol`         = 32
+    case complete           = 64
     
     static var all : [State] {
       return [.unknown, .reset, .echoOff, .version, .search, .`protocol`, .complete]

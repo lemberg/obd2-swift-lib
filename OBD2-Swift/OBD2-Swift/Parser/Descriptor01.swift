@@ -15,7 +15,7 @@ public class Mode01Descriptor : DescriptorProtocol {
     required public init(describe response : Response) {
         self.response = response
         let pid = response.pid
-        self.mode = Mode(rawValue: response.mode) ?? .none
+        self.mode = response.mode
         
         guard pid >= 0x0 && pid <= 0x4E else {
             assertionFailure("Unsuported pid group")
@@ -25,10 +25,8 @@ public class Mode01Descriptor : DescriptorProtocol {
         self.descriptor = SensorDescriptorTable[Int(pid)]
     }
     
-    public var mode : Mode {
-        return .CurrentData01
-    }
-
+  public var mode : Mode
+  
     var pid : UInt8 {
         return response.pid
     }

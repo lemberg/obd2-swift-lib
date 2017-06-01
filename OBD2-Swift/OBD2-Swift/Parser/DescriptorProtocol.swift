@@ -10,7 +10,7 @@ import Foundation
 
 public protocol DescriptorProtocol {
     var response : Response {get set}
-    var mode : Mode {get}
+    var mode : Mode {get set}
     init(describe response : Response)
 }
 

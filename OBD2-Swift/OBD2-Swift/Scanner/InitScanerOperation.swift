@@ -37,16 +37,15 @@ class InitScanerOperation: StreamHandleOperation {
     var command: Command? {
         switch state {
         case .reset:
-            return Command.reset
+            return CommandE.AT.reset.commandForRequest
         case .echoOff:
-            return Command.echoOff
+            return CommandE.AT.echoOff.commandForRequest
         case .`protocol`:
-            return Command.protocol
+            return CommandE.AT.protocol.commandForRequest
         case .version:
-            return Command.versionId
+            return CommandE.AT.versionId.commandForRequest
         case .search:
-            return Command.create(mode: .RequestCurrentPowertrainDiagnosticData,
-                                 pid: currentPIDGroup)
+            return CommandE.Custom.digit(mode: 1, pid: 0).commandForRequest
         default:
             return nil
         }

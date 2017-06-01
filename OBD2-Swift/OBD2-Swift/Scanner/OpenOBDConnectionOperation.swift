@@ -11,7 +11,11 @@ import Foundation
 class OpenOBDConnectionOperation: StreamHandleOperation {
     
     class func keyPathsForValuesAffectingIsFinished() -> Set<NSObject> {
-        return ["inputOpen" as NSObject, "outOpen" as NSObject]
+        return ["inputOpen" as NSObject, "outOpen" as NSObject, "error" as NSObject]
+    }
+    
+    class func keyPathsForValuesAffectingIsExecuting() -> Set<NSObject> {
+        return ["inputOpen" as NSObject, "outOpen" as NSObject, "error" as NSObject]
     }
     
     private var inputOpen = false {
@@ -32,8 +36,23 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
         }
     }
     
+    private var error:Error? {
+        didSet {
+            input.remove(from: .current, forMode: .defaultRunLoopMode)
+            output.remove(from: .current, forMode: .defaultRunLoopMode)
+        }
+    }
+    
+    override var isExecuting: Bool {
+        let value = !(inputOpen && outOpen) && error == nil
+        print("isExecuting \(value)")
+        return value
+    }
+    
     override var isFinished: Bool {
-        return inputOpen && outOpen
+        let value = (inputOpen && outOpen) || error != nil
+        print("isFinished \(value)")
+        return value
     }
     
     override func main() {
@@ -48,12 +67,18 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
     override func inputStremEvent(event: Stream.Event) {
         if event == .openCompleted {
             inputOpen = true
+        } else if event == .errorOccurred {
+            print("Stream open error")
+            self.error = input.streamError
         }
     }
     
     override func outputStremEvent(event: Stream.Event) {
         if event == .openCompleted {
             outOpen = true
+        } else if event == .errorOccurred {
+            print("Stream open error")
+            self.error = input.streamError
         }
     }
 }

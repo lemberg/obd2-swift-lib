@@ -13,7 +13,7 @@ public class Mode03Descriptor : DescriptorProtocol {
     
     public required init(describe response : Response) {
         self.response = response
-        self.mode = Mode(rawValue: response.mode) ?? .none
+        self.mode = response.mode
     }
     
     public var mode : Mode

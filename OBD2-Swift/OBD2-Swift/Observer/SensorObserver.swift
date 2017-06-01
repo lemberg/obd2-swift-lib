@@ -8,24 +8,52 @@
 
 import Foundation
 
-class SensorObserver {
-  private var observers : [AnyHashable : Array<Observable>] = [:]
+
+protocol ObserverType {}
+
+class Observer<T : CommandType> : ObserverType {
+  private var observers : [Mode : (_ descriptor : T.Descriptor?)->()] = [:]
   
-  func add(observer : Observable, for sensor: OBD2Sensor){
-    observers[sensor]?.append(observer)
+  public func observe(command : T, block : @escaping (_ descriptor : T.Descriptor?)->()){
+    observers[command.mode] = block
   }
   
-  func remove(from sensor: OBD2Sensor){
-    observers.removeValue(forKey: sensor)
+  func dispatch(command : T, response : Response){
+    let described = T.Descriptor(describe: response)
+    
+    let callback = observers[response.mode]
+    callback?(described)
   }
   
   func removeAll(){
     observers.removeAll()
   }
+}
+
+class ObserverQueue {
+  private var observers : [Mode : ObserverType] = [:]
+  func add(observer : ObserverType, for mode : Mode){
+    observers[mode] = observer
+  }
   
-  func dispatch(value : Any, for sensor : OBD2Sensor){
-    observers[sensor]?.forEach({
-      $0.didChange(value: value, for: sensor)
-    })
+  func dispatch<T : CommandType>(command : T, response : Response){
+    let observer = observers[response.mode]
+    
+    if let obs = observer as? Observer<T> {
+      obs.dispatch(command: command, response: response)
+    }
+  }
+}
+
+class XWW {
+  func xwdwa(){
+    
+    
+    let observer = Observer<CommandE.Mode01>()
+    observer.observe(command: .pid(number: 1)) { (descriptor) in
+      _ = descriptor?.descriptionStringForMeasurement()
+    }
+    
+    
   }
 }

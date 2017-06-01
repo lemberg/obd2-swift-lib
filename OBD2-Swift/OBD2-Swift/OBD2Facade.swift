@@ -19,7 +19,7 @@ open class OBD2 {
   
   var scanner : Scanner
   var connector : Connector
-  var observer : SensorObserver
+  //var observer : SensorObserver
 
   public convenience init(){
     self.init(host : "192.168.0.10", port : 35000)
@@ -30,12 +30,12 @@ open class OBD2 {
     self.port = port
     
     self.connector = Connector()
-    self.observer = SensorObserver()
+    //self.observer = SensorObserver()
     self.scanner = Scanner(host: host, port: port)
     
     connector.scanner = scanner
     scanner.connector = connector
-    scanner.observer = observer
+    //scanner.observer = observer
   }
   
   var logger : Any?

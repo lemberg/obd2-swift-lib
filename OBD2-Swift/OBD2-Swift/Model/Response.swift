@@ -10,7 +10,7 @@ import Foundation
 
 public struct Response {
     var timestamp : Date
-    var mode : UInt8 = 0
+    var mode : Mode = .none
     var pid : UInt8 = 0
     var data : Data?
     

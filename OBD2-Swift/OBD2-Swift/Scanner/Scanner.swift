@@ -44,7 +44,7 @@ class `Scanner` : StreamHolder {
   var readBuf = [UInt8]()
   var readBufLength = 0
   
-  weak var observer : SensorObserver?
+  //weak var observer : SensorObserver?
   
   var connector : Connector?
   
@@ -365,11 +365,11 @@ class `Scanner` : StreamHolder {
 //
     
     switch response.mode {
-    case Mode.CurrentData01.rawValue:
+    case Mode.CurrentData01:
       break
-    case Mode.FreezeFrame02.rawValue:
+    case Mode.FreezeFrame02:
       break
-    case Mode.DiagnosticTroubleCodes03.rawValue:
+    case Mode.DiagnosticTroubleCodes03:
       break
 //    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
 //      break

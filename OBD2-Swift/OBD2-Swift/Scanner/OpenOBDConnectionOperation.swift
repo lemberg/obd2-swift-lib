@@ -36,13 +36,6 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
         }
     }
     
-    private(set) var error:Error? {
-        didSet {
-            input.remove(from: .current, forMode: .defaultRunLoopMode)
-            output.remove(from: .current, forMode: .defaultRunLoopMode)
-        }
-    }
-    
     override var isExecuting: Bool {
         let value = !(inputOpen && outOpen) && error == nil
         print("isExecuting \(value)")

@@ -13,7 +13,12 @@ class StreamHandleOperation: Operation, StreamDelegate {
     private(set) var input:InputStream
     private(set) var output:OutputStream
     
-    var timeout:Int = 30
+    var error:Error? {
+        didSet {
+            input.remove(from: .current, forMode: .defaultRunLoopMode)
+            output.remove(from: .current, forMode: .defaultRunLoopMode)
+        }
+    }
     
     init(inputStream: InputStream, outputStream: OutputStream) {
         self.input = inputStream

@@ -10,12 +10,16 @@ import Foundation
 
 enum InitializationError: Error {
     case DefaultError
+    case EchoOffError
+    case DataWriteError
+    case ProtocolError
+    case ReaderError(reason:String)
 }
 
 class InitScanerOperation: StreamHandleOperation {
     
     class func keyPathsForValuesAffectingIsFinished() -> Set<NSObject> {
-        return ["state" as NSObject]
+        return ["state" as NSObject, "error" as NSObject]
     }
 
     private(set) var currentPIDGroup: UInt8 = 0x00 {
@@ -24,10 +28,13 @@ class InitScanerOperation: StreamHandleOperation {
         }
     }
 
+    private(set) var `protocol`:ScanProtocol? {
+        didSet {
+            print("Set OBD protocol to \(String(describing: self.`protocol`))")
+        }
+    }
     
-    private(set) var `protocol`:ScanProtocol?
-    
-    var command: Command {
+    var command: Command? {
         switch state {
         case .reset:
             return Command.reset
@@ -41,7 +48,7 @@ class InitScanerOperation: StreamHandleOperation {
             return Command.create(mode: .RequestCurrentPowertrainDiagnosticData,
                                  pid: currentPIDGroup)
         default:
-            return .reset
+            return nil
         }
     }
     
@@ -56,7 +63,12 @@ class InitScanerOperation: StreamHandleOperation {
         }
     }
     
+    //MARK: Overrides
+
     override var isFinished: Bool {
+        if error != nil {
+            return true
+        }
         return state == .complete
     }
     
@@ -74,18 +86,52 @@ class InitScanerOperation: StreamHandleOperation {
         continueInitialization()
     }
     
+    override func inputStremEvent(event: Stream.Event) {
+        if event == .hasBytesAvailable {
+            do {
+                if try reader.read() {
+                    onReadEnd()
+                    state.next()
+                    continueInitialization()
+                }
+            } catch StreamReaderError.noBytesReaded {
+                print("No bytes error")
+                self.error = InitializationError.ReaderError(reason: "No bytes for read")
+            } catch StreamReaderError.ELMError {
+                print("ELM error")
+                self.error = InitializationError.ReaderError(reason: "ELM Error")
+            } catch {
+                print("Unknown reader error")
+                self.error = InitializationError.ReaderError(reason: "Unknown reader error")
+            }
+        } else if event == .errorOccurred {
+            error = input.streamError
+        }
+    }
+    
+    override func outputStremEvent(event: Stream.Event) {
+        if event == .errorOccurred {
+            error = output.streamError
+        }
+    }
+    
+    //MARK: Private functions 
+    
     private func continueInitialization() {
-        
+        if state == .complete || error != nil {
+            return
+        }
         //Create new reader for comand
         self.reader = StreamReader(stream: input)
         
         //Get comand data and write it
-        guard let data = command.getData() else { return }
+        guard let data = command?.getData() else { return }
         let writer = StreamWriter(stream: output, data: data)
         do {
             try writer.write()
         } catch let error {
             print("Error \(error) on data writing")
+            self.error = InitializationError.DataWriteError
         }
     }
     
@@ -94,12 +140,14 @@ class InitScanerOperation: StreamHandleOperation {
         case .echoOff:
             guard let resp = reader.response, resp.elmOK else {
                 print("Stop initialization, error during echo off")
+                self.error = InitializationError.EchoOffError
                 return
             }
             break
         case .`protocol`:
             guard let response = reader.response else {
                 print("Handle protocol setup error")
+                self.error = InitializationError.ProtocolError
                 return
             }
             var searchIndex = 0
@@ -109,7 +157,6 @@ class InitScanerOperation: StreamHandleOperation {
             
             let index = reader.readBuffer[searchIndex] - 0x4E
             self.`protocol` = elmProtocolMap[Int(index)]
-            print("Set OBD protocol to \(String(describing: self.`protocol`))")
             break
         case .search:
             let buffer = reader.readBuffer
@@ -136,34 +183,12 @@ class InitScanerOperation: StreamHandleOperation {
             }else{
                 currentPIDGroup	= 0x00
             }
-
+            
             
             break
         default:
             break
         }
-    }
-    
-    override func inputStremEvent(event: Stream.Event) {
-        if event == .hasBytesAvailable {
-            do {
-                if try reader.read() {
-                    onReadEnd()
-                    state.next()
-                    continueInitialization()
-                }
-            } catch StreamReaderError.noBytesReaded {
-                print("No bytes error")
-            } catch StreamReaderError.ELMError {
-                print("ELM error")
-            } catch {
-                print("Unknown reader error")
-            }
-        }
-    }
-    
-    override func outputStremEvent(event: Stream.Event) {
-        
     }
 }
 

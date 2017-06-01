@@ -80,16 +80,27 @@ class `Scanner`: StreamHolder {
   }
   
   open func request(command: Command) {
-    eraseBuffer()
     
-    cachedWriteData.removeAll()
+    let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
     
-    guard let data = command.getData() else {
-      //TODO:-failed
-      return
+    request.onReceiveResponse = { (response) in
+        print("Receive response \(response)")
     }
-    cachedWriteData.append(data)
-    writeCachedData()
+    
+    request.completionBlock = {
+        print("Request operation completed")
+    }
+    obdQueue.addOperation(request)
+//    eraseBuffer()
+//    
+//    cachedWriteData.removeAll()
+//    
+//    guard let data = command.getData() else {
+//      //TODO:-failed
+//      return
+//    }
+//    cachedWriteData.append(data)
+//    writeCachedData()
   }
   
   open func setSensorScanTargets(targets : [UInt8]){
@@ -155,7 +166,6 @@ class `Scanner`: StreamHolder {
   open func cancelScan(){
     scanOperationQueue.cancelAllOperations()
     streamOperation.cancel()
-    
     supportedSensorList.removeAll()
   }
   

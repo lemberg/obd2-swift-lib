@@ -18,14 +18,6 @@ class ModeDescriptor {
     
 }
 
-class Usage {
-    
-    func foo() {
-        let mode = Mode.CurrentData01
-        let d = ModeDescriptor()
-    }
-}
-
 protocol PidDataHandler {
     
     associatedtype DataType

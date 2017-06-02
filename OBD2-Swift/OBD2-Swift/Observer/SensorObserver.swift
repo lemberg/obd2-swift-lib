@@ -9,9 +9,9 @@
 import Foundation
 
 
-class ObserverType : NSObject {}
+public class ObserverType : NSObject {}
 
-class Observer<T : CommandType> : ObserverType {
+public class Observer<T : CommandType> : ObserverType {
   private var observers : [Int : (_ descriptor : T.Descriptor?)->()] = [:]
   
   public func observe(command : T, block : @escaping (_ descriptor : T.Descriptor?)->()){
@@ -30,11 +30,11 @@ class Observer<T : CommandType> : ObserverType {
   }
 }
 
-class ObserverQueue {
-  static let shared = ObserverQueue()
+public class ObserverQueue {
+  public static let shared = ObserverQueue()
   
   private init(){}
-  private var observers = Set<ObserverType>() // = [:]
+  private var observers = Set<ObserverType>()
   
   open func register(observer : ObserverType){
     observers.insert(observer)
@@ -50,20 +50,5 @@ class ObserverQueue {
         obs.dispatch(command: command, response: response)
       }
     }
-  }
-}
-
-class XWW {
-  func xwdwa(){
-    
-    
-    let observer = Observer<Command.Mode01>()
-    observer.observe(command: .pid(number: 1)) { (descriptor) in
-      _ = descriptor?.descriptionStringForMeasurement()
-    }
-    
-    ObserverQueue.shared.register(observer: observer)
-    
-    
   }
 }

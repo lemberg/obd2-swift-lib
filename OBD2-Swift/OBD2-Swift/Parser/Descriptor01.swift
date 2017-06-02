@@ -69,11 +69,11 @@ public class Mode01Descriptor : DescriptorProtocol {
         return metric ? descriptor.metricUnit : descriptor.imperialUnit
     }
     
-    func descriptionStringForMeasurement() -> String {
+    public func descriptionStringForMeasurement() -> String {
         return descriptor.description
     }
     
-    func shortDescriptionStringForMeasurement() -> String {
+    public func shortDescriptionStringForMeasurement() -> String {
         return descriptor.shortDescription
     }
     

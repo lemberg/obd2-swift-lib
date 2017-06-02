@@ -31,10 +31,8 @@
 		921203E71ED5A46800BD973F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 921203E21ED598FF00BD973F /* Info.plist */; };
 		921203F01ED5B51A00BD973F /* OBD2Facade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203EF1ED5B51A00BD973F /* OBD2Facade.swift */; };
 		921203F21ED5B93200BD973F /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203F11ED5B93200BD973F /* Status.swift */; };
-		921203F51ED5B9A700BD973F /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203F41ED5B9A700BD973F /* Connector.swift */; };
 		921203F81ED5BA6200BD973F /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203F71ED5BA6200BD973F /* Scanner.swift */; };
 		921203FB1ED5BB6000BD973F /* SensorObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203FA1ED5BB6000BD973F /* SensorObserver.swift */; };
-		921203FD1ED5BB8F00BD973F /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203FC1ED5BB8F00BD973F /* Observable.swift */; };
 		9218B81F1ED74B6B00E90F82 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9218B81E1ED74B6B00E90F82 /* Response.swift */; };
 		9218B8211ED7546200E90F82 /* Descriptor01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9218B8201ED7546200E90F82 /* Descriptor01.swift */; };
 		9218B8241ED7563F00E90F82 /* DescriptorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9218B8231ED7563F00E90F82 /* DescriptorProtocol.swift */; };
@@ -94,10 +92,8 @@
 		921203E31ED598FF00BD973F /* OBD2_Swift_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OBD2_Swift_Tests.swift; path = "OBD2-Swift-Tests/OBD2_Swift_Tests.swift"; sourceTree = SOURCE_ROOT; };
 		921203EF1ED5B51A00BD973F /* OBD2Facade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OBD2Facade.swift; path = "OBD2-Swift/OBD2Facade.swift"; sourceTree = SOURCE_ROOT; };
 		921203F11ED5B93200BD973F /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Status.swift; path = "OBD2-Swift/Status.swift"; sourceTree = SOURCE_ROOT; };
-		921203F41ED5B9A700BD973F /* Connector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connector.swift; sourceTree = "<group>"; };
 		921203F71ED5BA6200BD973F /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		921203FA1ED5BB6000BD973F /* SensorObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorObserver.swift; sourceTree = "<group>"; };
-		921203FC1ED5BB8F00BD973F /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		9218B81E1ED74B6B00E90F82 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		9218B8201ED7546200E90F82 /* Descriptor01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Descriptor01.swift; sourceTree = "<group>"; };
 		9218B8231ED7563F00E90F82 /* DescriptorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptorProtocol.swift; sourceTree = "<group>"; };
@@ -141,15 +137,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		921203F31ED5B99300BD973F /* Connector */ = {
-			isa = PBXGroup;
-			children = (
-				921203F41ED5B9A700BD973F /* Connector.swift */,
-			);
-			name = Connector;
-			path = "OBD2-Swift/Connector";
-			sourceTree = SOURCE_ROOT;
-		};
 		921203F61ED5BA5300BD973F /* Scanner */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				921203FA1ED5BB6000BD973F /* SensorObserver.swift */,
-				921203FC1ED5BB8F00BD973F /* Observable.swift */,
 			);
 			name = Observer;
 			path = "OBD2-Swift/Observer";
@@ -228,7 +214,6 @@
 				926121E41ED6DA7100D2AE9D /* Parser */,
 				921203F91ED5BB0200BD973F /* Observer */,
 				921203F61ED5BA5300BD973F /* Scanner */,
-				921203F31ED5B99300BD973F /* Connector */,
 				921203EF1ED5B51A00BD973F /* OBD2Facade.swift */,
 				921203F11ED5B93200BD973F /* Status.swift */,
 				9258F3A71EAF7F95006B7580 /* Classes */,
@@ -476,7 +461,6 @@
 				921203DB1ED598C000BD973F /* SensorDescriptor.swift in Sources */,
 				921203FB1ED5BB6000BD973F /* SensorObserver.swift in Sources */,
 				921203F81ED5BA6200BD973F /* Scanner.swift in Sources */,
-				921203F51ED5B9A700BD973F /* Connector.swift in Sources */,
 				9218B8241ED7563F00E90F82 /* DescriptorProtocol.swift in Sources */,
 				9218B81F1ED74B6B00E90F82 /* Response.swift in Sources */,
 				921203D81ED598C000BD973F /* DiagnosticTroubleCode.swift in Sources */,
@@ -507,7 +491,6 @@
 				921203DD1ED598D000BD973F /* ScanToolResponse.swift in Sources */,
 				921203F21ED5B93200BD973F /* Status.swift in Sources */,
 				926121E61ED6DA8700D2AE9D /* Parser.swift in Sources */,
-				921203FD1ED5BB8F00BD973F /* Observable.swift in Sources */,
 				CE5493281EE0454C00AACFB6 /* CommandOperation.swift in Sources */,
 				9218B8211ED7546200E90F82 /* Descriptor01.swift in Sources */,
 				926121E11ED6D2FA00D2AE9D /* StreamHolder.swift in Sources */,

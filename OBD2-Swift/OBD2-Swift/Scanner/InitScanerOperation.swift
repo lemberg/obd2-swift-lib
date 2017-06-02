@@ -53,7 +53,7 @@ class InitScanerOperation: StreamHandleOperation {
     
     private var reader:StreamReader
     
-    private var state:Connector.State = .unknown {
+    private var state: Scanner.State = .unknown {
         didSet{
             if state == .complete {
                 input.remove(from: .current, forMode: .defaultRunLoopMode)

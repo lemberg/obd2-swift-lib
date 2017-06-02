@@ -21,12 +21,10 @@ class `Scanner`: StreamHolder {
   let timeout	=	10.0
   
   var defaultSensors: [UInt8] = [0x0C, 0x0D]
-  //weak var delegate : ScanToolDelegate?
   
   var supportedSensorList = [Int]()
   open var sensorScanTargets = [UInt8]()
-  
-  var initState: ELM327InitState = .UNKNOWN
+
   var currentSensorIndex = 0
   var streamOperation: Operation!
   var scanOperationQueue: OperationQueue!
@@ -42,10 +40,6 @@ class `Scanner`: StreamHolder {
   var maxSize = 512
   var readBuf = [UInt8]()
   var readBufLength = 0
-  
-  //weak var observer : SensorObserver?
-  
-  var connector: Connector?
   
   init(host: String, port: Int) {
     super.init()
@@ -75,23 +69,10 @@ class `Scanner`: StreamHolder {
     return self.`protocol`
   }
   
-  open func request(command: DataRequest, with block: (_ buffer : [UInt8])->()) {
-    //TODO:-
-  }
-  
   open func request(command: DataRequest) {
-    
-    let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
-    
-    request.onReceiveResponse = { (response) in
-        print("Receive response \(response)")
+    self.request(command: command) { (response) in
+      print("Receive response \(response)")
     }
-    
-    request.completionBlock = {
-        print("Request operation completed")
-    }
-    
-    obdQueue.addOperation(request)
   }
   
   
@@ -138,26 +119,9 @@ class `Scanner`: StreamHolder {
     }
     
     state = .init
-    initState = .RESET
     currentPIDGroup = 0x00
 
     obdQueue.addOperation(op)
-//    let operation = BlockOperation {
-//        self.initScanner()
-//    }
-    
-//    operation.completionBlock = {
-//        print("Init scaner operation end")
-//    }
-//    
-//    obdQueue.addOperation(operation)
-//    scanOperationQueue = OperationQueue()
-//    streamOperation = BlockOperation(block: { [weak self] in
-//      self?.runStreams()
-//    })
-    
-//    scanOperationQueue.addOperation(streamOperation)
-//    scanOperationQueue.isSuspended = false
   }
   
   open func pauseScan(){
@@ -187,87 +151,10 @@ class `Scanner`: StreamHolder {
     return supported
   }
   
-  func setupReady(){
-    state = .idle
-    setSensorScanTargets(targets: [])
-  }
-  
-  func readInput() {
-    var buffer = [UInt8].init(repeating: 0, count: maxSize)
-    let readLength = inputStream.read(&buffer, maxLength: maxSize)
-    
-    guard readLength > 0 else {
-        //TODO: no input response
-        return
-    }
-    
-    buffer.removeSubrange(readLength..<maxSize)
-    
-    readBuf += buffer
-    readBufLength += readLength
-    
-    if ELM_READ_COMPLETE(readBuf) {
-      if (readBufLength - 3) > 0 && (readBufLength - 3) < readBuf.count {
-        readBuf[(readBufLength - 3)] = 0x00
-        readBufLength	-= 3
-      }
-      
-      let asciistr : [Int8] = readBuf.map({Int8.init(bitPattern: $0)})
-      let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
-      print(respString)
-      
-      if ELM_ERROR(respString) {
-        initState	= .RESET
-        state       = .init
-      } else {
-        let package = Package(buffer: readBuf, length: readBufLength)
-        let responses = Parser.package.read(package: package)
-        
-        self.didReceiveResponses(response: responses)
-        
-        state = .idle
-        
-        if let cmd = dequeueCommand() {
-          request(command: cmd)
-        }
-      }
-    } else {
-      state = .waiting
-    }
-    
-    if state == .idle || state == .init {
-      eraseBuffer()
-    }
-    
-  }
-  
-  func readInitResponse() throws {
-    var buffer = [UInt8].init(repeating: 0, count: maxSize)
-    let readLength = inputStream.read(&buffer, maxLength: maxSize)
-    
-    guard readLength > 0 else {
-        throw ReadInputError.initResponseUnreadable
-    }
-    buffer.removeSubrange(readLength..<maxSize)
-    
-    readBuf += buffer
-    readBufLength += readLength
-    
-    if ELM_READ_COMPLETE(readBuf) {
-      if (readBufLength - 3) > 0 && (readBufLength - 3) < readBuf.count {
-        readBuf[(readBufLength - 3)] = 0x00
-        readBufLength	-= 3
-      }
-      
-      connector?.setup(using: readBuf)
-    }
-  }
-  
   private func initScanner() throws {
     eraseBuffer()
     
     state = .init
-    initState = .RESET
     currentPIDGroup = 0x00
     
     var openingStatus = false
@@ -287,7 +174,7 @@ class `Scanner`: StreamHolder {
     
     request(command: Command.AT.reset.dataRequest)
     
-    connector?.state = Connector.State.reset
+    //connector?.state = Connector.State.reset
   }
   
   private func enqueueCommand(command: DataRequest) {
@@ -348,7 +235,6 @@ class `Scanner`: StreamHolder {
     let distantFutureDate	= Date.distantFuture
     
     open()
-    //delegate?.scanDidStart(scanTool: self)
     
     //TODO: Error cases
     do {
@@ -364,134 +250,53 @@ class `Scanner`: StreamHolder {
     while streamOperation?.isCancelled == false && currentRunLoop.run(mode: .defaultRunLoopMode, before: distantFutureDate) {/*loop */}
     
     close()
-    //delegate?.scanDidCancel(scanTool: self)
-    
   }
   
-  
-//  func getTroubleCodes(){
-//    let cmd = commandForGenericOBD(mode: .RequestEmissionRelatedDiagnosticTroubleCodes, pid: 0, data: nil)
-//    enqueueCommand(command: cmd)
-//  }
-//  
-//  func getPendingTroubleCodes(){
-//    let cmd = commandForGenericOBD(mode: .RequestEmissionRelatedDiagnosticTroubleCodesDetected, pid: 0, data: nil)
-//    enqueueCommand(command: cmd)
-//  }
-//  
-//  func clearTroubleCodes(){
-//    let cmd1 = commandForGenericOBD(mode: .ClearResetEmissionRelatedDiagnosticInfo , pid: 0, data: nil)
-//    enqueueCommand(command: cmd1)
-//    //send Mode 0x01 Pid 0x01 cmd after clear to update sensor trouble code count
-//    let cmd2 = commandForGenericOBD(mode: .RequestCurrentPowertrainDiagnosticData  , pid: 0x01, data: nil)
-//    enqueueCommand(command: cmd2)
-//  }
-//  
-//  func getBatteryVoltage(){
-//    enqueueCommand(command: self.commandForGetBatteryVoltage())
-//  }
-  
-  
-  private func didReceiveResponses(response: Response) {
-    //INPORTANT = mode to int value == mode ^ 0x40 !!!!!!!!!
-    
-//    guard responses.count > 0 else {
-//      didReceiveNoDATA()
-//      return
-//    }
+  //TODO: - Refactor wanted
+//  fileprivate func readVoltageResponse()  {
+//    let readLength = inputStream.read(&readBuf, maxLength: readBufLength)
 //
-    
-    switch response.mode {
-    case Mode.CurrentData01:
-      break
-    case Mode.FreezeFrame02:
-      break
-    case Mode.DiagnosticTroubleCodes03:
-      break
-//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
-//      break
-//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
-//      break
-//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
-//      break
-//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
-//      break
-//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
-//      break
-//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
-//      break
-//    case Mode.RequestCurrentPowertrainDiagnosticData.rawValue:
-//      break
-    default: //TODO: default realisation
-      break
-    }
-//    let isMode01 = response.mode == ScanToolMode.RequestCurrentPowertrainDiagnosticData.rawValue
-//    let isMode02 = response.mode == ScanToolMode.RequestPowertrainFreezeFrameData.rawValue
-//    let isMode04 = response.mode == ScanToolMode.ClearResetEmissionRelatedDiagnosticInfo.rawValue
-//    
-//    if isMode01 || isMode02 {
-//      if let sensor = ECUSensor.sensorForPID(pid: response.pid) {
-//        sensor.currentResponse = response
-//        delegate?.didUpdateSensor(sensor: sensor)
-//      }else{
-//        delegate?.didReceiveResponse(scanTool: self, responses: responses)
-//      }
-//    }else if isMode04 {
-//      didClearTroubleCodes(response: response)
-//    }else if(response.mode == ScanToolMode.RequestVehicleInfo.rawValue){ // MODE 9
-//      didUpdate9Mode(response: response)
-//    }else if(response.mode == ScanToolMode.RequestEmissionRelatedDiagnosticTroubleCodes.rawValue){ // MODE 3
-//      didUpdate3Mode(response : response)
-//    }else if(response.mode == 64){ // AT Commands
-//      didUpdateATCommand(response: response)
+//    guard readLength > 0 else {
+//        //TODO: no input response
+//        return
 //    }
-  }
-  
-  fileprivate func readVoltageResponse()  {
-    let readLength = inputStream.read(&readBuf, maxLength: readBufLength)
-
-    guard readLength > 0 else {
-        //TODO: no input response
-        return
-    }
-    
-    var buff = readBuf
-    buff.removeSubrange(readLength..<maxSize)
-    
-    readBufLength = readLength
-    
-    if ELM_READ_COMPLETE(buff) {
-      state			= .processing
-      
-      if (readBufLength - 3) > 0 && (readBufLength - 3) < buff.count {
-        buff[(readBufLength - 3)] = 0x00
-        readBufLength	-= 3
-      }
-      
-      let asciistr : [Int8] = buff.map({Int8.init(bitPattern: $0)})
-      let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
-      print(respString)
-      
-      if ELM_ERROR(respString) {
-        initState	= .RESET
-        state       = .init
-      } else {
-        //delegate?.didReceiveVoltage(scanTool: self, voltage: respString)
-        state       = .idle
-        
-        if let cmd = dequeueCommand() {
-          request(command: cmd)
-        }
-      }
-    } else {
-      state = .waiting
-    }
-    
-    if state == .idle || state == .init {
-      eraseBuffer()
-      waitingForVoltageCommand	= false
-    }
-  }
+//    
+//    var buff = readBuf
+//    buff.removeSubrange(readLength..<maxSize)
+//    
+//    readBufLength = readLength
+//    
+//    if ELM_READ_COMPLETE(buff) {
+//      state			= .processing
+//      
+//      if (readBufLength - 3) > 0 && (readBufLength - 3) < buff.count {
+//        buff[(readBufLength - 3)] = 0x00
+//        readBufLength	-= 3
+//      }
+//      
+//      let asciistr : [Int8] = buff.map({Int8.init(bitPattern: $0)})
+//      let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
+//      print(respString)
+//      
+//      if ELM_ERROR(respString) {
+//        initState	= .RESET
+//        state       = .init
+//      } else {
+//        state       = .idle
+//        
+//        if let cmd = dequeueCommand() {
+//          request(command: cmd)
+//        }
+//      }
+//    } else {
+//      state = .waiting
+//    }
+//    
+//    if state == .idle || state == .init {
+//      eraseBuffer()
+//      waitingForVoltageCommand	= false
+//    }
+//  }
 
   private func eraseBuffer(){
     readBufLength = 0
@@ -509,24 +314,49 @@ extension Scanner: StreamFlowDelegate {
   }
   
   func hasInput(on stream: Stream){
-    
-    do {
-    
-        if state == .init {
-          try readInitResponse()
-        } else if state == .idle || state == .waiting {
-            waitingForVoltageCommand ? readVoltageResponse() : readInput()
+//    
+//    do {
+//    
+//        if state == .init {
+//          try readInitResponse()
+//        } else if state == .idle || state == .waiting {
+//            waitingForVoltageCommand ? readVoltageResponse() : readInput()
+//
+//        } else {
+//          print("Error: Received bytes in unknown state: \(state)")
+//        }
+//        
+//    } catch {
+//        
+//        print("Error: Init response unreadable. Need reconnect")
+//        //TODO: try reconnect    
+//    }
+//    
+//    
+  }
+}
 
-        } else {
-          print("Error: Received bytes in unknown state: \(state)")
-        }
-        
-    } catch {
-        
-        print("Error: Init response unreadable. Need reconnect")
-        //TODO: try reconnect    
+extension Scanner {
+  enum State : UInt {
+    case unknown			= 1
+    case reset				= 2
+    case echoOff			= 4
+    case version 			= 8
+    case search       = 16
+    case `protocol`   = 32
+    case complete     = 64
+    
+    static var all : [State] {
+      return [.unknown, .reset, .echoOff, .version, .search, .`protocol`, .complete]
     }
     
+    static func <<= (left: State, right: UInt) -> State {
+      let move = left.rawValue << right
+      return self.all.filter({$0.rawValue == move}).first ?? .unknown
+    }
     
+    mutating func next() {
+      self = self <<= 1
+    }
   }
 }

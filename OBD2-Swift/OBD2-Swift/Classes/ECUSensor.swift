@@ -216,7 +216,7 @@ class ECUSensor {
     return descriptor.description
   }
   
-  func shortDescriptionStringForMeasurement() -> String {
+  public func shortDescriptionStringForMeasurement() -> String {
     return descriptor.shortDescription
   }
   

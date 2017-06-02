@@ -34,19 +34,18 @@ class InitScanerOperation: StreamHandleOperation {
         }
     }
     
-    var command: Command? {
+    var command: DataRequest? {
         switch state {
         case .reset:
-            return Command.reset
+            return Command.AT.reset.dataRequest
         case .echoOff:
-            return Command.echoOff
+            return Command.AT.echoOff.dataRequest
         case .`protocol`:
-            return Command.protocol
+            return Command.AT.protocol.dataRequest
         case .version:
-            return Command.versionId
+            return Command.AT.versionId.dataRequest
         case .search:
-            return Command.create(mode: .RequestCurrentPowertrainDiagnosticData,
-                                 pid: currentPIDGroup)
+            return Command.Custom.digit(mode: 1, pid: 0).dataRequest
         default:
             return nil
         }
@@ -54,7 +53,7 @@ class InitScanerOperation: StreamHandleOperation {
     
     private var reader:StreamReader
     
-    private var state:Connector.State = .unknown {
+    private var state: Scanner.State = .unknown {
         didSet{
             if state == .complete {
                 input.remove(from: .current, forMode: .defaultRunLoopMode)

@@ -8,22 +8,22 @@
 
 import Foundation
 
-class Mode03Descriptor: DescriptorProtocol {
-    var response: Response
+public class Mode03Descriptor : DescriptorProtocol {
+    public var response : Response
     
-    required init(describe response: Response) {
+    public required init(describe response : Response) {
         self.response = response
-        self.mode = Mode(rawValue: response.mode) ?? .none
+        self.mode = response.mode
     }
     
-    var mode: Mode
+    public var mode : Mode
     
     var pid: UInt8 {
         return response.pid
     }
     
-    func getTroubleCodes() -> [String] {        
-        guard let rData = response.data, rData.count >= 2 else {
+    public func getTroubleCodes() -> [String] {        
+        guard let rData = response.data , rData.count >= 2 else {
             // data length must be a multiple of 2
             // each DTC is encoded in 2 bytes of data
             print("data \(String(describing: response.data)) is NULL or dataLength is not a multiple of 2 \(response.data?.count ?? 0)")

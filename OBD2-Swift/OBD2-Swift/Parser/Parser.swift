@@ -172,10 +172,11 @@ class Parser {
       var dataIndex = 0
 
       resp.data			= Data.init(bytes: data, count: length)
-      resp.mode         = data[dataIndex] ^ 0x40
-      dataIndex         += 1
+      let modeRaw   = data[dataIndex] ^ 0x40
+      resp.mode     = Mode.init(rawValue: modeRaw) ?? .none
+      dataIndex      += 1
       
-      if resp.mode == ScanToolMode.RequestCurrentPowertrainDiagnosticData.rawValue {
+      if resp.mode == .CurrentData01 {
         resp.pid		= data[dataIndex]
         dataIndex       += 1
       }

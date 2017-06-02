@@ -8,9 +8,9 @@
 
 import Foundation
 
-enum Mode: RawRepresentable {
+public enum Mode: RawRepresentable {
     
-    typealias RawValue = UInt8
+    public typealias RawValue = UInt8
     
     case none
     case CurrentData01
@@ -48,7 +48,7 @@ enum Mode: RawRepresentable {
         }
     }
     
-    var rawValue: UInt8 {
+    public var rawValue: UInt8 {
         switch self {
         case .CurrentData01:
             return 0x01

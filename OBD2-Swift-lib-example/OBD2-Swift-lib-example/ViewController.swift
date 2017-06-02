@@ -25,6 +25,15 @@ class ViewController: UIViewController {
     // Do any additional setup after loading the view, typically from a nib.
     
     //scanTool.sensorScanTargets = [0x0C, 0x0D]
+    
+    let observer = Observer<Command.Mode01>()
+    
+    observer.observe(command: .pid(number: 12)) { (descriptor) in
+      let respStr = descriptor?.shortDescriptionStringForMeasurement()
+      print(respStr)
+    }
+    
+    ObserverQueue.shared.register(observer: observer)
 
   }
 
@@ -48,8 +57,12 @@ class ViewController: UIViewController {
   }
   
   @IBAction func requestSpeed( _ sender : UIButton){
-    //obd.requestVIN()
-    obd.request(command : "0100")
+//    obd.request(command : "0100")
+//    
+    obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
+      let respStr = descriptor?.shortDescriptionStringForMeasurement()
+      print(respStr)
+    }
   }
 
 }

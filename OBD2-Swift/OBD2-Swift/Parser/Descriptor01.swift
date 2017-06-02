@@ -8,14 +8,14 @@
 
 import Foundation
 
-class Mode01Descriptor : DescriptorProtocol {
-    var response : Response
+public class Mode01Descriptor : DescriptorProtocol {
+    public var response : Response
     var descriptor : SensorDescriptor
     
-    required init(describe response : Response) {
+    required public init(describe response : Response) {
         self.response = response
         let pid = response.pid
-        self.mode = Mode(rawValue: response.mode) ?? .none
+        self.mode = response.mode
         
         guard pid >= 0x0 && pid <= 0x4E else {
             assertionFailure("Unsuported pid group")
@@ -25,13 +25,13 @@ class Mode01Descriptor : DescriptorProtocol {
         self.descriptor = SensorDescriptorTable[Int(pid)]
     }
     
-    var mode: Mode
-
+  public var mode : Mode
+  
     var pid : UInt8 {
         return response.pid
     }
     
-    func isAlphaValue() -> Bool {
+    public func isAlphaValue() -> Bool {
         return IS_ALPHA_VALUE(pid: pid)
     }
     
@@ -65,15 +65,15 @@ class Mode01Descriptor : DescriptorProtocol {
         return val as? String ?? String(describing: val as? Float)
     }
     
-    func unitStringForMeasurement(metric : Bool) -> String {
+    public func unitStringForMeasurement(metric : Bool) -> String {
         return metric ? descriptor.metricUnit : descriptor.imperialUnit
     }
     
-    func descriptionStringForMeasurement() -> String {
+    public func descriptionStringForMeasurement() -> String {
         return descriptor.description
     }
     
-    func shortDescriptionStringForMeasurement() -> String {
+    public func shortDescriptionStringForMeasurement() -> String {
         return descriptor.shortDescription
     }
     

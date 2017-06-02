@@ -141,23 +141,23 @@ class Connector {
     return String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
   }
   
-  private func command(for state : State) -> Command? {
-    var cmd : Command?
+  private func command(for state : State) -> DataRequest? {
+    var cmd : DataRequest?
     switch (state) {
     case .reset:
-      cmd = CommandE.AT.reset.commandForRequest
+      cmd = Command.AT.reset.dataRequest
       break
     case .echoOff:
-      cmd = CommandE.AT.echoOff.commandForRequest
+      cmd = Command.AT.echoOff.dataRequest
       break
     case .`protocol`:
-      cmd = CommandE.AT.protocol.commandForRequest
+      cmd = Command.AT.protocol.dataRequest
       break
     case .version:
-      cmd = CommandE.AT.versionId.commandForRequest
+      cmd = Command.AT.versionId.dataRequest
       break
     case .search:
-      cmd = CommandE.Custom.digit(mode: 1, pid: 0).commandForRequest
+      cmd = Command.Custom.digit(mode: 1, pid: 0).dataRequest
       break
     default: //TODO: default realisation
       break
@@ -173,9 +173,9 @@ extension Connector {
     case reset				= 2
     case echoOff			= 4
     case version 			= 8
-    case search             = 16
-    case `protocol`         = 32
-    case complete           = 64
+    case search       = 16
+    case `protocol`   = 32
+    case complete     = 64
     
     static var all : [State] {
       return [.unknown, .reset, .echoOff, .version, .search, .`protocol`, .complete]

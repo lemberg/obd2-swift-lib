@@ -57,7 +57,7 @@ class XWW {
   func xwdwa(){
     
     
-    let observer = Observer<CommandE.Mode01>()
+    let observer = Observer<Command.Mode01>()
     observer.observe(command: .pid(number: 1)) { (descriptor) in
       _ = descriptor?.descriptionStringForMeasurement()
     }

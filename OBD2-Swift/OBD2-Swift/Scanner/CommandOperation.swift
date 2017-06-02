@@ -10,7 +10,7 @@ import Foundation
 
 class CommandOperation: StreamHandleOperation {
     
-    private(set) var command:Command
+    private(set) var command:DataRequest
     private(set) var reader: StreamReader
     private var readCompleted = false {
         didSet {
@@ -21,7 +21,7 @@ class CommandOperation: StreamHandleOperation {
 
     var onReceiveResponse:((_ response:Response) -> ())?
     
-    init(inputStream: InputStream, outputStream: OutputStream, command: Command) {
+    init(inputStream: InputStream, outputStream: OutputStream, command: DataRequest) {
         self.command = command
         self.reader = StreamReader(stream: inputStream)
         super.init(inputStream: inputStream, outputStream: outputStream)

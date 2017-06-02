@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Command {
+public class DataRequest {
   var description = ""
   
   init(from string: String) {

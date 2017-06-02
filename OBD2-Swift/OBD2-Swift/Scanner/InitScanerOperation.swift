@@ -34,18 +34,18 @@ class InitScanerOperation: StreamHandleOperation {
         }
     }
     
-    var command: Command? {
+    var command: DataRequest? {
         switch state {
         case .reset:
-            return CommandE.AT.reset.commandForRequest
+            return Command.AT.reset.dataRequest
         case .echoOff:
-            return CommandE.AT.echoOff.commandForRequest
+            return Command.AT.echoOff.dataRequest
         case .`protocol`:
-            return CommandE.AT.protocol.commandForRequest
+            return Command.AT.protocol.dataRequest
         case .version:
-            return CommandE.AT.versionId.commandForRequest
+            return Command.AT.versionId.dataRequest
         case .search:
-            return CommandE.Custom.digit(mode: 1, pid: 0).commandForRequest
+            return Command.Custom.digit(mode: 1, pid: 0).dataRequest
         default:
             return nil
         }

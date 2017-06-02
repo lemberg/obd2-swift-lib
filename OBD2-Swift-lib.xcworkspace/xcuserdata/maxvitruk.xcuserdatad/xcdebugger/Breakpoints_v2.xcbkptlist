@@ -17,5 +17,21 @@
             endingLineNumber = "191">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OBD2-Swift-lib-example/OBD2-Swift-lib-example/ViewController.swift"
+            timestampString = "518080655.200758"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "requestSpeed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

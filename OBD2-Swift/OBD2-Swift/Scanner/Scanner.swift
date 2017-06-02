@@ -31,8 +31,8 @@ class `Scanner`: StreamHolder {
   var streamOperation: Operation!
   var scanOperationQueue: OperationQueue!
 
-  var priorityCommandQueue: [Command] = []
-  var commandQueue: [Command] = []
+  var priorityCommandQueue: [DataRequest] = []
+  var commandQueue: [DataRequest] = []
 
   var state: ScanState = .init
   var `protocol`: ScanProtocol = .none
@@ -75,11 +75,11 @@ class `Scanner`: StreamHolder {
     return self.`protocol`
   }
   
-  open func request(command: Command, with block: (_ buffer : [UInt8])->()) {
+  open func request(command: DataRequest, with block: (_ buffer : [UInt8])->()) {
     //TODO:-
   }
   
-  open func request(command: Command) {
+  open func request(command: DataRequest) {
     
     let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
     
@@ -90,17 +90,22 @@ class `Scanner`: StreamHolder {
     request.completionBlock = {
         print("Request operation completed")
     }
+    
     obdQueue.addOperation(request)
-//    eraseBuffer()
-//    
-//    cachedWriteData.removeAll()
-//    
-//    guard let data = command.getData() else {
-//      //TODO:-failed
-//      return
-//    }
-//    cachedWriteData.append(data)
-//    writeCachedData()
+  }
+  
+  
+  open func request(command: DataRequest, response : @escaping (_ response:Response) -> ()){
+    
+    let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
+    
+    request.onReceiveResponse = response
+    
+    request.completionBlock = {
+      print("Request operation completed")
+    }
+    
+    obdQueue.addOperation(request)
   }
   
   open func setSensorScanTargets(targets : [UInt8]){
@@ -280,12 +285,12 @@ class `Scanner`: StreamHolder {
         }
     }
     
-    request(command: CommandE.AT.reset.commandForRequest)
+    request(command: Command.AT.reset.dataRequest)
     
     connector?.state = Connector.State.reset
   }
   
-  private func enqueueCommand(command: Command) {
+  private func enqueueCommand(command: DataRequest) {
     priorityCommandQueue.append(command)
   }
   
@@ -293,8 +298,8 @@ class `Scanner`: StreamHolder {
     priorityCommandQueue.removeAll()
   }
   
-  private func dequeueCommand() -> Command? {
-    var cmd: Command?
+  private func dequeueCommand() -> DataRequest? {
+    var cmd: DataRequest?
     
     if priorityCommandQueue.count > 0 {
       cmd = priorityCommandQueue.remove(at: 0)
@@ -305,7 +310,7 @@ class `Scanner`: StreamHolder {
     return cmd
   }
   
-  private func commandForNextSensor() -> Command? {
+  private func commandForNextSensor() -> DataRequest? {
     if currentSensorIndex >= sensorScanTargets.count {
       currentSensorIndex = 0
       
@@ -313,13 +318,13 @@ class `Scanner`: StreamHolder {
       // after the battery voltage reading
       
       waitingForVoltageCommand = true
-      return CommandE.AT.reset.commandForRequest
+      return Command.AT.reset.dataRequest
     }
     
     let next = self.nextSensor()
     
     if next <= 0x4E {
-      return Command(mode: .CurrentData01, pid: next)
+      return DataRequest(mode: .CurrentData01, pid: next)
     }else {
       return nil
     }

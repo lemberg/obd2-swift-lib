@@ -9,10 +9,8 @@
 import Foundation
 
 enum ScanState {
-    case `init`
-    case idle
-    case waiting
-    case processing
-    case error //(error: Error)
+    case none
+    case connecting
+    case connected
 }
 

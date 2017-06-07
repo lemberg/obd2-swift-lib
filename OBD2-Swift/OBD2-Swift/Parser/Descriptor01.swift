@@ -245,22 +245,42 @@ public class Mode01Descriptor : DescriptorProtocol {
     return returnString
   }
   
-  private func calculateOxygenSensorsPresentB(_ data : Data) -> String {
+    private func calculateOxygenSensorsPresentB(_ data : Data) -> String {
         var returnString : String = ""
         let dataA = data[0]
         
         if(dataA & 0x01 != 0){
-          returnString = "O2S11"
+            returnString = "O2S11"
         }
         
         if dataA & 0x02 != 0 {
-          returnString = "\(returnString), O2S12"
+            returnString = "\(returnString), O2S12"
         }
         
         if dataA & 0x04 != 0 {
-          returnString = "\(returnString), O2S21"
+            returnString = "\(returnString), O2S21"
         }
-    
+        
+        if(dataA & 0x08 != 0) {
+            returnString = "\(returnString), O2S22"
+        }
+        
+        if dataA & 0x10 != 0 {
+            returnString = "\(returnString), O2S31"
+        }
+        
+        if dataA & 0x20 != 0 {
+            returnString = "\(returnString), O2S32"
+        }
+        
+        if dataA & 0x40 != 0 {
+            returnString = "\(returnString), O2S41"
+        }
+        
+        if dataA & 0x80 != 0 {
+            returnString = "\(returnString), O2S42"
+        }
+        
         return returnString
     }
   

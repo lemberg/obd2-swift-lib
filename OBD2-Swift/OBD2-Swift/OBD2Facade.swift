@@ -61,6 +61,10 @@ open class OBD2 {
     scanner.request(command: DataRequest.init(from: "03"))
   }
   
+  public func clearTroubleCodes(){
+    scanner.request(command: DataRequest.init(from: "04"))
+  }
+  
   public func requestVIN(){
     scanner.request(command: DataRequest.init(from: "020C00"))
   }

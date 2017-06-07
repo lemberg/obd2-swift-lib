@@ -15,6 +15,8 @@ public struct Response : Hashable, Equatable {
   var data : Data?
   var rawData : [UInt8] = []
   
+  public var strigDescriptor : String?
+  
   init() {
     self.timestamp = Date()
   }
@@ -25,5 +27,9 @@ public struct Response : Hashable, Equatable {
   
   public static func ==(lhs: Response, rhs: Response) -> Bool {
     return false
+  }
+  
+  public var hasData : Bool {
+    return data == nil
   }
 }

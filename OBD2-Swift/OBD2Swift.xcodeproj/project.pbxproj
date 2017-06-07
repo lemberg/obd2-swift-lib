@@ -293,10 +293,10 @@
 			isa = PBXGroup;
 			children = (
 				925C34261EE144DD00CFECBA /* Command.swift */,
-				925C342A1EE18F2B00CFECBA /* CommandMode09.swift */,
 				925DB1C81EE836B300B05CF6 /* CommandMode01.swift */,
 				925DB1CA1EE8371100B05CF6 /* CommandMode02.swift */,
 				925DB1CC1EE8373F00B05CF6 /* CommandMode03.swift */,
+				925C342A1EE18F2B00CFECBA /* CommandMode09.swift */,
 			);
 			name = Command;
 			path = "OBD2-Swift/Command";

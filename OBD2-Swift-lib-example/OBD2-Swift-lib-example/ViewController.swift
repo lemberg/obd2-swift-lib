@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         
         observer.observe(command: .pid(number: 12)) { (descriptor) in
             let respStr = descriptor?.shortDescription
-            print("Observer : \(respStr)")
+            print("Observer : \(respStr ?? "")")
         }
         
         ObserverQueue.shared.register(observer: observer)
@@ -58,14 +58,27 @@ class ViewController: UIViewController {
         
         //scanTool.pauseScan()
     }
-  }
-  
-  @IBAction func requestSpeed( _ sender : UIButton){
-//    obd.request(command : "0100")
-//    
-    obd.request(command: Command.Mode02.pid(number: 12)) { (descriptor) in
-      let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
-      print(respStr)
+    
+    @IBAction func connect( _ sender : UIButton){
+        //obd.requestTroubleCodes()
+        statusLabel.text = "Connecting"
+        connectButton.isHidden = true
+        indicator.startAnimating()
+        
+        obd.connect { [weak self] (success, error) in
+            OperationQueue.main.addOperation({
+                self?.indicator.stopAnimating()
+                if let error = error {
+                    print("OBD connection failed with \(error)")
+                    self?.statusLabel.text = "Connection failed with error \(error)"
+                    self?.connectButton.isEnabled = true
+                } else {
+                    print("OBD connection success")
+                    self?.statusLabel.text = "Connected"
+                    self?.updateUI(connected: true)
+                }
+            })
+        }
     }
     
     
@@ -74,6 +87,7 @@ class ViewController: UIViewController {
         //obd.requestTroubleCodes()
         obd.request(command: Command.Mode03.troubleCode) { (descriptor) in
             let respStr = descriptor?.getTroubleCodes()
+            print(descriptor?.response.strigDescriptor ?? "")
             print(respStr ?? "No value")
         }
     }
@@ -82,15 +96,16 @@ class ViewController: UIViewController {
         //obd.requestVIN()
         obd.request(command: Command.Mode09.vin) { (descriptor) in
             let respStr = descriptor?.VIN()
+            print(descriptor?.response.strigDescriptor ?? "")
             print(respStr ?? "No value")
         }
     }
     
     @IBAction func requestSpeed( _ sender : UIButton){
         //    obd.request(command : "0100")
-        //    
         obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
             let respStr = descriptor?.stringRepresentation(metric: true)
+            print(descriptor?.response.strigDescriptor ?? "")
             print(respStr ?? "No value")
         }
     }

@@ -29,8 +29,8 @@ class ViewController: UIViewController {
     let observer = Observer<Command.Mode01>()
     
     observer.observe(command: .pid(number: 12)) { (descriptor) in
-      let respStr = descriptor?.shortDescriptionStringForMeasurement()
-      print(respStr)
+      let respStr = descriptor?.shortDescription
+      print("Observer : \(respStr)")
     }
     
     ObserverQueue.shared.register(observer: observer)
@@ -49,18 +49,26 @@ class ViewController: UIViewController {
   }
 
   @IBAction func request( _ sender : UIButton){
-    obd.requestTroubleCodes()
+    //obd.requestTroubleCodes()
+    obd.request(command: Command.Mode03.troubleCode) { (descriptor) in
+      let respStr = descriptor?.getTroubleCodes()
+      print(respStr)
+    }
   }
   
   @IBAction func requestVIN( _ sender : UIButton){
-    obd.requestVIN()
+    //obd.requestVIN()
+    obd.request(command: Command.Mode09.vin) { (descriptor) in
+      let respStr = descriptor?.VIN()
+      print(respStr)
+    }
   }
   
   @IBAction func requestSpeed( _ sender : UIButton){
 //    obd.request(command : "0100")
 //    
     obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
-      let respStr = descriptor?.shortDescriptionStringForMeasurement()
+      let respStr = descriptor?.stringRepresentation(metric: true)
       print(respStr)
     }
   }

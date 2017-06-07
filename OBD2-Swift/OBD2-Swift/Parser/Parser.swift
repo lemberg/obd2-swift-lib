@@ -19,6 +19,10 @@ class Parser {
       return Int(strtoul(str, nil, 16))
     }
     
+    func toUInt8(hexString str: String) -> UInt {
+      return strtoul(str, nil, 16)
+    }
+    
     func isReadComplete(_ buf: [UInt8]) -> Bool {
       return buf.last == kResponseFinishedCode
     }
@@ -112,10 +116,9 @@ class Parser {
       
       /* Mode $01 PID $00 request makes multiple chunks value w/o data size description.
          Data size over 3 length like "41 00 BE 1B 30 13" could not be size descriptor
-         Size descriptor : 00E become 0x0E => 20 (Int)
+         Size descriptor : 00E become 0x0E => 14 (Int)
        */
- 
-      if components.first?.characters.count ?? 0 <= 3 {
+      if components.first?.characters.count ?? 0 <= 4 {
         let headByteSyzeString = components.removeFirst()
         outputSize = Parser.string.toInt(hexString: headByteSyzeString)
       }
@@ -147,9 +150,9 @@ class Parser {
           
           // make byte array from string response
           let chunks = resp.components(separatedBy: " ").filter({$0 != ""})
-          
+
           for c in chunks {
-            let value = Parser.string.toInt(hexString: c)
+            let value = Parser.string.toUInt8(hexString: c)
             decodeBuf.append(UInt8(value))
           }
         }//TODO: - Handle negative
@@ -164,6 +167,8 @@ class Parser {
         response = decode(data: decodeBuf, length: decodeBufLength)
       }
       
+      response.rawData = package.buffer
+      
       return response
     }
     
@@ -171,14 +176,20 @@ class Parser {
       var resp = Response()
       var dataIndex = 0
 
-      resp.data			= Data.init(bytes: data, count: length)
       let modeRaw   = data[dataIndex] ^ 0x40
       resp.mode     = Mode.init(rawValue: modeRaw) ?? .none
-      dataIndex      += 1
+      dataIndex     += 1
       
-      if resp.mode == .CurrentData01 {
+      if data.count > dataIndex {
         resp.pid		= data[dataIndex]
-        dataIndex       += 1
+        dataIndex   += 1
+      }
+      
+      if data.count > dataIndex {
+        var mutatingData = data
+        mutatingData.removeSubrange(0..<dataIndex)
+        
+        resp.data	  = Data.init(bytes: mutatingData, count: length - dataIndex)
       }
       
       return resp

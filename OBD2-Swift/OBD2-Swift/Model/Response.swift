@@ -13,6 +13,7 @@ public struct Response : Hashable, Equatable {
   var mode : Mode = .none
   var pid : UInt8 = 0
   var data : Data?
+  var rawData : [UInt8] = []
   
   init() {
     self.timestamp = Date()

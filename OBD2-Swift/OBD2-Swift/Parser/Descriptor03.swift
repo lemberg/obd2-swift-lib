@@ -33,11 +33,27 @@ public class Mode03Descriptor : DescriptorProtocol {
         let systemCode: [Character]	= [ "P", "C", "B", "U" ]
         let asUInt8Array = String(systemCode).utf8.map{ UInt8($0) }
         
-        let data = rData.withUnsafeBytes {
-            [UInt8](UnsafeBufferPointer(start: $0, count: rData.count))
-        }
+        let data = [UInt8](rData)
+      
         let dataLength = data.count
         var codes = [String]()
+      
+      
+        let asciistr : [Int8] = data.map( { Int8(bitPattern: $0) } )
+        let respString = String(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
+      
+      
+      //      char b1 = [workingData characterAtIndex:begin];
+      //      NSString *b1s = [NSString stringWithFormat:@"%c", b1];
+      //
+      //      unsigned int outVal;
+      //      NSScanner* scanner = [NSScanner scannerWithString:b1s];
+      //      [scanner scanHexInt:&outVal];
+      //
+      //      int ch1 = outVal/4;
+      //      int ch2 = ((b1 & 0x30) >> 6);
+      
+      print(data)
         
         for i in 0..<dataLength where i % 2 == 0 {
             let codeIndex = Int(data[i] & DTC_SYSTEM_MASK)

@@ -49,11 +49,19 @@ class ViewController: UIViewController {
   }
 
   @IBAction func request( _ sender : UIButton){
-    obd.requestTroubleCodes()
+    //obd.requestTroubleCodes()
+    obd.request(command: Command.Mode03.troubleCode) { (descriptor) in
+      let respStr = descriptor?.getTroubleCodes()
+      print(respStr)
+    }
   }
   
   @IBAction func requestVIN( _ sender : UIButton){
-    obd.requestVIN()
+    //obd.requestVIN()
+    obd.request(command: Command.Mode09.vin) { (descriptor) in
+      let respStr = descriptor?.VIN()
+      print(respStr)
+    }
   }
   
   @IBAction func requestSpeed( _ sender : UIButton){

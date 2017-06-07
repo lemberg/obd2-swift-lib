@@ -14,7 +14,7 @@ protocol ScanDelegate {
 }
 
 open class OBD2 {
-  typealias CallBack = (Bool, Error?)->()
+  public typealias CallBack = (Bool, Error?) -> ()
   
   private var host : String
   private var port : Int
@@ -35,8 +35,10 @@ open class OBD2 {
   var logger : Any?
   var cache : Any?
   
-  public func connect(_ block : CallBack){
-    scanner.startScan()
+  public func connect(_ block : @escaping CallBack){
+    scanner.startScan { (success, error) in
+        block(success, error)
+    }
   }
   
   public func disconnect(){

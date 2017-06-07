@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 //    obd.request(command : "0100")
 //    
     obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
-      let respStr = descriptor?.shortDescriptionStringForMeasurement()
+      let respStr = descriptor?.valueForMeasurement(metric : true)
       print(respStr)
     }
   }

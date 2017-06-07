@@ -35,11 +35,11 @@ public class Mode01Descriptor : DescriptorProtocol {
         return IS_ALPHA_VALUE(pid: pid)
     }
     
-    func isMultiValue() -> Bool {
+    public func isMultiValue() -> Bool {
         return IS_MULTI_VALUE_SENSOR(pid: pid)
     }
     
-    func valueForMeasurement(metric : Bool) -> Any? {
+    public func valueForMeasurement(metric : Bool) -> String? {
         guard let data = response.data else {
             return nil
         }
@@ -58,7 +58,7 @@ public class Mode01Descriptor : DescriptorProtocol {
             val = descriptor.convertFunction?(val) ?? val
         }
         
-        return val
+        return val.description
     }
     
     func valueStringForMeasurement(val : Any) -> String {

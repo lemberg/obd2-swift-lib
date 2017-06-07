@@ -19,7 +19,9 @@ public class Mode09Descriptor : DescriptorProtocol {
   public var mode : Mode
   
   public func VIN() -> String? {
-    guard let data = response.data else {return nil}
+    guard var data = response.data else {return nil}
+    //remove \u{01}
+    data.removeFirst()
     return String.init(data: data, encoding: String.Encoding.ascii)
   }
 }

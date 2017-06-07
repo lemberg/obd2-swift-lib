@@ -178,18 +178,18 @@ class Parser {
 
       let modeRaw   = data[dataIndex] ^ 0x40
       resp.mode     = Mode.init(rawValue: modeRaw) ?? .none
-      dataIndex      += 1
+      dataIndex     += 1
       
       if data.count > dataIndex {
         resp.pid		= data[dataIndex]
-        dataIndex       += 1
+        dataIndex   += 1
       }
       
       if data.count > dataIndex {
         var mutatingData = data
         mutatingData.removeSubrange(0..<dataIndex)
         
-        resp.data			= Data.init(bytes: mutatingData, count: length - dataIndex)
+        resp.data	  = Data.init(bytes: mutatingData, count: length - dataIndex)
       }
       
       return resp

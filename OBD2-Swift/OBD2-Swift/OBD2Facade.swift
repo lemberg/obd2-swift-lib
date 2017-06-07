@@ -14,12 +14,12 @@ protocol ScanDelegate {
 }
 
 open class OBD2 {
+  public typealias CallBack = (Bool, Error?) -> ()
+  
   private var host : String
   private var port : Int
   
   var scanner : Scanner
-  var connector : Connector
-  var observer : SensorObserver
 
   public convenience init(){
     self.init(host : "192.168.0.10", port : 35000)
@@ -29,13 +29,7 @@ open class OBD2 {
     self.host = host
     self.port = port
     
-    self.connector = Connector()
-    self.observer = SensorObserver()
     self.scanner = Scanner(host: host, port: port)
-    
-    connector.scanner = scanner
-    scanner.connector = connector
-    scanner.observer = observer
   }
   
   var logger : Any?
@@ -62,15 +56,36 @@ open class OBD2 {
   }
   
   public func requestTroubleCodes(){
-    scanner.request(command: Command.init(from: "03"))
+    scanner.request(command: DataRequest.init(from: "03"))
+  }
+  
+  public func clearTroubleCodes(){
+    scanner.request(command: DataRequest.init(from: "04"))
   }
   
   public func requestVIN(){
-    scanner.request(command: Command.init(from: "0902"))
+    scanner.request(command: DataRequest.init(from: "020C00"))
   }
   
   public func request(command str: String){
-    scanner.request(command: Command.init(from: str))
+    scanner.request(command: DataRequest.init(from: str))
+  }
+  
+  public func request<T : CommandType>(command : T, block : @escaping (_ descriptor : T.Descriptor?)->()){
+    let dataRequest = command.dataRequest
+    
+    scanner.request(command: dataRequest, response: { (response) in
+      let described = T.Descriptor(describe: response)
+      block(described)
+      
+      self.dispatchToObserver(command: command, with: response)
+    })
+  }
+  
+  private func dispatchToObserver<T : CommandType>(command : T, with response : Response){
+    ObserverQueue.shared.dispatch(command: command, response: response)
   }
 
 }
+
+

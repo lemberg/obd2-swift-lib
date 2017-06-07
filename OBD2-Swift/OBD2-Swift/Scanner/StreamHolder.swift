@@ -9,44 +9,29 @@
 import Foundation
 
 protocol StreamFlowDelegate {
-  func didOpen(stream: Stream)
-  func error(_ error: Error, on stream: Stream)
-  func hasInput(on stream: Stream)
+    func didOpen(stream : Stream)
+    func error(_ error : Error, on stream : Stream)
+    func hasInput(on stream : Stream)
 }
 
 class StreamHolder: NSObject {
-  var delegate: StreamFlowDelegate?
-  var inputStream: InputStream!
-  var outputStream: OutputStream!
-  var cachedWriteData = Data()
-  
-  var host = ""
-  var port = 0
-  
-  func open(){
-    var readStream:  Unmanaged<CFReadStream>?
-    var writeStream: Unmanaged<CFWriteStream>?
-    CFStreamCreatePairWithSocketToHost(nil, host as CFString, UInt32(port), &readStream, &writeStream)
     
-    self.inputStream = readStream!.takeRetainedValue()
-    self.outputStream = writeStream!.takeRetainedValue()
+    var delegate : StreamFlowDelegate?
     
-    self.inputStream.delegate = self
-    self.outputStream.delegate = self
+    var inputStream : InputStream!
+    var outputStream : OutputStream!
     
-    self.inputStream.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
-    self.outputStream.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+    let obdQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.name = "com.obd2.operation.queue"
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
     
-    self.inputStream.open()
-    self.outputStream.open()
-  }
-  
-  func close(){
-    self.inputStream.delegate = nil
-    self.outputStream.delegate = nil
+    var cachedWriteData = Data()
     
-    self.inputStream.remove(from: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
-    self.outputStream.remove(from: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+    var host = ""
+    var port = 0
     
     self.inputStream.close()
     self.outputStream.close()
@@ -56,7 +41,7 @@ class StreamHolder: NSObject {
   func writeCachedData() {
     
     // TODO: are we needed?
-//    var status : Stream.Status = .error
+    //    var status : Stream.Status = .error
     
     print("{ ")
     guard outputStream.streamStatus != .writing && inputStream.streamStatus != .writing else {
@@ -72,7 +57,6 @@ class StreamHolder: NSObject {
       if bytesWritten == -1 {
         // ~hell
         print("Write Error")
-        
         break
       } else if bytesWritten > 0 && cachedWriteData.count > 0 {
         print("Wrote \(bytesWritten) bytes from \(cachedWriteData.count) cashed bytes")
@@ -115,15 +99,11 @@ class StreamHolder: NSObject {
       } else if bytesWritten == 0 {
         print("OutputStream.write() returned 0")
         return totalBytesWritten
-      }
-      
-      bytesRemaining -= bytesWritten
-      totalBytesWritten += bytesWritten
     }
     
-    return totalBytesWritten
   }
-
+    return totalBytesWritten
+}
   func handleInputEvent(_ eventCode: Stream.Event){
     if eventCode == .openCompleted {
       print("NSStreamEventOpenCompleted")
@@ -143,27 +123,29 @@ class StreamHolder: NSObject {
     }
   }
   
-  func handleOutputEvent(_ eventCode: Stream.Event){
-    if eventCode == .openCompleted {
-      delegate?.didOpen(stream: outputStream)
-      print("NSStreamEventOpenCompleted")
-        
-    } else if eventCode == .hasSpaceAvailable {
-      print("NSStreamEventHasBytesAvailable")
-      writeCachedData()
-        
-    } else if eventCode == .errorOccurred {
-      print("NSStreamEventErrorOccurred")
-      if let error = inputStream.streamError {
-        print(error.localizedDescription)
-        delegate?.error(error, on: outputStream)
-      }
+    func handleOutputEvent(_ eventCode: Stream.Event){
+        if eventCode == .openCompleted {
+            delegate?.didOpen(stream: outputStream)
+            print("NSStreamEventOpenCompleted")
+            
+        } else if eventCode == .hasSpaceAvailable {
+            print("NSStreamEventHasBytesAvailable")
+            writeCachedData()
+            
+        } else if eventCode == .errorOccurred {
+            print("NSStreamEventErrorOccurred")
+            if let error = inputStream.streamError {
+                print(error.localizedDescription)
+                delegate?.error(error, on: outputStream)
+            }
+        }
     }
-  }
 }
 
+
 extension StreamHolder: StreamDelegate {
-  public func stream(_ aStream: Stream, handle eventCode: Stream.Event){
+    
+  public func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
     if aStream == inputStream {
       handleInputEvent(eventCode)
     } else if aStream == outputStream {
@@ -171,5 +153,6 @@ extension StreamHolder: StreamDelegate {
     } else {
       print("Received event for unknown stream")
     }
-  }
 }
+}
+

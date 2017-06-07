@@ -254,7 +254,7 @@ func calcInstantMPG(vss : Double, maf : Double) -> Double {
 }
 
 
-func calcMILActive(data : Data) -> Bool {
+func calcMILActive(data : [UInt8]) -> Bool {
   guard data.count < 4 else {
     return false
   }
@@ -263,15 +263,6 @@ func calcMILActive(data : Data) -> Bool {
   
   return (dataA & 0x80) != 0
 }
-
-func calcNumTroubleCodes(data : Data) -> Int {
-  guard data.count < 4 else {
-    return 0
-  }
-  
-  return Int(data[0] & 0x7F) // mask bit 7
-}
-
 
 //------------------------------------------------------------------------------
 //MARK: -

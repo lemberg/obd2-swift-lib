@@ -10,14 +10,8 @@ import UIKit
 import OBD2Swift
 
 class ViewController: UIViewController {
-  static var host = "192.168.0.10"
-  static var port = 35000
-  
-  //var scanTool = ELM327(host: host , port: port)
-  let obd = OBD2()
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    static var host = "192.168.0.10"
+    static var port = 35000
     
     //clean file
     Logger.cleanLoggerFile()

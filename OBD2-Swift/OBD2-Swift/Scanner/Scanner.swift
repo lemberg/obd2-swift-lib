@@ -58,64 +58,25 @@ class `Scanner`: StreamHolder {
         
         delegate = self
     }
-    cachedWriteData.append(data)
-    writeCachedData()
     
-  }
-  
-  open func setSensorScanTargets(targets : [UInt8]){
-    sensorScanTargets.removeAll()
-    sensorScanTargets = targets
-    
-    guard let cmd = dequeueCommand() else {return}
-    request(command: cmd)
-    writeCachedData()
-  }
-  
-  open func isScanning() -> Bool {
-    return streamOperation?.isCancelled ?? false
-  }
-  
-  open func startScan(){
-    priorityCommandQueue.removeAll()
-    commandQueue.removeAll()
-    supportedSensorList.removeAll()
-    sensorScanTargets.removeAll()
-    
-    state = .init
-    
-    scanOperationQueue = OperationQueue()
-    streamOperation = BlockOperation(block: { [weak self] in
-      self?.runStreams()
-    })
-    
-    scanOperationQueue.addOperation(streamOperation)
-    scanOperationQueue.isSuspended = false
-  }
-  
-  open func pauseScan(){
-    scanOperationQueue.isSuspended = true
-  }
-  
-  open func resumeScan(){
-    scanOperationQueue.isSuspended = false
-  }
-  
-  open func cancelScan(){
-    scanOperationQueue.cancelAllOperations()
-    streamOperation.cancel()
-    
-    supportedSensorList.removeAll()
-  }
-  
-  open func isService01PIDSupported(pid : Int) -> Bool {
-    var supported = false
-    
-    for supportedPID in supportedSensorList {
-      if supportedPID == pid {
-        supported = true
-        break
-      }
+    open func setupProtocol(buffer: [UInt8]) -> ScanProtocol {
+        let asciistr: [Int8] = buffer.map({Int8.init(bitPattern: $0)})
+        let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
+        
+        var searchIndex = 0
+        if Parser.string.isAuto(respString) {
+            // The 'A' is for Automatic.  The actual
+            // protocol number is at location 1, so
+            // increment pointer by 1
+            //asciistr += 1
+            searchIndex += 1
+        }
+        
+        let uintIndex =  asciistr[searchIndex] - 0x4E
+        let index = Int(uintIndex)
+        
+        self.`protocol` = elmProtocolMap[index]
+        return self.`protocol`
     }
     
     open func request(command: DataRequest) {
@@ -152,7 +113,7 @@ class `Scanner`: StreamHolder {
     }
     
     open func startScan(callback: @escaping CallBack){
-
+        
         if state != .none {
             return
         }
@@ -202,31 +163,31 @@ class `Scanner`: StreamHolder {
         return supported
     }
     
-//    private func initScanner() throws {
-//        eraseBuffer()
-//        
-//        state = .init
-//        currentPIDGroup = 0x00
-//        
-//        var openingStatus = false
-//        
-//        let startDate = Date()
-//        while !openingStatus && Date().timeIntervalSince(startDate) < 5.0 {
-//            openingStatus = inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open
-//        }
-//        
-//        guard openingStatus else {
-//            if inputStream.streamStatus == Stream.Status.open {
-//                throw InitScannerError.outputTimeout
-//            } else {
-//                throw InitScannerError.inputTimeout
-//            }
-//        }
-//        
-//        request(command: Command.AT.reset.dataRequest)
-//        
-//        //connector?.state = Connector.State.reset
-//    }
+    //    private func initScanner() throws {
+    //        eraseBuffer()
+    //
+    //        state = .init
+    //        currentPIDGroup = 0x00
+    //
+    //        var openingStatus = false
+    //
+    //        let startDate = Date()
+    //        while !openingStatus && Date().timeIntervalSince(startDate) < 5.0 {
+    //            openingStatus = inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open
+    //        }
+    //
+    //        guard openingStatus else {
+    //            if inputStream.streamStatus == Stream.Status.open {
+    //                throw InitScannerError.outputTimeout
+    //            } else {
+    //                throw InitScannerError.inputTimeout
+    //            }
+    //        }
+    //
+    //        request(command: Command.AT.reset.dataRequest)
+    //
+    //        //connector?.state = Connector.State.reset
+    //    }
     
     private func enqueueCommand(command: DataRequest) {
         priorityCommandQueue.append(command)
@@ -281,27 +242,27 @@ class `Scanner`: StreamHolder {
     
     //MARK: - Scanning Operation
     
-//    private func runStreams(){
-//        let currentRunLoop	= RunLoop.current
-//        let distantFutureDate	= Date.distantFuture
-//        
-//        open()
-//        
-//        //TODO: Error cases
-//        do {
-//            try initScanner()
-//        } catch InitScannerError.inputTimeout {
-//            print("Error: Input stream opening error.")
-//        } catch InitScannerError.outputTimeout {
-//            print("Error: Output stream opening error. ")
-//        } catch {
-//            print("Error: Unrecognized streams opening error")
-//        }
-//        
-//        while streamOperation?.isCancelled == false && currentRunLoop.run(mode: .defaultRunLoopMode, before: distantFutureDate) {/*loop */}
-//        
-//        close()
-//    }
+    //    private func runStreams(){
+    //        let currentRunLoop	= RunLoop.current
+    //        let distantFutureDate	= Date.distantFuture
+    //
+    //        open()
+    //
+    //        //TODO: Error cases
+    //        do {
+    //            try initScanner()
+    //        } catch InitScannerError.inputTimeout {
+    //            print("Error: Input stream opening error.")
+    //        } catch InitScannerError.outputTimeout {
+    //            print("Error: Output stream opening error. ")
+    //        } catch {
+    //            print("Error: Unrecognized streams opening error")
+    //        }
+    //
+    //        while streamOperation?.isCancelled == false && currentRunLoop.run(mode: .defaultRunLoopMode, before: distantFutureDate) {/*loop */}
+    //
+    //        close()
+    //    }
     
     //TODO: - Refactor wanted
     //  fileprivate func readVoltageResponse()  {
@@ -367,7 +328,7 @@ extension Scanner: StreamFlowDelegate {
     func hasInput(on stream: Stream){
         //
         //    do {
-        //    
+        //
         //        if state == .init {
         //          try readInitResponse()
         //        } else if state == .idle || state == .waiting {
@@ -376,14 +337,14 @@ extension Scanner: StreamFlowDelegate {
         //        } else {
         //          print("Error: Received bytes in unknown state: \(state)")
         //        }
-        //        
+        //
         //    } catch {
-        //        
+        //
         //        print("Error: Init response unreadable. Need reconnect")
-        //        //TODO: try reconnect    
+        //        //TODO: try reconnect
         //    }
-        //    
-        //    
+        //
+        //
     }
 }
 

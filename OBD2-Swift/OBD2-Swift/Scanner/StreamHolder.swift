@@ -33,10 +33,41 @@ class StreamHolder: NSObject {
     var host = ""
     var port = 0
     
-    self.inputStream.close()
-    self.outputStream.close()
-  }
+    func open(){
+        createStreams()
+        let openConnectionOperation = OpenOBDConnectionOperation(inputStream: inputStream, outputStream: outputStream)
+        
+        openConnectionOperation.completionBlock = {
+            if let error = openConnectionOperation.error {
+                print("open operation completed with error \(error)")
+                self.obdQueue.cancelAllOperations()
+            } else {
+                print("open operation completed without errors")
+            }
+        }
+        obdQueue.addOperation(openConnectionOperation)
+    }
     
+    private func createStreams() {
+        var readStream: InputStream?
+        var writeStream: OutputStream?
+        Stream.getStreamsToHost(withName: host, port: port, inputStream: &readStream, outputStream: &writeStream)
+        guard let a = readStream else { fatalError("Read stream not created") }
+        guard let b = writeStream else { fatalError("Write stream not created") }
+        self.inputStream = a
+        self.outputStream = b
+    }
+    
+    func close(){
+        self.inputStream.delegate = nil
+        self.outputStream.delegate = nil
+        
+        self.inputStream.remove(from: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        self.outputStream.remove(from: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        
+        self.inputStream.close()
+        self.outputStream.close()
+    }
   
   func writeCachedData() {
     
@@ -68,17 +99,8 @@ class StreamHolder: NSObject {
 
     cachedWriteData.removeAll()
     
-    if outputStream.streamStatus == .writing {
-        print("-- outputStream is writing!")
-        
-    }
-    
-    if inputStream.streamStatus == .writing {
-        print("--inputStream is writing!")
-        
-    }
-    
-    print("Writing output stream status = \(outputStream.streamStatus.rawValue)")
+    print("OutputStream status = \(outputStream.streamStatus.rawValue)")
+    print("Starting write wait")
     
   }
   

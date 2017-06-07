@@ -35,8 +35,10 @@ open class OBD2 {
   var logger : Any?
   var cache : Any?
   
-  public func connect(_ block : Connector.CallBack) {
-    scanner.startScan()
+  public func connect(_ block : @escaping CallBack){
+    scanner.startScan { (success, error) in
+        block(success, error)
+    }
   }
    
   public func disconnect(){
@@ -85,7 +87,6 @@ open class OBD2 {
   private func dispatchToObserver<T : CommandType>(command : T, with response : Response){
     ObserverQueue.shared.dispatch(command: command, response: response)
   }
-
 }
 
 

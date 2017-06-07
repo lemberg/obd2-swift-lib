@@ -246,94 +246,23 @@ public class Mode01Descriptor : DescriptorProtocol {
   }
   
   private func calculateOxygenSensorsPresentB(_ data : Data) -> String {
-    var returnString : String = ""
-    let dataA = data[0]
-    
-    if(dataA & 0x01 != 0){
-      returnString = "O2S11"
-    }
-    
-    if dataA & 0x02 != 0 {
-      returnString = "\(returnString), O2S12"
-    }
-    
-    if dataA & 0x04 != 0 {
-      returnString = "\(returnString), O2S21"
-    }
-    
-    func calculateStringForData(data : Data) -> String? {
-        switch pid {
-        case 0x03:
-            return calculateFuelSystemStatus(data)
-        case 0x12:
-            return calculateSecondaryAirStatus(data)
-        case 0x13:
-            return calculateOxygenSensorsPresent(data) //Oxygen Sensors Present (2 banks)
-        case 0x1C:
-            return calculateDesignRequirements(data)
-        case 0x1D:
-            return "" //TODO: Oxygen Sensors Present (4 banks)
-        case 0x1E:
-            return calculateAuxiliaryInputStatus(data)
-        default:
-            return nil
-        }
-    }
-    
-    if dataA & 0x10 != 0 {
-      returnString = "\(returnString), O2S31"
-    }
-    
-    if dataA & 0x20 != 0 {
-      returnString = "\(returnString), O2S32"
-    }
-    
-    if dataA & 0x40 != 0 {
-      returnString = "\(returnString), O2S41"
-    }
-    
-    //not used method
-    func calculateOxygenSensorsPresentB(_ data : Data) -> String {
         var returnString : String = ""
         let dataA = data[0]
         
         if(dataA & 0x01 != 0){
-            returnString = "O2S11"
+          returnString = "O2S11"
         }
         
         if dataA & 0x02 != 0 {
-            returnString = "\(returnString), O2S12"
+          returnString = "\(returnString), O2S12"
         }
         
         if dataA & 0x04 != 0 {
-            returnString = "\(returnString), O2S21"
+          returnString = "\(returnString), O2S21"
         }
-        
-        if(dataA & 0x08 != 0) {
-            returnString = "\(returnString), O2S22"
-        }
-        
-        if dataA & 0x10 != 0 {
-            returnString = "\(returnString), O2S31"
-        }
-        
-        if dataA & 0x20 != 0 {
-            returnString = "\(returnString), O2S32"
-        }
-        
-        if dataA & 0x40 != 0 {
-            returnString = "\(returnString), O2S41"
-        }
-        
-        if dataA & 0x80 != 0 {
-            returnString = "\(returnString), O2S42"
-        }
-        
+    
         return returnString
     }
-    
-    return returnString
-  }
   
   private func calculateFuelSystemStatus(_ data : Data) -> String {
     var rvString : String = ""

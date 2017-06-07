@@ -19,6 +19,10 @@ class Parser {
       return Int(strtoul(str, nil, 16))
     }
     
+    func toUInt8(hexString str: String) -> UInt {
+      return strtoul(str, nil, 16)
+    }
+    
     func isReadComplete(_ buf: [UInt8]) -> Bool {
       return buf.last == kResponseFinishedCode
     }
@@ -148,7 +152,7 @@ class Parser {
           let chunks = resp.components(separatedBy: " ").filter({$0 != ""})
 
           for c in chunks {
-            let value = Parser.string.toInt(hexString: c)
+            let value = Parser.string.toUInt8(hexString: c)
             decodeBuf.append(UInt8(value))
           }
         }//TODO: - Handle negative

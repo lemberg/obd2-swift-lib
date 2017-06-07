@@ -60,7 +60,7 @@ open class OBD2 {
   }
   
   public func requestVIN(){
-    scanner.request(command: DataRequest.init(from: "0902"))
+    scanner.request(command: DataRequest.init(from: "020C00"))
   }
   
   public func request(command str: String){

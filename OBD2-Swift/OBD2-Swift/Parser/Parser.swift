@@ -185,6 +185,16 @@ class Parser {
         dataIndex   += 1
       }
       
+      //Byte shift specialy for freezeframe data
+      // 42 0C 00 4E 20
+      // 42 - Mode
+      // 0C - Pid
+      // 00 - Shifted
+      // 4E 20 - Data equal to mode 1.
+      if resp.mode == .FreezeFrame02 {
+        dataIndex   += 1
+      }
+      
       if data.count > dataIndex {
         var mutatingData = data
         mutatingData.removeSubrange(0..<dataIndex)

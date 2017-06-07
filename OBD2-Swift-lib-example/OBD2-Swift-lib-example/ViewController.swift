@@ -67,8 +67,8 @@ class ViewController: UIViewController {
   @IBAction func requestSpeed( _ sender : UIButton){
 //    obd.request(command : "0100")
 //    
-    obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
-      let respStr = descriptor?.stringRepresentation(metric: true)
+    obd.request(command: Command.Mode02.pid(number: 12)) { (descriptor) in
+      let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
       print(respStr)
     }
   }

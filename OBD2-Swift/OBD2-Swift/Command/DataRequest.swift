@@ -20,6 +20,12 @@ public class DataRequest {
     
     if pid >= 0x00 && pid <= 0x4E {
       description = NSString.init(format: "%02lx %02lx", mode.rawValue, pid) as String
+      
+      //Additional for freeze frame request
+      // 020C00 instead of 020C
+      if mode == .FreezeFrame02 {
+        description += "00"
+      }
     }else {
       description = NSString.init(format: "%02lx", mode.rawValue) as String
     }

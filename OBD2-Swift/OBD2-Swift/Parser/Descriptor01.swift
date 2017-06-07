@@ -76,13 +76,18 @@ public class Mode01Descriptor : DescriptorProtocol {
     return IS_ALPHA_VALUE(pid: pid)
   }
   
-  public func stringRepresentation(metric : Bool) -> String {
+  public func stringRepresentation(metric : Bool, rounded : Bool = false) -> String {
     if isAsciiEncoded {
       return asciValue ?? ""
     }else{
       guard let value = self.value(metric: metric) else {return ""}
       let units = self.units(metric: metric)
-      return "\(value) \(units)"
+      
+      if rounded {
+        return "\(Int.init(value)) \(units)"
+      }else{
+        return "\(value) \(units)"
+      }
     }
   }
   

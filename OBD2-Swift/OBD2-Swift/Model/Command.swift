@@ -20,59 +20,9 @@ public protocol CommandType : CommandPrototype {
 
 
 public struct Command {
-  
-  public enum Mode01 : CommandType {
-    public typealias Descriptor = Mode01Descriptor
-    
-    public var hashValue: Int {
-      switch self {
-      case .pid(number : let pid):
-        return Int(mode.rawValue) ^ pid
-      }
-    }
-    
-    public static func ==(lhs: Mode01, rhs: Mode01) -> Bool {
-      return lhs.hashValue == rhs.hashValue
-    }
-    
-    case pid(number : Int)
-    
-    public var mode : Mode {
-      return .CurrentData01
-    }
-    
-    public var dataRequest : DataRequest {
-      switch self {
-      case .pid(number: let pid):
-        return DataRequest(mode: mode, pid: UInt8(pid))
-      }
-    }
-    
-  }
-  
-  public enum Mode03 : CommandType {
-    
-    public typealias Descriptor = Mode03Descriptor
-    
-    public var hashValue: Int {
-      return Int(mode.rawValue) ^ 0
-    }
-    
-    public static func == (lhs: Mode03, rhs: Mode03) -> Bool {
-      return lhs.hashValue == rhs.hashValue
-    }
-    
-    case troubleCode
-    
-    public var mode : Mode {
-      return .DiagnosticTroubleCodes03
-    }
-    
-    public var dataRequest : DataRequest {
-      return DataRequest(from: "03")
-    }
-    
-  }
+  // This struct includes extension enum
+  // Mode01 , Mode02 , Mode03
+  // @see CommandMode01 - 09.swift
   
   public enum AT : CommandType {
     

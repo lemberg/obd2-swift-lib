@@ -34,45 +34,40 @@ struct Package {
         return buffer.map({Int8.init(bitPattern: $0)})
     }
     
-    
-    var isOK: Bool{
-        return strigDescriptor.contains("OK")
+    var isOK: Bool {
+        return Parser.string.isOK(strigDescriptor)
     }
     
     var isError: Bool {
-        return strigDescriptor.contains("?")
+        return Parser.string.isError(strigDescriptor)
     }
     
     var isStopped: Bool	{
-        return strigDescriptor.contains("STOPPED")
+        return Parser.string.isStopped(strigDescriptor)
     }
     
     var isNoData: Bool {
-        return strigDescriptor.contains("NO DATA")
+        return Parser.string.isNoData(strigDescriptor)
     }
     
     var isSearching: Bool {
-        return strigDescriptor.contains("SEARCHING...")
+        return Parser.string.isSerching(strigDescriptor)
     }
     
     func isAuto(_ str : String) -> Bool {
-        return strigDescriptor.hasPrefix("AUTO")
+        return Parser.string.isAuto(strigDescriptor)
     }
     
     var isData: Bool {
-        let unwrapStr = strigDescriptor.characters.first ?? Character(" ")
-        let str = String(describing: unwrapStr)
-        let isDigit = Int(str) != nil
-        return isDigit
+        return Parser.string.isDataResponse(strigDescriptor)
     }
     
     var isAT: Bool {
-        guard let char = asciistr.first else { return false }
-        guard let int32 = Int32(exactly: char) else { return false }
-        return isalpha(int32) == 0
+        return Parser.string.isATResponse(asciistr)
     }
     
     func isComplete() -> Bool {
-        return buffer.last == kResponseFinishedCode
+        return Parser.string.isReadComplete(buffer)
     }
+    
 }

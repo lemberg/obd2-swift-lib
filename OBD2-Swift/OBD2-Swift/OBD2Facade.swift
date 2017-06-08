@@ -79,6 +79,16 @@ open class OBD2 {
       self.dispatchToObserver(command: command, with: response)
     })
   }
+    
+    public func request<T : CommandType>(repeat command : T){
+        let dataRequest = command.dataRequest
+        scanner.request(repeat: dataRequest)
+//        scanner.request(command: dataRequest, response: { (response) in
+//            let described = T.Descriptor(describe: response)
+////            block(described)
+//            self.dispatchToObserver(command: command, with: response)
+//        })
+    }
   
   private func dispatchToObserver<T : CommandType>(command : T, with response : Response){
     ObserverQueue.shared.dispatch(command: command, response: response)

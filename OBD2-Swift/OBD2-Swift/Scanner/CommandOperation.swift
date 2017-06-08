@@ -35,7 +35,7 @@ class CommandOperation: StreamHandleOperation {
     }
     
     override func execute() {
-        guard let data = command.getData() else { return }
+        guard let data = command.data else { return }
         let writer = StreamWriter(stream: output, data: data)
         do {
             try writer.write()

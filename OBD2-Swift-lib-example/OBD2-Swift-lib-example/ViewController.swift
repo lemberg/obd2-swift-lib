@@ -50,27 +50,45 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //scanTool.startScan()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    @IBAction func connect( _ sender : UIButton){
+        //obd.requestTroubleCodes()
+        statusLabel.text = "Connecting"
+        connectButton.isHidden = true
+        indicator.startAnimating()
         
-        //scanTool.pauseScan()
+        obd.connect { [weak self] (success, error) in
+            OperationQueue.main.addOperation({
+                self?.indicator.stopAnimating()
+                if let error = error {
+                    print("OBD connection failed with \(error)")
+                    self?.statusLabel.text = "Connection failed with error \(error)"
+                    self?.connectButton.isEnabled = true
+                } else {
+                    print("OBD connection success")
+                    self?.statusLabel.text = "Connected"
+                    self?.updateUI(connected: true)
+                }
+            })
+        }
     }
-  }
-  
-  @IBAction func requestSpeed( _ sender : UIButton){
-//    obd.request(command : "0100")
-//    
-    obd.request(command: Command.Mode02.pid(number: 12)) { (descriptor) in
-      let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
-      print(respStr)
+
+    
+    @IBAction func requestSpeed( _ sender : UIButton) {
+//        obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
+//            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
+//            print(respStr ?? "No value")
+//        }
+        
+        obd.request(repeat: Command.Mode01.pid(number: 12))
     }
     
-    
-    
-    @IBAction func request( _ sender : UIButton){
+    @IBAction func request( _ sender : UIButton) {
         //obd.requestTroubleCodes()
         obd.request(command: Command.Mode03.troubleCode) { (descriptor) in
             let respStr = descriptor?.getTroubleCodes()
@@ -78,19 +96,10 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func requestVIN( _ sender : UIButton){
+    @IBAction func requestVIN( _ sender : UIButton) {
         //obd.requestVIN()
         obd.request(command: Command.Mode09.vin) { (descriptor) in
             let respStr = descriptor?.VIN()
-            print(respStr ?? "No value")
-        }
-    }
-    
-    @IBAction func requestSpeed( _ sender : UIButton){
-        //    obd.request(command : "0100")
-        //    
-        obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
-            let respStr = descriptor?.stringRepresentation(metric: true)
             print(respStr ?? "No value")
         }
     }

@@ -124,7 +124,7 @@ class InitScanerOperation: StreamHandleOperation {
         self.reader = StreamReader(stream: input)
         
         //Get comand data and write it
-        guard let data = command?.getData() else { return }
+        guard let data = command?.data else { return }
         let writer = StreamWriter(stream: output, data: data)
         do {
             try writer.write()

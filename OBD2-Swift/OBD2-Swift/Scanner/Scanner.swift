@@ -21,7 +21,7 @@ class `Scanner`: StreamHolder {
     
     typealias CallBack = (Bool, Error?) -> ()
     
-    let timeout	=	10.0
+    let timeout	= 10.0
     
     var defaultSensors: [UInt8] = [0x0C, 0x0D]
     
@@ -94,6 +94,20 @@ class `Scanner`: StreamHolder {
         
         request.completionBlock = {
             print("Request operation completed")
+        }
+        
+        obdQueue.addOperation(request)
+    }
+    
+    open func request(repeat command: DataRequest) {
+        let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
+        
+        request.queuePriority = .low
+        
+        request.completionBlock = { [weak self] in
+            print("Request operation completed")
+            guard let strong = self else { return }
+            strong.request(repeat: command)
         }
         
         obdQueue.addOperation(request)

@@ -12,6 +12,10 @@ import Foundation
 //MARK: -
 //MARK: Global Sensor Table
 
+let NULL = ""
+let VOID : ((Data)->(Float))? = nil
+let VOID_F : ((Float)->(Float))? = nil
+let INT_MAX = Int.max
 
 
 let SensorDescriptorTable : [SensorDescriptor] = [

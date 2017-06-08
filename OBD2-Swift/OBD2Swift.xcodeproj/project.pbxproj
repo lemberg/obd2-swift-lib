@@ -9,23 +9,8 @@
 /* Begin PBXBuildFile section */
 		921203B71ED597BA00BD973F /* GloablCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203B61ED597BA00BD973F /* GloablCalculator.swift */; };
 		921203B91ED597C400BD973F /* SensorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203B81ED597C400BD973F /* SensorList.swift */; };
-		921203BB1ED597CD00BD973F /* ECUSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203BA1ED597CD00BD973F /* ECUSensor.swift */; };
-		921203BF1ED597E700BD973F /* ELM327.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203BE1ED597E700BD973F /* ELM327.swift */; };
-		921203C41ED597F500BD973F /* ELM327Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203C01ED597F500BD973F /* ELM327Command.swift */; };
-		921203C51ED597F500BD973F /* ELM327CommandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203C11ED597F500BD973F /* ELM327CommandType.swift */; };
-		921203C61ED597F500BD973F /* ELM327ResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203C21ED597F500BD973F /* ELM327ResponseParser.swift */; };
-		921203C71ED597F500BD973F /* ELM327State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203C31ED597F500BD973F /* ELM327State.swift */; };
-		921203C91ED5980F00BD973F /* ScanTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203C81ED5980F00BD973F /* ScanTool.swift */; };
-		921203CB1ED5981600BD973F /* ScanToolDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203CA1ED5981600BD973F /* ScanToolDelegate.swift */; };
-		921203CD1ED5982300BD973F /* ScanToolCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203CC1ED5982300BD973F /* ScanToolCommand.swift */; };
-		921203CF1ED5982B00BD973F /* ScanToolResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203CE1ED5982B00BD973F /* ScanToolResponseParser.swift */; };
-		921203D11ED5983500BD973F /* WifiScanTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D01ED5983500BD973F /* WifiScanTool.swift */; };
-		921203D31ED5987E00BD973F /* GlobalSensorDescriptorTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D21ED5987E00BD973F /* GlobalSensorDescriptorTable.swift */; };
-		921203D81ED598C000BD973F /* DiagnosticTroubleCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D41ED598C000BD973F /* DiagnosticTroubleCode.swift */; };
-		921203D91ED598C000BD973F /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D51ED598C000BD973F /* ResponseType.swift */; };
-		921203DA1ED598C000BD973F /* ScanToolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D61ED598C000BD973F /* ScanToolState.swift */; };
+		921203D91ED598C000BD973F /* ProtocolModelDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D51ED598C000BD973F /* ProtocolModelDescription.swift */; };
 		921203DB1ED598C000BD973F /* SensorDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D71ED598C000BD973F /* SensorDescriptor.swift */; };
-		921203DD1ED598D000BD973F /* ScanToolResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203DC1ED598D000BD973F /* ScanToolResponse.swift */; };
 		921203E61ED599A000BD973F /* OBD2_Swift_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203E31ED598FF00BD973F /* OBD2_Swift_Tests.swift */; };
 		921203F01ED5B51A00BD973F /* OBD2Facade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203EF1ED5B51A00BD973F /* OBD2Facade.swift */; };
 		921203F21ED5B93200BD973F /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203F11ED5B93200BD973F /* Status.swift */; };
@@ -46,6 +31,42 @@
 		925DB1C91EE836B300B05CF6 /* CommandMode01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925DB1C81EE836B300B05CF6 /* CommandMode01.swift */; };
 		925DB1CB1EE8371100B05CF6 /* CommandMode02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925DB1CA1EE8371100B05CF6 /* CommandMode02.swift */; };
 		925DB1CD1EE8373F00B05CF6 /* CommandMode03.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925DB1CC1EE8373F00B05CF6 /* CommandMode03.swift */; };
+		925EDD701EE96D73009B7955 /* OBD2SwiftMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 925EDD6E1EE96D73009B7955 /* OBD2SwiftMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		925EDD741EE96D8E009B7955 /* DataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E81ED6E7E300D2AE9D /* DataRequest.swift */; };
+		925EDD751EE96D8E009B7955 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924606C61ED7230200117F61 /* Package.swift */; };
+		925EDD761EE96D8E009B7955 /* ScanState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0659AE1EDD94E100C5B0BE /* ScanState.swift */; };
+		925EDD771EE96D8E009B7955 /* ScanProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0659B01EDD99AA00C5B0BE /* ScanProtocol.swift */; };
+		925EDD781EE96D8E009B7955 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9218B81E1ED74B6B00E90F82 /* Response.swift */; };
+		925EDD791EE96D8E009B7955 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9218B8251ED7569400E90F82 /* Mode.swift */; };
+		925EDD7A1EE96D91009B7955 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925C34261EE144DD00CFECBA /* Command.swift */; };
+		925EDD7B1EE96D91009B7955 /* CommandMode01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925DB1C81EE836B300B05CF6 /* CommandMode01.swift */; };
+		925EDD7C1EE96D91009B7955 /* CommandMode02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925DB1CA1EE8371100B05CF6 /* CommandMode02.swift */; };
+		925EDD7D1EE96D91009B7955 /* CommandMode03.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925DB1CC1EE8373F00B05CF6 /* CommandMode03.swift */; };
+		925EDD7E1EE96D91009B7955 /* CommandMode09.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925C342A1EE18F2B00CFECBA /* CommandMode09.swift */; };
+		925EDD7F1EE96D95009B7955 /* StringDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925800401EE06552000CDAC3 /* StringDescriptor.swift */; };
+		925EDD801EE96D95009B7955 /* DescriptorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9218B8231ED7563F00E90F82 /* DescriptorProtocol.swift */; };
+		925EDD811EE96D95009B7955 /* Descriptor01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9218B8201ED7546200E90F82 /* Descriptor01.swift */; };
+		925EDD821EE96D95009B7955 /* Descriptor03.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9218B8271ED7598700E90F82 /* Descriptor03.swift */; };
+		925EDD831EE96D95009B7955 /* Descriptor09.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925C34281EE18E6300CFECBA /* Descriptor09.swift */; };
+		925EDD841EE96D95009B7955 /* SensorDescriptorTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9218B8291ED75C5E00E90F82 /* SensorDescriptorTable.swift */; };
+		925EDD851EE96D98009B7955 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E51ED6DA8700D2AE9D /* Parser.swift */; };
+		925EDD861EE96D9A009B7955 /* SensorObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203FA1ED5BB6000BD973F /* SensorObserver.swift */; };
+		925EDD871EE96D9E009B7955 /* OBD2Facade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203EF1ED5B51A00BD973F /* OBD2Facade.swift */; };
+		925EDD881EE96D9E009B7955 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203F11ED5B93200BD973F /* Status.swift */; };
+		925EDD891EE96DA4009B7955 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203F71ED5BA6200BD973F /* Scanner.swift */; };
+		925EDD8A1EE96DA4009B7955 /* StreamHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E01ED6D2FA00D2AE9D /* StreamHolder.swift */; };
+		925EDD8B1EE96DA4009B7955 /* StreamWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CD2791EDDABF200D50B54 /* StreamWriter.swift */; };
+		925EDD8C1EE96DA4009B7955 /* StreamHandleOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CD27B1EDDAC4000D50B54 /* StreamHandleOperation.swift */; };
+		925EDD8D1EE96DA4009B7955 /* OpenOBDConnectionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CD27D1EDDAC5A00D50B54 /* OpenOBDConnectionOperation.swift */; };
+		925EDD8E1EE96DA4009B7955 /* InitScanerOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CD27F1EDDAC8100D50B54 /* InitScanerOperation.swift */; };
+		925EDD8F1EE96DA4009B7955 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0A6EA61EDEDA30001F092B /* StreamReader.swift */; };
+		925EDD901EE96DA4009B7955 /* CommandOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5493271EE0454C00AACFB6 /* CommandOperation.swift */; };
+		925EDD921EE96E3A009B7955 /* GloablCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203B61ED597BA00BD973F /* GloablCalculator.swift */; };
+		925EDD931EE96E3E009B7955 /* SensorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203B81ED597C400BD973F /* SensorList.swift */; };
+		925EDDA51EE96E5D009B7955 /* ProtocolModelDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D51ED598C000BD973F /* ProtocolModelDescription.swift */; };
+		925EDDA71EE96E5D009B7955 /* SensorDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D71ED598C000BD973F /* SensorDescriptor.swift */; };
+		925EDDB01EE97655009B7955 /* Macros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925EDDAF1EE97655009B7955 /* Macros.swift */; };
+		925EDDB11EE97655009B7955 /* Macros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925EDDAF1EE97655009B7955 /* Macros.swift */; };
 		926121E11ED6D2FA00D2AE9D /* StreamHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E01ED6D2FA00D2AE9D /* StreamHolder.swift */; };
 		926121E61ED6DA8700D2AE9D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E51ED6DA8700D2AE9D /* Parser.swift */; };
 		926121E91ED6E7E300D2AE9D /* DataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E81ED6E7E300D2AE9D /* DataRequest.swift */; };
@@ -73,23 +94,8 @@
 /* Begin PBXFileReference section */
 		921203B61ED597BA00BD973F /* GloablCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GloablCalculator.swift; path = "OBD2-Swift/Classes/GloablCalculator.swift"; sourceTree = SOURCE_ROOT; };
 		921203B81ED597C400BD973F /* SensorList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SensorList.swift; path = "OBD2-Swift/Classes/SensorList.swift"; sourceTree = SOURCE_ROOT; };
-		921203BA1ED597CD00BD973F /* ECUSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ECUSensor.swift; path = "OBD2-Swift/Classes/ECUSensor.swift"; sourceTree = SOURCE_ROOT; };
-		921203BE1ED597E700BD973F /* ELM327.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ELM327.swift; path = "OBD2-Swift/Classes/ELM327.swift"; sourceTree = SOURCE_ROOT; };
-		921203C01ED597F500BD973F /* ELM327Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ELM327Command.swift; path = "OBD2-Swift/Classes/ELM327Command.swift"; sourceTree = SOURCE_ROOT; };
-		921203C11ED597F500BD973F /* ELM327CommandType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ELM327CommandType.swift; path = "OBD2-Swift/Classes/ELM327CommandType.swift"; sourceTree = SOURCE_ROOT; };
-		921203C21ED597F500BD973F /* ELM327ResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ELM327ResponseParser.swift; path = "OBD2-Swift/Classes/ELM327ResponseParser.swift"; sourceTree = SOURCE_ROOT; };
-		921203C31ED597F500BD973F /* ELM327State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ELM327State.swift; path = "OBD2-Swift/Classes/ELM327State.swift"; sourceTree = SOURCE_ROOT; };
-		921203C81ED5980F00BD973F /* ScanTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanTool.swift; path = "OBD2-Swift/Classes/ScanTool.swift"; sourceTree = SOURCE_ROOT; };
-		921203CA1ED5981600BD973F /* ScanToolDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanToolDelegate.swift; path = "OBD2-Swift/Classes/ScanToolDelegate.swift"; sourceTree = SOURCE_ROOT; };
-		921203CC1ED5982300BD973F /* ScanToolCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanToolCommand.swift; path = "OBD2-Swift/Classes/ScanToolCommand.swift"; sourceTree = SOURCE_ROOT; };
-		921203CE1ED5982B00BD973F /* ScanToolResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanToolResponseParser.swift; path = "OBD2-Swift/Classes/ScanToolResponseParser.swift"; sourceTree = SOURCE_ROOT; };
-		921203D01ED5983500BD973F /* WifiScanTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WifiScanTool.swift; path = "OBD2-Swift/Classes/WifiScanTool.swift"; sourceTree = SOURCE_ROOT; };
-		921203D21ED5987E00BD973F /* GlobalSensorDescriptorTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalSensorDescriptorTable.swift; path = "OBD2-Swift/Classes/GlobalSensorDescriptorTable.swift"; sourceTree = SOURCE_ROOT; };
-		921203D41ED598C000BD973F /* DiagnosticTroubleCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiagnosticTroubleCode.swift; path = "OBD2-Swift/Classes/DiagnosticTroubleCode.swift"; sourceTree = SOURCE_ROOT; };
-		921203D51ED598C000BD973F /* ResponseType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseType.swift; path = "OBD2-Swift/Classes/ResponseType.swift"; sourceTree = SOURCE_ROOT; };
-		921203D61ED598C000BD973F /* ScanToolState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanToolState.swift; path = "OBD2-Swift/Classes/ScanToolState.swift"; sourceTree = SOURCE_ROOT; };
+		921203D51ED598C000BD973F /* ProtocolModelDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtocolModelDescription.swift; path = "OBD2-Swift/Classes/ProtocolModelDescription.swift"; sourceTree = SOURCE_ROOT; };
 		921203D71ED598C000BD973F /* SensorDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SensorDescriptor.swift; path = "OBD2-Swift/Classes/SensorDescriptor.swift"; sourceTree = SOURCE_ROOT; };
-		921203DC1ED598D000BD973F /* ScanToolResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScanToolResponse.swift; path = "OBD2-Swift/Classes/ScanToolResponse.swift"; sourceTree = SOURCE_ROOT; };
 		921203DE1ED598DF00BD973F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "OBD2-Swift/Info.plist"; sourceTree = SOURCE_ROOT; };
 		921203DF1ED598DF00BD973F /* OBD2Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBD2Swift.h; path = "OBD2-Swift/OBD2Swift.h"; sourceTree = SOURCE_ROOT; };
 		921203E21ED598FF00BD973F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "OBD2-Swift-Tests/Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -114,6 +120,10 @@
 		925DB1C81EE836B300B05CF6 /* CommandMode01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandMode01.swift; sourceTree = "<group>"; };
 		925DB1CA1EE8371100B05CF6 /* CommandMode02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandMode02.swift; sourceTree = "<group>"; };
 		925DB1CC1EE8373F00B05CF6 /* CommandMode03.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandMode03.swift; sourceTree = "<group>"; };
+		925EDD6C1EE96D73009B7955 /* OBD2SwiftMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OBD2SwiftMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		925EDD6E1EE96D73009B7955 /* OBD2SwiftMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OBD2SwiftMacOS.h; sourceTree = "<group>"; };
+		925EDD6F1EE96D73009B7955 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		925EDDAF1EE97655009B7955 /* Macros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Macros.swift; sourceTree = "<group>"; };
 		926121E01ED6D2FA00D2AE9D /* StreamHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHolder.swift; sourceTree = "<group>"; };
 		926121E51ED6DA8700D2AE9D /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		926121E81ED6E7E300D2AE9D /* DataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataRequest.swift; path = ../Command/DataRequest.swift; sourceTree = "<group>"; };
@@ -141,6 +151,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9258F2F11EAF45E7006B7580 /* OBD2Swift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		925EDD681EE96D73009B7955 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +197,7 @@
 				9218B8201ED7546200E90F82 /* Descriptor01.swift */,
 				9218B8271ED7598700E90F82 /* Descriptor03.swift */,
 				925C34281EE18E6300CFECBA /* Descriptor09.swift */,
+				921203D71ED598C000BD973F /* SensorDescriptor.swift */,
 				9218B8291ED75C5E00E90F82 /* SensorDescriptorTable.swift */,
 			);
 			name = Descriptor;
@@ -188,6 +206,7 @@
 		924606C51ED722DD00117F61 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				921203B81ED597C400BD973F /* SensorList.swift */,
 				926121E81ED6E7E300D2AE9D /* DataRequest.swift */,
 				924606C61ED7230200117F61 /* Package.swift */,
 				9B0659AE1EDD94E100C5B0BE /* ScanState.swift */,
@@ -204,6 +223,7 @@
 			children = (
 				9258F2E91EAF45E7006B7580 /* OBD2Swift */,
 				9258F2F41EAF45E7006B7580 /* OBD2SwiftTests */,
+				925EDD6D1EE96D73009B7955 /* OBD2SwiftMacOS */,
 				9258F2E81EAF45E7006B7580 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -213,6 +233,7 @@
 			children = (
 				9258F2E71EAF45E7006B7580 /* OBD2Swift.framework */,
 				9258F2F01EAF45E7006B7580 /* OBD2SwiftTests.xctest */,
+				925EDD6C1EE96D73009B7955 /* OBD2SwiftMacOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,6 +241,7 @@
 		9258F2E91EAF45E7006B7580 /* OBD2Swift */ = {
 			isa = PBXGroup;
 			children = (
+				925EDDAE1EE9761C009B7955 /* Common */,
 				924606C51ED722DD00117F61 /* Model */,
 				926121E71ED6E7D400D2AE9D /* Command */,
 				926121E41ED6DA7100D2AE9D /* Parser */,
@@ -246,41 +268,25 @@
 			path = "OBD2-Swift_LibTests";
 			sourceTree = "<group>";
 		};
-		9258F3A71EAF7F95006B7580 /* Classes */ = {
+		925EDD6D1EE96D73009B7955 /* OBD2SwiftMacOS */ = {
 			isa = PBXGroup;
 			children = (
-				9263F7F51EB224670003C53F /* Calculator */,
-				9263F7D71EB216F30003C53F /* Sensor */,
-				9263F7CD1EB1F0320003C53F /* ELM327 */,
-				921203C81ED5980F00BD973F /* ScanTool.swift */,
-				921203CA1ED5981600BD973F /* ScanToolDelegate.swift */,
-				926784061EB08E7C006ACA53 /* Parser2 */,
-				926783FB1EB08D7A006ACA53 /* Command */,
-				9258F4081EAF86F7006B7580 /* ScanTool */,
-				9258F4051EAF8243006B7580 /* Model */,
+				925EDD6E1EE96D73009B7955 /* OBD2SwiftMacOS.h */,
+				925EDD6F1EE96D73009B7955 /* Info.plist */,
 			);
-			path = Classes;
+			path = OBD2SwiftMacOS;
 			sourceTree = "<group>";
 		};
-		9258F4051EAF8243006B7580 /* Model */ = {
+		925EDDAE1EE9761C009B7955 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				921203D41ED598C000BD973F /* DiagnosticTroubleCode.swift */,
-				921203D51ED598C000BD973F /* ResponseType.swift */,
-				921203D61ED598C000BD973F /* ScanToolState.swift */,
-				921203D71ED598C000BD973F /* SensorDescriptor.swift */,
-				921203DC1ED598D000BD973F /* ScanToolResponse.swift */,
+				921203D51ED598C000BD973F /* ProtocolModelDescription.swift */,
+				921203B61ED597BA00BD973F /* GloablCalculator.swift */,
+				925EDDAF1EE97655009B7955 /* Macros.swift */,
 			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		9258F4081EAF86F7006B7580 /* ScanTool */ = {
-			isa = PBXGroup;
-			children = (
-				921203D01ED5983500BD973F /* WifiScanTool.swift */,
-			);
-			name = ScanTool;
-			sourceTree = "<group>";
+			name = Common;
+			path = "OBD2-Swift/Common";
+			sourceTree = SOURCE_ROOT;
 		};
 		926121E41ED6DA7100D2AE9D /* Parser */ = {
 			isa = PBXGroup;
@@ -305,52 +311,6 @@
 			path = "OBD2-Swift/Command";
 			sourceTree = SOURCE_ROOT;
 		};
-		9263F7CD1EB1F0320003C53F /* ELM327 */ = {
-			isa = PBXGroup;
-			children = (
-				921203BE1ED597E700BD973F /* ELM327.swift */,
-				921203C01ED597F500BD973F /* ELM327Command.swift */,
-				921203C11ED597F500BD973F /* ELM327CommandType.swift */,
-				921203C21ED597F500BD973F /* ELM327ResponseParser.swift */,
-				921203C31ED597F500BD973F /* ELM327State.swift */,
-			);
-			name = ELM327;
-			sourceTree = "<group>";
-		};
-		9263F7D71EB216F30003C53F /* Sensor */ = {
-			isa = PBXGroup;
-			children = (
-				921203B81ED597C400BD973F /* SensorList.swift */,
-				921203BA1ED597CD00BD973F /* ECUSensor.swift */,
-				921203D21ED5987E00BD973F /* GlobalSensorDescriptorTable.swift */,
-			);
-			name = Sensor;
-			sourceTree = "<group>";
-		};
-		9263F7F51EB224670003C53F /* Calculator */ = {
-			isa = PBXGroup;
-			children = (
-				921203B61ED597BA00BD973F /* GloablCalculator.swift */,
-			);
-			name = Calculator;
-			sourceTree = "<group>";
-		};
-		926783FB1EB08D7A006ACA53 /* Command */ = {
-			isa = PBXGroup;
-			children = (
-				921203CC1ED5982300BD973F /* ScanToolCommand.swift */,
-			);
-			name = Command;
-			sourceTree = "<group>";
-		};
-		926784061EB08E7C006ACA53 /* Parser2 */ = {
-			isa = PBXGroup;
-			children = (
-				921203CE1ED5982B00BD973F /* ScanToolResponseParser.swift */,
-			);
-			name = Parser2;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -358,6 +318,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		925EDD691EE96D73009B7955 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				925EDD701EE96D73009B7955 /* OBD2SwiftMacOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +368,24 @@
 			productReference = 9258F2F01EAF45E7006B7580 /* OBD2SwiftTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		925EDD6B1EE96D73009B7955 /* OBD2SwiftMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 925EDD731EE96D73009B7955 /* Build configuration list for PBXNativeTarget "OBD2SwiftMacOS" */;
+			buildPhases = (
+				925EDD671EE96D73009B7955 /* Sources */,
+				925EDD681EE96D73009B7955 /* Frameworks */,
+				925EDD691EE96D73009B7955 /* Headers */,
+				925EDD6A1EE96D73009B7955 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OBD2SwiftMacOS;
+			productName = OBD2SwiftMacOS;
+			productReference = 925EDD6C1EE96D73009B7955 /* OBD2SwiftMacOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -421,6 +407,11 @@
 						DevelopmentTeam = J7LBYY3B34;
 						ProvisioningStyle = Automatic;
 					};
+					925EDD6B1EE96D73009B7955 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 5YLLYSRTZ4;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 9258F2E11EAF45E7006B7580 /* Build configuration list for PBXProject "OBD2Swift" */;
@@ -437,6 +428,7 @@
 			targets = (
 				9258F2E61EAF45E7006B7580 /* OBD2Swift */,
 				9258F2EF1EAF45E7006B7580 /* OBD2SwiftTests */,
+				925EDD6B1EE96D73009B7955 /* OBD2SwiftMacOS */,
 			);
 		};
 /* End PBXProject section */
@@ -450,6 +442,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9258F2EE1EAF45E7006B7580 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		925EDD6A1EE96D73009B7955 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -472,46 +471,32 @@
 				925DB1CB1EE8371100B05CF6 /* CommandMode02.swift in Sources */,
 				9218B8241ED7563F00E90F82 /* DescriptorProtocol.swift in Sources */,
 				9218B81F1ED74B6B00E90F82 /* Response.swift in Sources */,
-				921203D81ED598C000BD973F /* DiagnosticTroubleCode.swift in Sources */,
 				924606C71ED7230200117F61 /* Package.swift in Sources */,
-				921203C61ED597F500BD973F /* ELM327ResponseParser.swift in Sources */,
-				921203C51ED597F500BD973F /* ELM327CommandType.swift in Sources */,
-				921203D11ED5983500BD973F /* WifiScanTool.swift in Sources */,
-				921203C71ED597F500BD973F /* ELM327State.swift in Sources */,
 				921203F01ED5B51A00BD973F /* OBD2Facade.swift in Sources */,
-				921203BF1ED597E700BD973F /* ELM327.swift in Sources */,
 				926121E91ED6E7E300D2AE9D /* DataRequest.swift in Sources */,
-				921203BB1ED597CD00BD973F /* ECUSensor.swift in Sources */,
-				921203C41ED597F500BD973F /* ELM327Command.swift in Sources */,
 				9B0659B11EDD99AA00C5B0BE /* ScanProtocol.swift in Sources */,
 				9BE1FE431EDEC38600AD2147 /* Logger.swift in Sources */,
 				925800411EE06552000CDAC3 /* StringDescriptor.swift in Sources */,
 				921203B71ED597BA00BD973F /* GloablCalculator.swift in Sources */,
 				9218B82A1ED75C5E00E90F82 /* SensorDescriptorTable.swift in Sources */,
 				CE8CD2801EDDAC8100D50B54 /* InitScanerOperation.swift in Sources */,
+				925EDDB01EE97655009B7955 /* Macros.swift in Sources */,
 				925C34271EE144DE00CFECBA /* Command.swift in Sources */,
-				921203D31ED5987E00BD973F /* GlobalSensorDescriptorTable.swift in Sources */,
-				921203CD1ED5982300BD973F /* ScanToolCommand.swift in Sources */,
 				CE0A6EA71EDEDA30001F092B /* StreamReader.swift in Sources */,
 				9218B8261ED7569400E90F82 /* Mode.swift in Sources */,
 				9218B8281ED7598700E90F82 /* Descriptor03.swift in Sources */,
-				921203C91ED5980F00BD973F /* ScanTool.swift in Sources */,
 				CE8CD27C1EDDAC4000D50B54 /* StreamHandleOperation.swift in Sources */,
-				921203DA1ED598C000BD973F /* ScanToolState.swift in Sources */,
-				921203DD1ED598D000BD973F /* ScanToolResponse.swift in Sources */,
 				921203F21ED5B93200BD973F /* Status.swift in Sources */,
 				926121E61ED6DA8700D2AE9D /* Parser.swift in Sources */,
 				925DB1CD1EE8373F00B05CF6 /* CommandMode03.swift in Sources */,
 				CE5493281EE0454C00AACFB6 /* CommandOperation.swift in Sources */,
 				9218B8211ED7546200E90F82 /* Descriptor01.swift in Sources */,
 				926121E11ED6D2FA00D2AE9D /* StreamHolder.swift in Sources */,
-				921203CB1ED5981600BD973F /* ScanToolDelegate.swift in Sources */,
 				925C342B1EE18F2B00CFECBA /* CommandMode09.swift in Sources */,
-				921203CF1ED5982B00BD973F /* ScanToolResponseParser.swift in Sources */,
 				921203B91ED597C400BD973F /* SensorList.swift in Sources */,
 				CE8CD27A1EDDABF200D50B54 /* StreamWriter.swift in Sources */,
 				CE8CD27E1EDDAC5A00D50B54 /* OpenOBDConnectionOperation.swift in Sources */,
-				921203D91ED598C000BD973F /* ResponseType.swift in Sources */,
+				921203D91ED598C000BD973F /* ProtocolModelDescription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +505,47 @@
 			buildActionMask = 2147483647;
 			files = (
 				921203E61ED599A000BD973F /* OBD2_Swift_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		925EDD671EE96D73009B7955 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				925EDD8D1EE96DA4009B7955 /* OpenOBDConnectionOperation.swift in Sources */,
+				925EDD931EE96E3E009B7955 /* SensorList.swift in Sources */,
+				925EDDA71EE96E5D009B7955 /* SensorDescriptor.swift in Sources */,
+				925EDD891EE96DA4009B7955 /* Scanner.swift in Sources */,
+				925EDD801EE96D95009B7955 /* DescriptorProtocol.swift in Sources */,
+				925EDD771EE96D8E009B7955 /* ScanProtocol.swift in Sources */,
+				925EDD8E1EE96DA4009B7955 /* InitScanerOperation.swift in Sources */,
+				925EDD881EE96D9E009B7955 /* Status.swift in Sources */,
+				925EDD921EE96E3A009B7955 /* GloablCalculator.swift in Sources */,
+				925EDD761EE96D8E009B7955 /* ScanState.swift in Sources */,
+				925EDD841EE96D95009B7955 /* SensorDescriptorTable.swift in Sources */,
+				925EDD791EE96D8E009B7955 /* Mode.swift in Sources */,
+				925EDD7F1EE96D95009B7955 /* StringDescriptor.swift in Sources */,
+				925EDD871EE96D9E009B7955 /* OBD2Facade.swift in Sources */,
+				925EDD831EE96D95009B7955 /* Descriptor09.swift in Sources */,
+				925EDD7C1EE96D91009B7955 /* CommandMode02.swift in Sources */,
+				925EDD821EE96D95009B7955 /* Descriptor03.swift in Sources */,
+				925EDD8C1EE96DA4009B7955 /* StreamHandleOperation.swift in Sources */,
+				925EDD7B1EE96D91009B7955 /* CommandMode01.swift in Sources */,
+				925EDDB11EE97655009B7955 /* Macros.swift in Sources */,
+				925EDD7E1EE96D91009B7955 /* CommandMode09.swift in Sources */,
+				925EDD7D1EE96D91009B7955 /* CommandMode03.swift in Sources */,
+				925EDD811EE96D95009B7955 /* Descriptor01.swift in Sources */,
+				925EDD751EE96D8E009B7955 /* Package.swift in Sources */,
+				925EDD851EE96D98009B7955 /* Parser.swift in Sources */,
+				925EDD7A1EE96D91009B7955 /* Command.swift in Sources */,
+				925EDDA51EE96E5D009B7955 /* ProtocolModelDescription.swift in Sources */,
+				925EDD901EE96DA4009B7955 /* CommandOperation.swift in Sources */,
+				925EDD741EE96D8E009B7955 /* DataRequest.swift in Sources */,
+				925EDD781EE96D8E009B7955 /* Response.swift in Sources */,
+				925EDD8F1EE96DA4009B7955 /* StreamReader.swift in Sources */,
+				925EDD8A1EE96DA4009B7955 /* StreamHolder.swift in Sources */,
+				925EDD8B1EE96DA4009B7955 /* StreamWriter.swift in Sources */,
+				925EDD861EE96D9A009B7955 /* SensorObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,6 +732,52 @@
 			};
 			name = Release;
 		};
+		925EDD711EE96D73009B7955 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5YLLYSRTZ4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = OBD2SwiftMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lemberg.OBD2SwiftMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		925EDD721EE96D73009B7955 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5YLLYSRTZ4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = OBD2SwiftMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lemberg.OBD2SwiftMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -735,6 +807,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		925EDD731EE96D73009B7955 /* Build configuration list for PBXNativeTarget "OBD2SwiftMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				925EDD711EE96D73009B7955 /* Debug */,
+				925EDD721EE96D73009B7955 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

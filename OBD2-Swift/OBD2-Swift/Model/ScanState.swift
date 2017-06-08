@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ScanState {
+public enum ScanState {
     case none
     case connecting
     case connected

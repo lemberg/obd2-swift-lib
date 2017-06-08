@@ -71,7 +71,7 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
             outOpen = true
         } else if event == .errorOccurred {
             print("Stream open error")
-            self.error = input.streamError
+            self.error = output.streamError
         }
     }
 }

@@ -38,6 +38,33 @@ class ViewController: UIViewController {
         }
         
         ObserverQueue.shared.register(observer: observer)
+        
+        obd.stateChanged = { (state) in
+            
+            OperationQueue.main.addOperation { [weak self] in
+                self?.onOBD(change: state)
+            }
+        }
+    }
+    
+    func onOBD(change state:ScanState) {
+        switch state {
+        case .none:
+            indicator.stopAnimating()
+            statusLabel.text = "Not Connected"
+            updateUI(connected: false)
+            break
+        case .connected:
+            indicator.stopAnimating()
+            statusLabel.text = "Connected"
+            updateUI(connected: true)
+            break
+        case .connecting:
+            connectButton.isHidden = true
+            indicator.startAnimating()
+            statusLabel.text = "Connecting"
+            break
+        }
     }
     
     func updateUI(connected: Bool) {
@@ -46,7 +73,6 @@ class ViewController: UIViewController {
         vinButton.isEnabled = connected
         connectButton.isHidden = connected
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,34 +84,28 @@ class ViewController: UIViewController {
     
     @IBAction func connect( _ sender : UIButton){
         //obd.requestTroubleCodes()
-        statusLabel.text = "Connecting"
-        connectButton.isHidden = true
-        indicator.startAnimating()
-        
         obd.connect { [weak self] (success, error) in
             OperationQueue.main.addOperation({
-                self?.indicator.stopAnimating()
                 if let error = error {
                     print("OBD connection failed with \(error)")
                     self?.statusLabel.text = "Connection failed with error \(error)"
-                    self?.connectButton.isEnabled = true
-                } else {
-                    print("OBD connection success")
-                    self?.statusLabel.text = "Connected"
-                    self?.updateUI(connected: true)
+                    self?.updateUI(connected: false)
                 }
             })
         }
     }
-
+    
     
     @IBAction func requestSpeed( _ sender : UIButton) {
-//        obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
-//            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
-//            print(respStr ?? "No value")
-//        }
+        //        obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
+        //            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
+        //            print(respStr ?? "No value")
+        //        }
         
-        obd.request(repeat: Command.Mode01.pid(number: 12))
+        obd.request(repeat: Command.Mode01.pid(number: 12)) { (descriptor) in
+            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
+            print(respStr ?? "No value")
+        }
     }
     
     @IBAction func request( _ sender : UIButton) {

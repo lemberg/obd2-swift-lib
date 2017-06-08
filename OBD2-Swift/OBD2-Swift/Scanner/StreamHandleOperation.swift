@@ -52,6 +52,9 @@ class StreamHandleOperation: Operation, StreamDelegate {
         } else if aStream == output {
             outputStremEvent(event: eventCode)
         }
+        if eventCode == .errorOccurred {
+            self.error = aStream.streamError
+        }
     }
     
     func inputStremEvent(event: Stream.Event) {

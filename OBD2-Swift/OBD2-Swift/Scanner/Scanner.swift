@@ -17,6 +17,8 @@ enum InitScannerError: Error {
     case inputTimeout
 }
 
+public typealias StateChangeCallback = (_ state: ScanState) -> ()
+
 class `Scanner`: StreamHolder {
     
     typealias CallBack = (Bool, Error?) -> ()
@@ -40,8 +42,11 @@ class `Scanner`: StreamHolder {
             if state == .none {
                 obdQueue.cancelAllOperations()
             }
+            stateChanged?(state)
         }
     }
+    
+    var stateChanged: StateChangeCallback?
     
     var `protocol`: ScanProtocol = .none
     var waitingForVoltageCommand = false
@@ -91,7 +96,7 @@ class `Scanner`: StreamHolder {
         let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
         
         request.onReceiveResponse = response
-        
+        request.queuePriority = .high
         request.completionBlock = {
             print("Request operation completed")
         }
@@ -99,15 +104,20 @@ class `Scanner`: StreamHolder {
         obdQueue.addOperation(request)
     }
     
-    open func request(repeat command: DataRequest) {
+    open func request(repeat command: DataRequest, response : @escaping (_ response:Response) -> ()) {
         let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
         
         request.queuePriority = .low
-        
+        request.onReceiveResponse = response
         request.completionBlock = { [weak self] in
             print("Request operation completed")
-            guard let strong = self else { return }
-            strong.request(repeat: command)
+            if let error = request.error {
+                self?.obdQueue.cancelAllOperations()
+                self?.state = .none
+            } else {
+                guard let strong = self else { return }
+                strong.request(repeat: command, response: response)
+            }
         }
         
         obdQueue.addOperation(request)
@@ -141,6 +151,7 @@ class `Scanner`: StreamHolder {
         op.completionBlock = {
             if let error = op.error {
                 callback(false, error)
+                self.state = .none
             } else {
                 self.state = .connected
                 callback(true, nil)
@@ -150,18 +161,23 @@ class `Scanner`: StreamHolder {
         obdQueue.addOperation(op)
     }
     
-    open func pauseScan(){
-        scanOperationQueue.isSuspended = true
+    open func pauseScan() {
+        obdQueue.isSuspended = true
     }
     
-    open func resumeScan(){
-        scanOperationQueue.isSuspended = false
+    open func resumeScan() {
+        obdQueue.isSuspended = false
     }
     
-    open func cancelScan(){
-        scanOperationQueue.cancelAllOperations()
-        streamOperation.cancel()
-        supportedSensorList.removeAll()
+    open func cancelScan() {
+        obdQueue.cancelAllOperations()
+    }
+    
+    open func disconnect() {
+        cancelScan()
+        inputStream.close()
+        outputStream.close()
+        state = .none
     }
     
     open func isService01PIDSupported(pid : Int) -> Bool {

@@ -36,12 +36,6 @@ extension String {
     }
 }
 
-enum StreamReaderError: Error {
-    case readError
-    case noBytesReaded
-    case ELMError
-}
-
 class StreamReader {
     
     private let bufferSize = 512

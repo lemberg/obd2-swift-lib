@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum WriterError: Error {
-    case writeError
-}
-
 class StreamWriter {
     
     private(set) var stream:OutputStream

@@ -10,6 +10,10 @@ import Foundation
 
 class CommandOperation: StreamHandleOperation {
     
+    class func keyPathsForValuesAffectingIsFinished() -> Set<NSObject> {
+        return ["readCompleted" as NSObject, "error" as NSObject]
+    }
+    
     private(set) var command:DataRequest
     private(set) var reader: StreamReader
     private var readCompleted = false {
@@ -62,9 +66,5 @@ class CommandOperation: StreamHandleOperation {
         let response = Parser.package.read(package: package)
         onReceiveResponse?(response)
         readCompleted = true
-    }
-    
-    class func keyPathsForValuesAffectingIsFinished() -> Set<NSObject> {
-        return ["readCompleted" as NSObject, "error" as NSObject]
     }
 }

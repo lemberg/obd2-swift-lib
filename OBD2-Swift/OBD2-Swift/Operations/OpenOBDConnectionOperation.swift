@@ -9,7 +9,7 @@
 import Foundation
 
 class OpenOBDConnectionOperation: StreamHandleOperation {
-    
+
     class func keyPathsForValuesAffectingIsFinished() -> Set<NSObject> {
         return ["inputOpen" as NSObject, "outOpen" as NSObject, "error" as NSObject]
     }
@@ -46,10 +46,6 @@ class OpenOBDConnectionOperation: StreamHandleOperation {
         let value = (inputOpen && outOpen) || error != nil
         print("isFinished \(value)")
         return value
-    }
-    
-    override func main() {
-        super.main()
     }
     
     override func execute() {

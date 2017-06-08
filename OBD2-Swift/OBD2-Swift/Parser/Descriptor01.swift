@@ -19,7 +19,7 @@ public class Mode01Descriptor : DescriptorProtocol {
     
     guard pid >= 0x0 && pid <= 0x4E else {
       assertionFailure("Unsuported pid group")
-      self.descriptor = GlobalSensorDescriptorTable[0]
+      self.descriptor = SensorDescriptorTable[0]
       return
     }
     self.descriptor = SensorDescriptorTable[Int(pid)]

@@ -165,6 +165,8 @@ class Parser {
         }
 
         response = decode(data: decodeBuf, length: decodeBufLength)
+      }else{
+        response.strigDescriptor = package.strigDescriptor
       }
       
       response.rawData = package.buffer

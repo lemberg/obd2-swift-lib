@@ -11,18 +11,31 @@ import Foundation
 
 public class ObserverType : NSObject {}
 
+// To bring Observer alive you must register it in ObserverQueue
+// unregister func deactivates observer
+
 public class Observer<T : CommandType> : ObserverType {
-  private var observers : [Int : (_ descriptor : T.Descriptor?)->()] = [:]
+  private typealias DescriptorCallBack = (_ descriptor : T.Descriptor?)->()
+  private typealias DescriptorArray = [(DescriptorCallBack)?]
+  
+  private var observers : [Int : DescriptorArray] = [:]
   
   public func observe(command : T, block : @escaping (_ descriptor : T.Descriptor?)->()){
-    observers[command.hashValue] = block
+    let key = command.hashValue
+    let array = observers[key] ?? []
+    let flatAray = array.flatMap({$0})
+    observers[key] = flatAray
+    observers[key]?.append(block)
   }
   
   func dispatch(command : T, response : Response){
     let described = T.Descriptor(describe: response)
     
-    let callback = observers[response.hashValue]
-    callback?(described)
+    guard let callbackArray = observers[response.hashValue] else {return}
+    
+    for callback in callbackArray {
+      callback?(described)
+    }
   }
   
   func removeAll(){

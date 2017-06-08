@@ -113,7 +113,7 @@ class `Scanner`: StreamHolder {
     }
     
     open func startScan(callback: @escaping CallBack){
-
+        
         if state != .none {
             return
         }
@@ -214,6 +214,76 @@ class `Scanner`: StreamHolder {
         return number
     }
     
+    //MARK: - Scanning Operation
+    
+    //    private func runStreams(){
+    //        let currentRunLoop	= RunLoop.current
+    //        let distantFutureDate	= Date.distantFuture
+    //
+    //        open()
+    //
+    //        //TODO: Error cases
+    //        do {
+    //            try initScanner()
+    //        } catch InitScannerError.inputTimeout {
+    //            print("Error: Input stream opening error.")
+    //        } catch InitScannerError.outputTimeout {
+    //            print("Error: Output stream opening error. ")
+    //        } catch {
+    //            print("Error: Unrecognized streams opening error")
+    //        }
+    //
+    //        while streamOperation?.isCancelled == false && currentRunLoop.run(mode: .defaultRunLoopMode, before: distantFutureDate) {/*loop */}
+    //
+    //        close()
+    //    }
+    
+    //TODO: - Refactor wanted
+    //  fileprivate func readVoltageResponse()  {
+    //    let readLength = inputStream.read(&readBuf, maxLength: readBufLength)
+    //
+    //    guard readLength > 0 else {
+    //        //TODO: no input response
+    //        return
+    //    }
+    //
+    //    var buff = readBuf
+    //    buff.removeSubrange(readLength..<maxSize)
+    //
+    //    readBufLength = readLength
+    //
+    //    if ELM_READ_COMPLETE(buff) {
+    //      state			= .processing
+    //
+    //      if (readBufLength - 3) > 0 && (readBufLength - 3) < buff.count {
+    //        buff[(readBufLength - 3)] = 0x00
+    //        readBufLength	-= 3
+    //      }
+    //
+    //      let asciistr : [Int8] = buff.map({Int8.init(bitPattern: $0)})
+    //      let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
+    //      print(respString)
+    //
+    //      if ELM_ERROR(respString) {
+    //        initState	= .RESET
+    //        state       = .init
+    //      } else {
+    //        state       = .idle
+    //
+    //        if let cmd = dequeueCommand() {
+    //          request(command: cmd)
+    //        }
+    //      }
+    //    } else {
+    //      state = .waiting
+    //    }
+    //
+    //    if state == .idle || state == .init {
+    //      eraseBuffer()
+    //      waitingForVoltageCommand	= false
+    //    }
+    //  }
+    
     private func eraseBuffer(){
         readBufLength = 0
         readBuf.removeAll()
@@ -232,7 +302,7 @@ extension Scanner: StreamFlowDelegate {
     func hasInput(on stream: Stream){
         //
         //    do {
-        //    
+        //
         //        if state == .init {
         //          try readInitResponse()
         //        } else if state == .idle || state == .waiting {
@@ -241,14 +311,14 @@ extension Scanner: StreamFlowDelegate {
         //        } else {
         //          print("Error: Received bytes in unknown state: \(state)")
         //        }
-        //        
+        //
         //    } catch {
-        //        
+        //
         //        print("Error: Init response unreadable. Need reconnect")
-        //        //TODO: try reconnect    
+        //        //TODO: try reconnect
         //    }
-        //    
-        //    
+        //
+        //
     }
 }
 

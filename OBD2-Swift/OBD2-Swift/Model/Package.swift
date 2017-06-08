@@ -34,7 +34,7 @@ struct Package {
         return buffer.map({Int8.init(bitPattern: $0)})
     }
     
-    var isOK: Bool{
+    var isOK: Bool {
         return Parser.string.isOK(strigDescriptor)
     }
     

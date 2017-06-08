@@ -137,7 +137,7 @@ class `Scanner`: StreamHolder {
     }
     
     open func startScan(callback: @escaping CallBack){
-
+        
         if state != .none {
             return
         }
@@ -192,33 +192,7 @@ class `Scanner`: StreamHolder {
         
         return supported
     }
-    
-//    private func initScanner() throws {
-//        eraseBuffer()
-//        
-//        state = .init
-//        currentPIDGroup = 0x00
-//        
-//        var openingStatus = false
-//        
-//        let startDate = Date()
-//        while !openingStatus && Date().timeIntervalSince(startDate) < 5.0 {
-//            openingStatus = inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open
-//        }
-//        
-//        guard openingStatus else {
-//            if inputStream.streamStatus == Stream.Status.open {
-//                throw InitScannerError.outputTimeout
-//            } else {
-//                throw InitScannerError.inputTimeout
-//            }
-//        }
-//        
-//        request(command: Command.AT.reset.dataRequest)
-//        
-//        //connector?.state = Connector.State.reset
-//    }
-    
+
     private func enqueueCommand(command: DataRequest) {
         priorityCommandQueue.append(command)
     }
@@ -272,27 +246,27 @@ class `Scanner`: StreamHolder {
     
     //MARK: - Scanning Operation
     
-//    private func runStreams(){
-//        let currentRunLoop	= RunLoop.current
-//        let distantFutureDate	= Date.distantFuture
-//        
-//        open()
-//        
-//        //TODO: Error cases
-//        do {
-//            try initScanner()
-//        } catch InitScannerError.inputTimeout {
-//            print("Error: Input stream opening error.")
-//        } catch InitScannerError.outputTimeout {
-//            print("Error: Output stream opening error. ")
-//        } catch {
-//            print("Error: Unrecognized streams opening error")
-//        }
-//        
-//        while streamOperation?.isCancelled == false && currentRunLoop.run(mode: .defaultRunLoopMode, before: distantFutureDate) {/*loop */}
-//        
-//        close()
-//    }
+    //    private func runStreams(){
+    //        let currentRunLoop	= RunLoop.current
+    //        let distantFutureDate	= Date.distantFuture
+    //
+    //        open()
+    //
+    //        //TODO: Error cases
+    //        do {
+    //            try initScanner()
+    //        } catch InitScannerError.inputTimeout {
+    //            print("Error: Input stream opening error.")
+    //        } catch InitScannerError.outputTimeout {
+    //            print("Error: Output stream opening error. ")
+    //        } catch {
+    //            print("Error: Unrecognized streams opening error")
+    //        }
+    //
+    //        while streamOperation?.isCancelled == false && currentRunLoop.run(mode: .defaultRunLoopMode, before: distantFutureDate) {/*loop */}
+    //
+    //        close()
+    //    }
     
     //TODO: - Refactor wanted
     //  fileprivate func readVoltageResponse()  {
@@ -358,7 +332,7 @@ extension Scanner: StreamFlowDelegate {
     func hasInput(on stream: Stream){
         //
         //    do {
-        //    
+        //
         //        if state == .init {
         //          try readInitResponse()
         //        } else if state == .idle || state == .waiting {
@@ -367,14 +341,14 @@ extension Scanner: StreamFlowDelegate {
         //        } else {
         //          print("Error: Received bytes in unknown state: \(state)")
         //        }
-        //        
+        //
         //    } catch {
-        //        
+        //
         //        print("Error: Init response unreadable. Need reconnect")
-        //        //TODO: try reconnect    
+        //        //TODO: try reconnect
         //    }
-        //    
-        //    
+        //
+        //
     }
 }
 

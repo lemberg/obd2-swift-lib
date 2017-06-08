@@ -162,33 +162,7 @@ class `Scanner`: StreamHolder {
         
         return supported
     }
-    
-    //    private func initScanner() throws {
-    //        eraseBuffer()
-    //
-    //        state = .init
-    //        currentPIDGroup = 0x00
-    //
-    //        var openingStatus = false
-    //
-    //        let startDate = Date()
-    //        while !openingStatus && Date().timeIntervalSince(startDate) < 5.0 {
-    //            openingStatus = inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open
-    //        }
-    //
-    //        guard openingStatus else {
-    //            if inputStream.streamStatus == Stream.Status.open {
-    //                throw InitScannerError.outputTimeout
-    //            } else {
-    //                throw InitScannerError.inputTimeout
-    //            }
-    //        }
-    //
-    //        request(command: Command.AT.reset.dataRequest)
-    //
-    //        //connector?.state = Connector.State.reset
-    //    }
-    
+
     private func enqueueCommand(command: DataRequest) {
         priorityCommandQueue.append(command)
     }

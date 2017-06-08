@@ -162,33 +162,7 @@ class `Scanner`: StreamHolder {
         
         return supported
     }
-    
-//    private func initScanner() throws {
-//        eraseBuffer()
-//        
-//        state = .init
-//        currentPIDGroup = 0x00
-//        
-//        var openingStatus = false
-//        
-//        let startDate = Date()
-//        while !openingStatus && Date().timeIntervalSince(startDate) < 5.0 {
-//            openingStatus = inputStream.streamStatus == Stream.Status.open && outputStream.streamStatus == Stream.Status.open
-//        }
-//        
-//        guard openingStatus else {
-//            if inputStream.streamStatus == Stream.Status.open {
-//                throw InitScannerError.outputTimeout
-//            } else {
-//                throw InitScannerError.inputTimeout
-//            }
-//        }
-//        
-//        request(command: Command.AT.reset.dataRequest)
-//        
-//        //connector?.state = Connector.State.reset
-//    }
-    
+
     private func enqueueCommand(command: DataRequest) {
         priorityCommandQueue.append(command)
     }
@@ -239,76 +213,6 @@ class `Scanner`: StreamHolder {
         
         return number
     }
-    
-    //MARK: - Scanning Operation
-    
-//    private func runStreams(){
-//        let currentRunLoop	= RunLoop.current
-//        let distantFutureDate	= Date.distantFuture
-//        
-//        open()
-//        
-//        //TODO: Error cases
-//        do {
-//            try initScanner()
-//        } catch InitScannerError.inputTimeout {
-//            print("Error: Input stream opening error.")
-//        } catch InitScannerError.outputTimeout {
-//            print("Error: Output stream opening error. ")
-//        } catch {
-//            print("Error: Unrecognized streams opening error")
-//        }
-//        
-//        while streamOperation?.isCancelled == false && currentRunLoop.run(mode: .defaultRunLoopMode, before: distantFutureDate) {/*loop */}
-//        
-//        close()
-//    }
-    
-    //TODO: - Refactor wanted
-    //  fileprivate func readVoltageResponse()  {
-    //    let readLength = inputStream.read(&readBuf, maxLength: readBufLength)
-    //
-    //    guard readLength > 0 else {
-    //        //TODO: no input response
-    //        return
-    //    }
-    //
-    //    var buff = readBuf
-    //    buff.removeSubrange(readLength..<maxSize)
-    //
-    //    readBufLength = readLength
-    //
-    //    if ELM_READ_COMPLETE(buff) {
-    //      state			= .processing
-    //
-    //      if (readBufLength - 3) > 0 && (readBufLength - 3) < buff.count {
-    //        buff[(readBufLength - 3)] = 0x00
-    //        readBufLength	-= 3
-    //      }
-    //
-    //      let asciistr : [Int8] = buff.map({Int8.init(bitPattern: $0)})
-    //      let respString = String.init(cString: asciistr, encoding: String.Encoding.ascii) ?? ""
-    //      print(respString)
-    //
-    //      if ELM_ERROR(respString) {
-    //        initState	= .RESET
-    //        state       = .init
-    //      } else {
-    //        state       = .idle
-    //
-    //        if let cmd = dequeueCommand() {
-    //          request(command: cmd)
-    //        }
-    //      }
-    //    } else {
-    //      state = .waiting
-    //    }
-    //
-    //    if state == .idle || state == .init {
-    //      eraseBuffer()
-    //      waitingForVoltageCommand	= false
-    //    }
-    //  }
     
     private func eraseBuffer(){
         readBufLength = 0

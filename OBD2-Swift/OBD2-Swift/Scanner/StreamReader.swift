@@ -13,7 +13,7 @@ typealias BufferType = UInt8
 extension Array where Element == BufferType {
     
     func elmReadComplete() -> Bool {
-        return last == kResponseFinishedCode
+        return last == Parser.string.kResponseFinishedCode
     }
 }
 

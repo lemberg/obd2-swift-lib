@@ -59,6 +59,7 @@
 		925EDDA71EE96E5D009B7955 /* SensorDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921203D71ED598C000BD973F /* SensorDescriptor.swift */; };
 		925EDDB01EE97655009B7955 /* Macros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925EDDAF1EE97655009B7955 /* Macros.swift */; };
 		925EDDB11EE97655009B7955 /* Macros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925EDDAF1EE97655009B7955 /* Macros.swift */; };
+		925EDDB21EE98C2C009B7955 /* StreamError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE188BC91EE98A7C00C69D9B /* StreamError.swift */; };
 		926121E11ED6D2FA00D2AE9D /* StreamHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E01ED6D2FA00D2AE9D /* StreamHolder.swift */; };
 		926121E61ED6DA8700D2AE9D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E51ED6DA8700D2AE9D /* Parser.swift */; };
 		926121E91ED6E7E300D2AE9D /* DataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926121E81ED6E7E300D2AE9D /* DataRequest.swift */; };
@@ -553,6 +554,7 @@
 				925EDD811EE96D95009B7955 /* Descriptor01.swift in Sources */,
 				925EDD751EE96D8E009B7955 /* Package.swift in Sources */,
 				CE188BC81EE98A6500C69D9B /* StreamWriter.swift in Sources */,
+				925EDDB21EE98C2C009B7955 /* StreamError.swift in Sources */,
 				925EDD851EE96D98009B7955 /* Parser.swift in Sources */,
 				925EDD7A1EE96D91009B7955 /* Command.swift in Sources */,
 				925EDDA51EE96E5D009B7955 /* ProtocolModelDescription.swift in Sources */,

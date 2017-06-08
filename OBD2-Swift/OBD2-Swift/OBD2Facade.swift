@@ -40,7 +40,7 @@ open class OBD2 {
         block(success, error)
     }
   }
-  
+   
   public func disconnect(){
     //
   }

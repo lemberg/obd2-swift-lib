@@ -160,17 +160,13 @@ class InitScanerOperation: StreamHandleOperation {
         case .search:
             let buffer = reader.readBuffer
             
-            let parser = ELM327ResponseParser(with: buffer, length: buffer.count)
-            let responses = parser.parseResponse(protocol: .none)
-            
+            let resp = Parser.package.decode(data: buffer, length: buffer.count)
             var extendPIDSearch	= false
             
-            for resp in responses {
-                let morePIDs = buildSupportedSensorList(data: resp.data!, pidGroup: Int(currentPIDGroup))
-                
-                if !extendPIDSearch && morePIDs {
-                    extendPIDSearch	= true
-                }
+            let morePIDs = buildSupportedSensorList(data: resp.data!, pidGroup: Int(currentPIDGroup))
+            
+            if !extendPIDSearch && morePIDs {
+              extendPIDSearch	= true
             }
             
             currentPIDGroup	+= extendPIDSearch ? 0x20 : 0x00

@@ -482,6 +482,7 @@
 				925EDD651EE96CF6009B7955 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

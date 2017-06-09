@@ -123,6 +123,10 @@ class ViewController: UIViewController {
         obd.pauseScan()
     }
     
+    @IBAction func resume( _ sender : UIButton) {
+        obd.resumeScan()
+    }
+    
     @IBAction func requestVIN( _ sender : UIButton) {
         //obd.requestVIN()
         obd.request(command: Command.Mode09.vin) { (descriptor) in

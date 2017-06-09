@@ -59,6 +59,10 @@ open class OBD2 {
     open func pauseScan() {
         scanner.pauseScan()
     }
+    
+    open func resumeScan() {
+        scanner.resumeScan()
+    }
   
   
   public func requestTroubleCodes(){

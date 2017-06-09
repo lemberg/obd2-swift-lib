@@ -64,23 +64,6 @@ open class OBD2 {
         scanner.resumeScan()
     }
     
-    
-    public func requestTroubleCodes(){
-        scanner.request(command: DataRequest.init(from: "03"))
-    }
-    
-    public func clearTroubleCodes(){
-        scanner.request(command: DataRequest.init(from: "04"))
-    }
-    
-    public func requestVIN(){
-        scanner.request(command: DataRequest.init(from: "020C00"))
-    }
-    
-    public func request(command str: String){
-        scanner.request(command: DataRequest.init(from: str))
-    }
-    
     public func request<T: CommandType>(command: T, block: @escaping (_ descriptor: T.Descriptor?)->()){
         let dataRequest = command.dataRequest
         

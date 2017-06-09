@@ -18,7 +18,7 @@ public class StringDescriptor : DescriptorProtocol {
   
   public var mode : Mode
   
-  func getResponse() -> String? {
+  public func getResponse() -> String? {
     guard let data = response.data else {return nil}
     return String.init(data: data, encoding: String.Encoding.ascii)
   }

@@ -26,22 +26,22 @@ This is a library which can communicate with vehicles using OBD2 adapters. It ca
 - Create an `OBD2 ` object for requesting vehicles metrics. 
 
 ```swift
- let obd = OBD2()
+   let obd = OBD2()
 ```
 
 - Choose `Mode` type and create an `Observer` object with it for getting and handling `OBD2` metrics.  
 
 ```swift
- let observer = Observer<Command.Mode01>()
+   let observer = Observer<Command.Mode01>()
 ```
 
 - Tell him to observe with specific PID number 
 
 ```swift
-    observer.observe(command: .pid(number: 12)) { (descriptor) in
-            let respStr = descriptor?.shortDescription
-            print("Observer : \(respStr)")
-        }
+  observer.observe(command: .pid(number: 12)) { (descriptor) in
+          let respStr = descriptor?.shortDescription
+          print("Observer : \(respStr)")
+      }
 ```
 
 - To bring `Observer` alive you must register it in `ObserverQueue`. It is needed for returning diagnostics responses.  
@@ -54,10 +54,10 @@ This is a library which can communicate with vehicles using OBD2 adapters. It ca
 
 ```swift
 
-     obd.request(repeat: Command.Mode01.pid(number: 12)) { (descriptor) in
-            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
-            // perform what you need with  respStr
-        }
+  obd.request(repeat: Command.Mode01.pid(number: 12)) { (descriptor) in
+         let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
+         // perform what you need with  respStr
+     }
 
 ```
 

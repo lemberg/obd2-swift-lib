@@ -64,13 +64,18 @@ This is a library which can communicate with vehicles using OBD2 adapters. It ca
 ## Features
 
 - [x] Supporting next Modes with almost all their PIDs:
- - Mode 01(02) 
- - Mode 03 
- - Mode 09 
-- [x] Opportunity to request trouble codes 
+
+Mode | Description
+-----| -----------
+Mode 01(02) | Sensors / Freeze Frame
+Mode 03 | Trouble codes (DTC)
+Mode 04 | Reset Trouble Codes
+Mode 09 | Information
+ 
 - [x] Real-time connection with OBD-II
-- [x] ODB2 class for requesting needed diagnostic values
+- [x] ODB2 full described diagnostic sensors list
 - [x] Observer of connection and other metrics
+- [x] Several types of returning & requesing diagnostic response
 - [x] Logger, which can save your logs into a file and share it
 
 ## Requirements

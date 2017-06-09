@@ -17,10 +17,10 @@ open class OBD2 {
     
     public typealias CallBack = (Bool, Error?) -> ()
     
-    private var host : String
-    private var port : Int
+    private(set) var host : String
+    private(set) var port : Int
     
-    var scanner : Scanner
+    private var scanner : Scanner
     
     public var stateChanged: StateChangeCallback? {
         didSet {
@@ -70,7 +70,7 @@ open class OBD2 {
     open func resumeScan() {
         scanner.resumeScan()
     }
-        
+    
     /// Send request to OBD once
     ///
     /// - Parameters:

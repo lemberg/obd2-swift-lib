@@ -100,14 +100,14 @@ class ViewController: UIViewController {
     
     
     @IBAction func requestSpeed( _ sender : UIButton) {
-        //        obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
-        //            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
-        //            print(respStr ?? "No value")
-        //        }
+
         let command = Command.Mode01.pid(number: 12)
-        obd.request(repeat: command) { (descriptor) in
-            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
-            print(respStr ?? "No value")
+        if obd.isRepeating(repeat: command) {
+            sender.setTitle("Start repeat speed", for: .normal)
+            obd.stop(repeat: command)
+        } else {
+            sender.setTitle("Stop repeat", for: .normal)
+            obd.request(repeat: command)
         }
     }
     

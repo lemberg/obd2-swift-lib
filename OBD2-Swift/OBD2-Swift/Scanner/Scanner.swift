@@ -104,7 +104,27 @@ class `Scanner`: StreamHolder {
         obdQueue.addOperation(request)
     }
     
-    open func request(repeat command: DataRequest, response : @escaping (_ response:Response) -> ()) {
+    private var repeatCommands = Set<DataRequest>()
+    
+    open func startRepeatCommand(command: DataRequest, response : @escaping (_ response:Response) -> ()) {
+        if repeatCommands.contains(command) {
+            print("Command alredy on repeat loop and can be observed")
+            return
+        }
+        repeatCommands.insert(command)
+        request(repeat: command, response: response)
+    }
+    
+    open func stopRepeatCommand(command: DataRequest) {
+        repeatCommands.remove(command)
+    }
+    
+    open func isRepeating(command: DataRequest) -> Bool {
+        return repeatCommands.contains(command)
+    }
+    
+    private func request(repeat command: DataRequest, response : @escaping (_ response:Response) -> ()) {
+        
         let request = CommandOperation(inputStream: inputStream, outputStream: outputStream, command: command)
         
         request.queuePriority = .low
@@ -112,11 +132,12 @@ class `Scanner`: StreamHolder {
         request.completionBlock = { [weak self] in
             print("Request operation completed")
             if let error = request.error {
-                self?.obdQueue.cancelAllOperations()
                 self?.state = .none
             } else {
                 guard let strong = self else { return }
-                strong.request(repeat: command, response: response)
+                if strong.repeatCommands.contains(command) {
+                    strong.request(repeat: command, response: response)
+                }
             }
         }
         

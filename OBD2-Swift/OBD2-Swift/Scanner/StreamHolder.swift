@@ -23,7 +23,7 @@ class StreamHolder: NSObject {
     
     let obdQueue: OperationQueue = {
         let queue = OperationQueue()
-        queue.name = "com.obd2.operation.queue"
+        queue.name = "com.obd2.commands"
         queue.maxConcurrentOperationCount = 1
         return queue
     }()

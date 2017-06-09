@@ -1,5 +1,5 @@
 
-# OBD2 Swift
+# 
 
 [![GitHub Release](https://img.shields.io/badge/release-none-red.svg)](https://github.com/lemberg/obd2-swift-lib)
 [![Swift Version](https://img.shields.io/badge/Swift-3.1%2B-orange.svg?style=flat)](http://cocoapods.org/pods/PermissionsService) 
@@ -7,11 +7,11 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/lemberg/obd2-swift-lib/blob/dev/LICENSE) 
 [![By](https://img.shields.io/badge/By-Lemberg%20Solutions%20Limited-blue.svg?style=flat)](http://cocoapods.org/pods/PermissionsService)
 
-On-board diagnostics swift library
+On-board diagnostics swift library. 
 
 1. [Why do you need it?](https://github.com/lemberg/obd2-swift-lib#why-you-need-it)
+1. [How To Use](https://github.com/lemberg/obd2-swift-lib#what-do-you-need-to-do)
 1. [Features](https://github.com/lemberg/obd2-swift-lib#features)
-1. [How To Use](https://github.com/lemberg/obd2-swift-lib#how-to-use)
 1. [Customizing](https://github.com/lemberg/obd2-swift-lib#customizing) 
 1. [Requirements](https://github.com/lemberg/obd2-swift-lib#requirements)
 1. [Author](https://github.com/lemberg/obd2-swift-lib#author)
@@ -19,15 +19,56 @@ On-board diagnostics swift library
 
 
 ## Why do you need it?
-//To be contained 
+
+This is a library which can communicate with vehicles using OBD2 adapters. It can provide you with an opportunity for real-time vehicles diagnostics with several lines of code. 
+
+## What do you need to do? 
+
+- Create an `OBD2 ` object for requesting vehicles metrics. 
+
+```swift
+ let obd = OBD2()
+```
+
+- Choose `Mode` type and create an `Observer` object with it for getting and handling `OBD2` metrics.  
+
+```swift
+ let observer = Observer<Command.Mode01>()
+```
+
+- Tell him to observe with specific PID number 
+
+```swift
+    observer.observe(command: .pid(number: 12)) { (descriptor) in
+            let respStr = descriptor?.shortDescription
+            print("Observer : \(respStr)")
+        }
+```
+
+- To bring `Observer` alive you must register it in `ObserverQueue`. It is needed for returning diagnostics responses.  
+
+```swift
+    ObserverQueue.shared.register(observer: observer)
+```
+
+-  Use `ODB2` object for requesting chosen metrics. Additionally, with help of different vars like `var stateChanged: StateChangeCallback?` you can get the info you needed. 
+
+```swift
+
+     obd.request(repeat: Command.Mode01.pid(number: 12)) { (descriptor) in
+            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
+            // perform what you need with  respStr
+        }
+
+```
+
 
 ## Features
-//To be contained 
 
-- [x] Logger class, which can save your logs into a file and share it
+- [x] ODB2 class for requesting needed diagnostic values
+- [x] Observer of connection and other metrics
+- [x] Logger, which can save your logs into a file and share it
 
-## How To Use
-//To be contained 
 
 ## Customizing
 //To be contained 

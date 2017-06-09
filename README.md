@@ -63,7 +63,7 @@ This is a library which can communicate with vehicles using OBD2 adapters. It ca
 
 ## Features
 
-- [x] Supporting next Modes with almost all theyre PIDs:
+- [x] Supporting next Modes with almost all their PIDs:
  - Mode 01(02) 
  - Mode 03 
  - Mode 09 

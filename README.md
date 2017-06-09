@@ -12,7 +12,6 @@ On-board diagnostics swift library.
 1. [Why do you need it?](https://github.com/lemberg/obd2-swift-lib#why-you-need-it)
 1. [How To Use](https://github.com/lemberg/obd2-swift-lib#what-do-you-need-to-do)
 1. [Features](https://github.com/lemberg/obd2-swift-lib#features)
-1. [Customizing](https://github.com/lemberg/obd2-swift-lib#customizing) 
 1. [Requirements](https://github.com/lemberg/obd2-swift-lib#requirements)
 1. [Author](https://github.com/lemberg/obd2-swift-lib#author)
 1. [License](https://github.com/lemberg/obd2-swift-lib#license)
@@ -62,16 +61,17 @@ This is a library which can communicate with vehicles using OBD2 adapters. It ca
 
 ```
 
-
 ## Features
 
+- [x] Supporting next Modes with almost all theyre PIDs:
+      - Mode 01(02) 
+      - Mode 03 
+      - Mode 09 
+- [x]  Opportunity to request trouble codes 
+- [x]  Real-time connection with OBD-II
 - [x] ODB2 class for requesting needed diagnostic values
 - [x] Observer of connection and other metrics
 - [x] Logger, which can save your logs into a file and share it
-
-
-## Customizing
-//To be contained 
 
 ## Requirements
 

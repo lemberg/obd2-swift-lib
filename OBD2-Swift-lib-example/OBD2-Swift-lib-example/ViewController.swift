@@ -59,10 +59,13 @@ class ViewController: UIViewController {
             statusLabel.text = "Connected"
             updateUI(connected: true)
             break
-        case .connecting:
+        case .openingConnection:
             connectButton.isHidden = true
             indicator.startAnimating()
-            statusLabel.text = "Connecting"
+            statusLabel.text = "Opening connection"
+            break
+        case .initializing:
+            statusLabel.text = "Initializing"
             break
         }
     }
@@ -101,8 +104,8 @@ class ViewController: UIViewController {
         //            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
         //            print(respStr ?? "No value")
         //        }
-        
-        obd.request(repeat: Command.Mode01.pid(number: 12)) { (descriptor) in
+        let command = Command.Mode01.pid(number: 12)
+        obd.request(repeat: command) { (descriptor) in
             let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
             print(respStr ?? "No value")
         }
@@ -114,6 +117,10 @@ class ViewController: UIViewController {
             let respStr = descriptor?.getTroubleCodes()
             print(respStr ?? "No value")
         }
+    }
+    
+    @IBAction func pause( _ sender : UIButton) {
+        obd.pauseScan()
     }
     
     @IBAction func requestVIN( _ sender : UIButton) {

@@ -142,23 +142,45 @@ class `Scanner`: StreamHolder {
             return
         }
         
-        state = .connecting
+        state = .openingConnection
         
-        open()
+        obdQueue.cancelAllOperations()
         
-        let op = InitScanerOperation(inputStream: inputStream, outputStream: outputStream)
+        createStreams()
         
-        op.completionBlock = {
-            if let error = op.error {
-                callback(false, error)
-                self.state = .none
+        // Open connection to OBD
+        
+        let openConnectionOperation = OpenOBDConnectionOperation(inputStream: inputStream, outputStream: outputStream)
+        
+        openConnectionOperation.completionBlock = { [weak self] in
+            if let error = openConnectionOperation.error {
+                print("open operation completed with error \(error)")
+                self?.state = .none
+                self?.obdQueue.cancelAllOperations()
             } else {
-                self.state = .connected
+                self?.state = .initializing
+                print("open operation completed without errors")
+            }
+        }
+        
+        obdQueue.addOperation(openConnectionOperation)
+        
+        // Initialize connection with OBD
+
+        let initOperation = InitScanerOperation(inputStream: inputStream, outputStream: outputStream)
+        
+        initOperation.completionBlock = { [weak self] in
+            if let error = initOperation.error {
+                callback(false, error)
+                self?.state = .none
+                self?.obdQueue.cancelAllOperations()
+            } else {
+                self?.state = .connected
                 callback(true, nil)
             }
         }
         
-        obdQueue.addOperation(op)
+        obdQueue.addOperation(initOperation)
     }
     
     open func pauseScan() {

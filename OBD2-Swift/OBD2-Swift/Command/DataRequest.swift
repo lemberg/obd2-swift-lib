@@ -37,14 +37,10 @@ public class DataRequest {
         
         self.init(from: description)
     }
+    
     lazy var data: Data? = {
         self.description.append(kCarriageReturn)
         return self.description.data(using: .ascii)
     }()
-    
-//    func getData() -> Data? {
-//        description.append(kCarriageReturn)
-//        return description.data(using: .ascii)
-//    }
-    
+
 }

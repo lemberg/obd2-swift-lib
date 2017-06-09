@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CFa-lB-Zhh">
-                                <rect key="frame" x="109.5" y="249.5" width="156" height="168"/>
+                                <rect key="frame" x="109.5" y="221.5" width="156" height="224"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p37-nf-F0q">
                                         <rect key="frame" x="0.0" y="0.0" width="156" height="56"/>
@@ -61,6 +61,19 @@
                                         </state>
                                         <connections>
                                             <action selector="requestSpeed:" destination="xnq-SC-kDT" eventType="touchUpInside" id="CvD-0A-p3B"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PEU-gl-f5d">
+                                        <rect key="frame" x="0.0" y="168" width="156" height="56"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="bUa-FO-kRs"/>
+                                            <constraint firstAttribute="width" constant="156" id="g8Y-LA-cM8"/>
+                                        </constraints>
+                                        <state key="normal" title="PAUSE">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pause:" destination="xnq-SC-kDT" eventType="touchUpInside" id="W31-lL-w2U"/>
                                         </connections>
                                     </button>
                                 </subviews>

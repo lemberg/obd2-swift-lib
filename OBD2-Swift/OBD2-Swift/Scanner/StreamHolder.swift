@@ -32,23 +32,9 @@ class StreamHolder: NSObject {
     
     var host = ""
     var port = 0
+
     
-    func open(){
-        createStreams()
-        let openConnectionOperation = OpenOBDConnectionOperation(inputStream: inputStream, outputStream: outputStream)
-        
-        openConnectionOperation.completionBlock = {
-            if let error = openConnectionOperation.error {
-                print("open operation completed with error \(error)")
-                self.obdQueue.cancelAllOperations()
-            } else {
-                print("open operation completed without errors")
-            }
-        }
-        obdQueue.addOperation(openConnectionOperation)
-    }
-    
-    private func createStreams() {
+    func createStreams() {
         var readStream: InputStream?
         var writeStream: OutputStream?
         Stream.getStreamsToHost(withName: host, port: port, inputStream: &readStream, outputStream: &writeStream)

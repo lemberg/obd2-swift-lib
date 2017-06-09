@@ -50,7 +50,7 @@ This is a library which can communicate with vehicles using OBD2 adapters. It ca
     ObserverQueue.shared.register(observer: observer)
 ```
 
--  Use `ODB2` object for requesting chosen metrics. Additionally, with help of different vars like `var stateChanged: StateChangeCallback?` you can get the info you needed. 
+-  Use `ODB2` object for requesting chosen metrics. Additionally, with help of different `var`s like `stateChanged` you can get the info you needed. 
 
 ```swift
 
@@ -64,11 +64,11 @@ This is a library which can communicate with vehicles using OBD2 adapters. It ca
 ## Features
 
 - [x] Supporting next Modes with almost all theyre PIDs:
-      - Mode 01(02) 
-      - Mode 03 
-      - Mode 09 
-- [x]  Opportunity to request trouble codes 
-- [x]  Real-time connection with OBD-II
+ - Mode 01(02) 
+ - Mode 03 
+ - Mode 09 
+- [x] Opportunity to request trouble codes 
+- [x] Real-time connection with OBD-II
 - [x] ODB2 class for requesting needed diagnostic values
 - [x] Observer of connection and other metrics
 - [x] Logger, which can save your logs into a file and share it

@@ -10,7 +10,8 @@ import Foundation
 
 public enum ScanState {
     case none
-    case connecting
+    case openingConnection
+    case initializing
     case connected
 }
 

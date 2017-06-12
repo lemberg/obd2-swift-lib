@@ -10,24 +10,47 @@
 On-board diagnostics swift library. 
 
 1. [Why do you need it?](https://github.com/lemberg/obd2-swift-lib#why-you-need-it)
-1. [How To Use](https://github.com/lemberg/obd2-swift-lib#what-do-you-need-to-do)
-1. [Features](https://github.com/lemberg/obd2-swift-lib#features)
 1. [Requirements](https://github.com/lemberg/obd2-swift-lib#requirements)
+1. [Features](https://github.com/lemberg/obd2-swift-lib#features)
+1. [How To Use](https://github.com/lemberg/obd2-swift-lib#what-do-you-need-to-do)
 1. [Author](https://github.com/lemberg/obd2-swift-lib#author)
 1. [License](https://github.com/lemberg/obd2-swift-lib#license)
-
 
 ## Why do you need it?
 
 ### OBD2?.. What?
 OBD or On-board diagnostics is a vehicle's self-diagnostic and reporting capability. OBD systems give access to the status of the various vehicle subsystems. 
-Simply saing, OBD-II is a sort of computer which monitors emissions, mileage, speed, and other useful data.
+Simply saying, OBD-II is a sort of computer which monitors emissions, mileage, speed, and other useful data.
  
 > More details you can get [here](https://en.wikipedia.org/wiki/On-board_diagnostics). 
 
 ### Ok. And what about this?
 
-This is a library which can communicate with vehicles using OBD-II adapters. It is providing you with an opportunity for real-time vehicles diagnostics with several lines of code and without nervous. You don't need to create a connection with adapter, handle it's behaviour, like reconnection when something went wrong. And! You don't need to parse bytes response returned from adapter by yourself. 
+This is a library which can communicate with vehicles using OBD-II adapters. It is providing you with an opportunity for real-time vehicles diagnostics with several lines of code and without nervous. The library will create help you to connect with adapter and handle it's behaviour, like reconnect when something went wrong. And! You don't need to parse bytes response returned from adapter by yourself because OBD2 Swift will do it for your project. 
+
+## Requirements
+
+- iOS 9.0+
+- Swift 3.0+
+- Xcode 8.0+
+- Mac OS X 10.0+ 
+
+## Features
+
+- [x] Supporting next Modes with almost all their PIDs:
+
+Mode | Description
+-----| -----------
+Mode 01(02) | Sensors / Freeze Frame
+Mode 03 | Trouble Codes (DTC)
+Mode 04 | Reset Trouble Codes
+Mode 09 | Information
+ 
+- [x] Real-time connection with OBD-II
+- [x] ODB2 full described diagnostic sensors list
+- [x] Observer of connection and other metrics
+- [x] Several types of returning & requesting diagnostic response
+- [x] Logger, which can save your logs into a file and share it
 
 ## What do you need to do? 
 
@@ -69,42 +92,18 @@ This is a library which can communicate with vehicles using OBD-II adapters. It 
 
 ```
 
-## Features
-
-- [x] Supporting next Modes with almost all their PIDs:
-
-Mode | Description
------| -----------
-Mode 01(02) | Sensors / Freeze Frame
-Mode 03 | Trouble Codes (DTC)
-Mode 04 | Reset Trouble Codes
-Mode 09 | Information
- 
-- [x] Real-time connection with OBD-II
-- [x] ODB2 full described diagnostic sensors list
-- [x] Observer of connection and other metrics
-- [x] Several types of returning & requesting diagnostic response
-- [x] Logger, which can save your logs into a file and share it
-
-## Requirements
-
-- iOS 9.0+
-- Swift 3.0+
-- Xcode 8.0+
-- Mac OS X 10.0+ 
-
 ## Installation
 ### Manually as Embedded Framework
 
-* Go to your project root git folder and clone OBD2 Swift as a git [submodule](https://git-scm.com/docs/git-submodule) by running the following command from terminal
+* Go to your project root git folder and clone OBD2 Swift as a git [submodule](https://git-scm.com/docs/git-submodule) by running the following command from terminal.
 
 ```swift
 $ git submodule add https://github.com/lemberg/obd2-swift-lib.git
 ```
 
-* Open obd2-swift-lib folder which was created. In OBD2-Swift folder you will found OBD2Swift.xcodeproj. You need to drag it into the Project Navigator of your project.
+* Open obd2-swift-lib folder which was created. In OBD2-Swift folder you will found OBD2Swift.xcodeproj. Drag it into the Project Navigator of your project.
 
-* Select your project in the Xcode Navigation and then select your application target from the sidebar. After this you need to select the "General" tab and click on the + button under the "Embedded Binaries" section.
+* Select your project in the Xcode Navigation and then select your application target from the sidebar. After this, select the "General" tab and click on the + button under the "Embedded Binaries" section.
 
 * Select OBD2 Swift.framework from dialog and thats all! 
 

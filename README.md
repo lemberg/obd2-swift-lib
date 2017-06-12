@@ -19,7 +19,15 @@ On-board diagnostics swift library.
 
 ## Why do you need it?
 
-This is a library which can communicate with vehicles using OBD2 adapters. It can provide you with an opportunity for real-time vehicles diagnostics with several lines of code. 
+### OBD2?.. What?
+OBD or On-board diagnostics is a vehicle's self-diagnostic and reporting capability. OBD systems give access to the status of the various vehicle subsystems. 
+Simply saing, OBD-II is a sort of computer which monitors emissions, mileage, speed, and other useful data.
+ 
+> More details you can get [here](https://en.wikipedia.org/wiki/On-board_diagnostics). 
+
+### Ok. And what about this?
+
+This is a library which can communicate with vehicles using OBD-II adapters. It is providing you with an opportunity for real-time vehicles diagnostics with several lines of code and without nervous. You don't need to create a connection with adapter, handle it's behaviour, like reconnection when something went wrong. And! You don't need to parse bytes response returned from adapter by yourself. 
 
 ## What do you need to do? 
 

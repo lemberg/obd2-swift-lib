@@ -56,7 +56,7 @@ Mode 09 | Information
 
 #### Where to start? 
 
-First of all, create an `OBD2 ` object for requesting vehicles metrics. 
+First of all, create an `OBD2` object for requesting vehicles metrics. 
 
 ```swift
    let obd = OBD2()
@@ -81,9 +81,11 @@ Method `connect` will return your response with an error if something went wrong
 
 If all goes okay, now you have a connection! :sunglasses:
 
+> Class `OBD2` contain another methods for work with connection like `pauseScan()`, `resumeScan()` and `stopScan()` as well.     
+
 #### And what about getting metrics?
 
-There are a semple way to get data from vehicle subsystems - to use requests. You can send it using `request(_:)` method of `OBD2 ` object. Use `struct Command` for choosing what you want to request. 
+There is a simple way to get data from vehicle subsystems - to use requests. You can send it using `request(_:)` method of `OBD2 ` object. Use `struct Command` for choosing what you want to request. 
 
 ```swift
       obd.request(command: Command.Mode09.vin) { (descriptor) in
@@ -104,9 +106,9 @@ You can use `request(_:)` method with `emun Custom: CommandType`. It helps you t
         }
 ```
 
-#### What to do for getting a response not once? 
+#### Ok, but what about monitoring? 
 
-You can still use requests for doing this. There is a method `request(repeat:)` wich will send a request to OBD repeatedly. 
+You can still use requests for doing this. There is a method `request(repeat:)` wich will send a request to OBD repeatedly.  
 
  ```swift
       obd.request(repeat: Command.Mode01.pid(number: 12))
@@ -114,13 +116,13 @@ You can still use requests for doing this. There is a method `request(repeat:)` 
 
 #### Where is a response?! :scream: 
 
-Response from this method will be returned to `Observer`, with you can create. Choose `Mode` type and create an `Observer` object.  
+Response from this method will be returned to `Observer`. Choose `Mode` type and create an `Observer` object.  
 
 ```swift
    let observer = Observer<Command.Mode01>()
 ```
 
-Tell him to observe with specific PID number and enjoy responses.  
+Tell him to observe with specific PID number and enjoy responses. :]  
 
 ```swift
   observer.observe(command: .pid(number: 12)) { (descriptor) in
@@ -138,7 +140,7 @@ Tell him to observe with specific PID number and enjoy responses.
 
 #### How to stop it?
 
-`OBD2` object has method `isRepeating(repeat:)` wich takes `Command` as a parameter. Using it you can check if spesific command is repeating now and stop it.
+`OBD2` object has method `isRepeating(repeat:)` wich takes `Command` as a parameter. Using it you can check if the spesific command is repeating now and stop it.
 
 ```swift
         if obd.isRepeating(repeat: Command.Mode01.pid(number: 12)) {
@@ -146,9 +148,9 @@ Tell him to observe with specific PID number and enjoy responses.
         } 
 ```
 
-#### Can I use observer for something else?
+#### Can I use observer for other requests?
 
-Yes! Single request method can take `Bool` parameter `notifyObservers` wich is `true` by default. Using it you can manage what requests will return response not only in completion block but in observer block too. 
+Yep! Single request method can take `Bool` parameter `notifyObservers` wich is `true` by default. Using it you can manage wich requests will return response not only in completion block but in observer block too. 
 
 ## Installation
 ### Manually as Embedded Framework

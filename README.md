@@ -85,6 +85,23 @@ Mode 09 | Information
 - Xcode 8.0+
 - Mac OS X 10.0+ 
 
+## Installation
+### Manually as Embedded Framework
+
+* Go to your project root git folder and clone OBD2 Swift as a git [submodule](https://git-scm.com/docs/git-submodule) by running the following command from terminal
+
+```swift
+$ git submodule add https://github.com/lemberg/obd2-swift-lib.git
+```
+
+* Open obd2-swift-lib folder which was created. In OBD2-Swift folder you will found OBD2Swift.xcodeproj. You need to drag it into the Project Navigator of your project.
+
+* Select your project in the Xcode Navigation and then select your application target from the sidebar. After this you need to select the "General" tab and click on the + button under the "Embedded Binaries" section.
+
+* Select OBD2 Swift.framework from dialog and thats all! 
+
+> Don't forget to do `import OBD2Swift` in classes where you want to use this framework
+
 ## Author
 
 ### [Lemberg Solutions](http://lemberg.co.uk) 

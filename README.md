@@ -59,13 +59,13 @@ Mode 09 | Information
 First of all, create an `OBD2` object for requesting vehicles metrics. 
 
 ```swift
-   let obd = OBD2()
+     let obd = OBD2()
 ```
 
 Create a connection between your application and adapter. 
 
  ```swift
-    obd.connect { [weak self] (success, error) in
+      obd.connect { [weak self] (success, error) in
             OperationQueue.main.addOperation({
                 if let error = error {
                     print("OBD connection failed with \(error)")
@@ -119,13 +119,13 @@ You can still use requests for doing this. There is a method `request(repeat:)` 
 Response from this method will be returned to `Observer`. Choose `Mode` type and create an `Observer` object.  
 
 ```swift
-   let observer = Observer<Command.Mode01>()
+      let observer = Observer<Command.Mode01>()
 ```
 
 Tell him to observe with specific PID number and enjoy responses. :]  
 
 ```swift
-  observer.observe(command: .pid(number: 12)) { (descriptor) in
+      observer.observe(command: .pid(number: 12)) { (descriptor) in
           let respStr = descriptor?.shortDescription
           print("Observer : \(respStr)")
       }
@@ -134,7 +134,7 @@ Tell him to observe with specific PID number and enjoy responses. :]
 > :exclamation: To bring `Observer` alive you must register it in `ObserverQueue`. It is needed for returning diagnostics responses.  
 >
 > ```swift
->    ObserverQueue.shared.register(observer: observer)
+>     ObserverQueue.shared.register(observer: observer)
 >```
 > Don't forget to do `unregister(_:)` when you don't need `Observer` anymore.  
 
@@ -143,9 +143,9 @@ Tell him to observe with specific PID number and enjoy responses. :]
 `OBD2` object has method `isRepeating(repeat:)` wich takes `Command` as a parameter. Using it you can check if the spesific command is repeating now and stop it.
 
 ```swift
-        if obd.isRepeating(repeat: Command.Mode01.pid(number: 12)) {
-            obd.stop(repeat: command)
-        } 
+       if obd.isRepeating(repeat: Command.Mode01.pid(number: 12)) {
+           obd.stop(repeat: command)
+       } 
 ```
 
 #### Can I use observer for other requests?

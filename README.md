@@ -78,12 +78,12 @@ Create a connection between your application and adapter.
 
 ```
 Method `connect` will return your response with an error if something went wrong and you can simply handle it, for example, show a message with reconnecting opportunity.  
-If all goes okay, now you have a connection! :]
+
+If all goes okay, now you have a connection! :sunglasses:
 
 #### And what about getting metrics?
 
-There are a several ways to get data from vehicle subsystems. 
-First of them is to use requests. You can send it using `request(_:)` method of `OBD2 ` object. Use `struct Command` for choosing what you want to request. 
+There are a semple way to get data from vehicle subsystems - to use requests. You can send it using `request(_:)` method of `OBD2 ` object. Use `struct Command` for choosing what you want to request. 
 
 ```swift
       obd.request(command: Command.Mode09.vin) { (descriptor) in
@@ -112,7 +112,7 @@ You can still use requests for doing this. There is a method `request(repeat:)` 
       obd.request(repeat: Command.Mode01.pid(number: 12))
 ```
 
-#### Where is a response?! 
+#### Where is a response?! :scream: 
 
 Response from this method will be returned to `Observer`, with you can create. Choose `Mode` type and create an `Observer` object.  
 
@@ -136,7 +136,19 @@ Tell him to observe with specific PID number and enjoy responses.
 >```
 > Don't forget to do `unregister(_:)` when you don't need `Observer` anymore.  
 
-You can create `Observer` object not only for repeated request. Single request method can take `Bool` parameter `notifyObservers` wich is `true` by default. Using it you can create observer and manage what requests will return response not only in completion block but in observer block too. 
+#### How to stop it?
+
+`OBD2` object has method `isRepeating(repeat:)` wich takes `Command` as a parameter. Using it you can check if spesific command is repeating now and stop it.
+
+```swift
+        if obd.isRepeating(repeat: Command.Mode01.pid(number: 12)) {
+            obd.stop(repeat: command)
+        } 
+```
+
+#### Can I use observer for something else?
+
+Yes! Single request method can take `Bool` parameter `notifyObservers` wich is `true` by default. Using it you can manage what requests will return response not only in completion block but in observer block too. 
 
 ## Installation
 ### Manually as Embedded Framework
@@ -151,7 +163,7 @@ $ git submodule add https://github.com/lemberg/obd2-swift-lib.git
 
 * Select your project in the Xcode Navigation and then select your application target from the sidebar. After this, select the "General" tab and click on the + button under the "Embedded Binaries" section.
 
-* Select OBD2 Swift.framework from dialogue and that's all! 
+* Select OBD2 Swift.framework from dialogue and that's all!  :tada:
 
 > Don't forget to do `import OBD2Swift` in classes where you want to use this framework
 

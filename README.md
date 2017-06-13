@@ -29,7 +29,7 @@ Simply saying, OBD-II is a sort of computer which monitors emissions, mileage, s
 
 #### Ok. And what about this?
 
-This is a library which can communicate with vehicles using OBD-II adapters. It is providing you with an opportunity for real-time vehicles diagnostics with several lines of code and without nervous. The library will create help you to connect with adapter and handle it's behaviour, like reconnect when something went wrong. And! You don't need to parse bytes response returned from adapter by yourself because OBD2 Swift will do it for your project. 
+This is a library which can communicate with vehicles using OBD-II adapters. It is providing you with an opportunity for real-time vehicles diagnostics with several lines of code and without being nervous. The library will help you to connect with adapter and handle it's behaviour, like reconnect when something went wrong. And! You don't need to parse bytes response returned from adapter by yourself because OBD2 Swift will do it for your project. 
 
 ## Requirements
 
@@ -67,21 +67,21 @@ First of all, create an `OBD2` object for requesting vehicles metrics.
 
 Create a connection between your application and adapter. 
 
+> :exclamation: Remember that **all callbacks return not in the main thread**.   
+
  ```swift
       obd.connect { [weak self] (success, error) in
-            OperationQueue.main.addOperation({
-                  if let error = error {
-                      print("OBD connection failed with \(error)")
+              if let error = error {
+                  print("OBD connection failed with \(error)")
 
-                  } else {
-                      //perform something
-                  }
-            })
+              } else {
+                  //perform something
+              }
         }
 ```
-Method `connect` will return you a response with an error if something went wrong and you can simply handle it, for example, show a message with reconnecting opportunity.  
+Method `connect` would return you a response with an error if something went wrong and you can simply handle it, for example, show a message with reconnecting opportunity.  
 
-If all goes okay, now you have a connection! :sunglasses:
+If all goes okay, you have a connection! :sunglasses:
 
 > Class `OBD2` contain another methods for work with connection like `pauseScan()`, `resumeScan()` and `stopScan()` as well.     
 
@@ -152,7 +152,7 @@ Tell him to observe with specific PID number and enjoy responses. :]
 
 #### Can I use observer for other requests?
 
-Yep! Single request method can take `Bool` parameter `notifyObservers` wich is `true` by default. Using it you can manage wich requests will return response not only in completion block but in observer block too. 
+Yep! Single request method can take `Bool` parameter `notifyObservers` wich is `true` by default. Using it you can manage which requests will return response not only in completion block but in observer block too. 
 
 ## Installation
 ### Manually as Embedded Framework

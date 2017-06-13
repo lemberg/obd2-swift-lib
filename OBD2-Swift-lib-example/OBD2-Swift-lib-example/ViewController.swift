@@ -122,6 +122,10 @@ class ViewController: UIViewController {
             let respStr = descriptor?.VIN()
             print(respStr ?? "No value")
         }
+        
+        obd.request(command: Command.Custom.string("0902")) { (descr) in
+            descr?.getResponse()
+        }
     }
     
 }

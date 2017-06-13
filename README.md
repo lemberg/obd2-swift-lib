@@ -69,14 +69,15 @@ Create a connection between your application and adapter.
 
  ```swift
       obd.connect { [weak self] (success, error) in
-              if let error = error {
-                  print("OBD connection failed with \(error)")
+            OperationQueue.main.addOperation({
+                  if let error = error {
+                      print("OBD connection failed with \(error)")
 
-              } else {
-                  //perform something
-              }
+                  } else {
+                      //perform something
+                  }
+            })
         }
-
 ```
 Method `connect` will return you a response with an error if something went wrong and you can simply handle it, for example, show a message with reconnecting opportunity.  
 

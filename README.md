@@ -50,7 +50,7 @@ Mode 04 | Reset Trouble Codes
 Mode 09 | Information
  
 - [x] Real-time connection with OBD-II
-- [x] ODB2 full described diagnostic sensors list
+- [x] OBD-II full described diagnostic sensors list
 - [x] Observer of connection and other metrics
 - [x] Several types of returning & requesting diagnostic response
 - [x] Logger, which can save your logs into a file and share it
@@ -69,18 +69,16 @@ Create a connection between your application and adapter.
 
  ```swift
       obd.connect { [weak self] (success, error) in
-            OperationQueue.main.addOperation({
-                if let error = error {
-                    print("OBD connection failed with \(error)")
-                  
-                } else {
-                    //perform something
-                }
-            })
+              if let error = error {
+                  print("OBD connection failed with \(error)")
+
+              } else {
+                  //perform something
+              }
         }
 
 ```
-Method `connect` will return your response with an error if something went wrong and you can simply handle it, for example, show a message with reconnecting opportunity.  
+Method `connect` will return you a response with an error if something went wrong and you can simply handle it, for example, show a message with reconnecting opportunity.  
 
 If all goes okay, now you have a connection! :sunglasses:
 
@@ -143,7 +141,7 @@ Tell him to observe with specific PID number and enjoy responses. :]
 
 #### How to stop it?
 
-`OBD2` object has method `isRepeating(repeat:)` wich takes `Command` as a parameter. Using it you can check if the spesific command is repeating now and stop it.
+`OBD2` object has method `isRepeating(repeat:)` wich takes `Command` as a parameter. Using it you can check if the specific command is repeating now and stop it.
 
 ```swift
        if obd.isRepeating(repeat: Command.Mode01.pid(number: 12)) {

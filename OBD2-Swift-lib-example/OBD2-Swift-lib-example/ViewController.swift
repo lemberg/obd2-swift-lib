@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         
         observer.observe(command: .pid(number: 12)) { (descriptor) in
             let respStr = descriptor?.shortDescription
-            print("Observer : \(respStr)")
+            print("Observer : \(String(describing: respStr))")
         }
         
         ObserverQueue.shared.register(observer: observer)

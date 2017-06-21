@@ -1,0 +1,6 @@
+framework module OBD2_Swift {
+  umbrella header "OBD2-Swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

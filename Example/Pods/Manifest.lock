@@ -1,0 +1,16 @@
+PODS:
+  - OBD2-Swift (0.1.0)
+
+DEPENDENCIES:
+  - OBD2-Swift (from `../`)
+
+EXTERNAL SOURCES:
+  OBD2-Swift:
+    :path: ../
+
+SPEC CHECKSUMS:
+  OBD2-Swift: e67d5ab722ac375e5a7555e11be5f9010d8ec4e9
+
+PODFILE CHECKSUM: 14654a87cf1d0cfa9665269d5c812a7ce0140cee
+
+COCOAPODS: 1.2.1

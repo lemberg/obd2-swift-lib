@@ -1,0 +1,22 @@
+{
+  "name": "OBD2-Swift",
+  "version": "0.1.0",
+  "summary": "A short description of OBD2-Swift.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/overswift/OBD2-Swift",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "overswift": "sergiy.loza@lemberg.co.uk"
+  },
+  "source": {
+    "git": "https://github.com/overswift/OBD2-Swift.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "OBD2-Swift/Classes/**/*"
+}

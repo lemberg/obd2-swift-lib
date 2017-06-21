@@ -93,6 +93,7 @@ class `Scanner`: StreamHolder {
         request.completionBlock = { [weak self] in
             print("Request operation completed")
             if let error = request.error {
+                print("Error occured \(error)")
                 self?.state = .none
             } else {
                 guard let strong = self else { return }

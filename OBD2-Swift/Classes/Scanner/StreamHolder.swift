@@ -91,8 +91,8 @@ class StreamHolder: NSObject {
   }
   
   func write(data: Data) -> Int {
-    var bytesRemaining = data.count
-    var totalBytesWritten = 0
+    let bytesRemaining = data.count
+    let totalBytesWritten = 0
     
     while bytesRemaining > 0 {
       let bytesWritten = data.withUnsafeBytes {

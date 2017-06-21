@@ -19,7 +19,7 @@ class StreamWriter {
     }
     
     func write() throws {
-        print("Write to OBD \(String(data: data, encoding: .ascii))")
+        print("Write to OBD \(String(describing: String(data: data, encoding: .ascii)))")
         
         while data.count > 0 {
             let bytesWritten = write(data: data)

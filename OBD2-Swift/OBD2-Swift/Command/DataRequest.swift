@@ -37,14 +37,23 @@ public class DataRequest {
         
         self.init(from: description)
     }
+    
     lazy var data: Data? = {
-        self.description.append(kCarriageReturn)
-        return self.description.data(using: .ascii)
+        let dataDescription = "\(self.description)\(kCarriageReturn)"
+        return dataDescription.data(using: .ascii)
     }()
+}
+
+extension DataRequest: Equatable {
     
-//    func getData() -> Data? {
-//        description.append(kCarriageReturn)
-//        return description.data(using: .ascii)
-//    }
+    public static func ==(lhs: DataRequest, rhs: DataRequest) -> Bool {
+        return lhs.description == rhs.description
+    }
+}
+
+extension DataRequest: Hashable {
     
+    public var hashValue: Int {
+        return description.hash
+    }
 }

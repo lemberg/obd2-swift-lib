@@ -59,10 +59,13 @@ class ViewController: UIViewController {
             statusLabel.text = "Connected"
             updateUI(connected: true)
             break
-        case .connecting:
+        case .openingConnection:
             connectButton.isHidden = true
             indicator.startAnimating()
-            statusLabel.text = "Connecting"
+            statusLabel.text = "Opening connection"
+            break
+        case .initializing:
+            statusLabel.text = "Initializing"
             break
         }
     }
@@ -97,14 +100,14 @@ class ViewController: UIViewController {
     
     
     @IBAction func requestSpeed( _ sender : UIButton) {
-        //        obd.request(command: Command.Mode01.pid(number: 12)) { (descriptor) in
-        //            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
-        //            print(respStr ?? "No value")
-        //        }
-        
-        obd.request(repeat: Command.Mode01.pid(number: 12)) { (descriptor) in
-            let respStr = descriptor?.stringRepresentation(metric: true, rounded : true)
-            print(respStr ?? "No value")
+
+        let command = Command.Mode01.pid(number: 12)
+        if obd.isRepeating(repeat: command) {
+            sender.setTitle("Start repeat speed", for: .normal)
+            obd.stop(repeat: command)
+        } else {
+            sender.setTitle("Stop repeat", for: .normal)
+            obd.request(repeat: command)
         }
     }
     
@@ -114,6 +117,14 @@ class ViewController: UIViewController {
             let respStr = descriptor?.getTroubleCodes()
             print(respStr ?? "No value")
         }
+    }
+    
+    @IBAction func pause( _ sender : UIButton) {
+        obd.pauseScan()
+    }
+    
+    @IBAction func resume( _ sender : UIButton) {
+        obd.resumeScan()
     }
     
     @IBAction func requestVIN( _ sender : UIButton) {

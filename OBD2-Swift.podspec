@@ -8,25 +8,13 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OBD2-Swift'
-  s.version          = '0.1.1'
-  s.summary          = 'Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long '
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
-  s.description      = <<-DESC
-   Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long .
-                       DESC
-
+  s.module_name      = 'OBD2'
+  s.version          = '0.1.2'
+  s.summary          = 'Library which is manage connection to OBD2 and allow to observe obd data'
   s.homepage         = 'https://github.com/lemberg/obd2-swift-lib'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'overswift' => 'sergiy.loza@lemberg.co.uk' }
   s.source           = { :git => 'https://github.com/lemberg/obd2-swift-lib.git', :tag => s.version }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.0'
 

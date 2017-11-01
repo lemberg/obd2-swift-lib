@@ -135,7 +135,7 @@ class ViewController: UIViewController {
         }
         
         obd.request(command: Command.Custom.string("0902")) { (descr) in
-            descr?.getResponse()
+            print("Response \(descr?.getResponse())")
         }
     }
     

@@ -9,7 +9,7 @@
 import Foundation
 
 
-public protocol CommandPrototype : Hashable, Equatable {
+public protocol CommandPrototype : Hashable {
   var mode : Mode {get}
   var dataRequest : DataRequest {get}
 }
@@ -126,18 +126,16 @@ public struct Command {
     private func encodeMode(from string : String) -> Mode {
       let str = string.replacingOccurrences(of: " ", with: "")
       let index = str.index(str.startIndex, offsetBy: 1)
-      let modeSubStr = str.substring(to: index)
+      let modeSubStr = str.prefix(upTo: index)
       let modeRaw = UInt8(modeSubStr) ?? 0
-      
       return Mode.init(rawValue: modeRaw) ?? .none
     }
     
     private func encodePid(from string : String) -> UInt8 {
       let str = string.replacingOccurrences(of: " ", with: "")
       let index = str.index(str.startIndex, offsetBy: 1)
-      let pidSubStr = str.substring(from: index)
+      let pidSubStr = str.suffix(from: index)
       let pidRaw = UInt8(pidSubStr) ?? 0x00
-      
       return pidRaw
     }
     

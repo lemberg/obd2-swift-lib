@@ -52,7 +52,7 @@ class Parser {
     }
     
     func isDataResponse(_ str : String)	-> Bool	{
-      let unwrapStr = str.characters.first ?? Character.init("")
+      let unwrapStr = str.first ?? Character.init("")
       let str = String(describing: unwrapStr)
       let isDigit = Int(str) != nil
       return isDigit // || isSerching(str)
@@ -118,7 +118,7 @@ class Parser {
          Data size over 3 length like "41 00 BE 1B 30 13" could not be size descriptor
          Size descriptor : 00E become 0x0E => 14 (Int)
        */
-      if components.first?.characters.count ?? 0 <= 4 {
+      if components.first?.count ?? 0 <= 4 {
         let headByteSyzeString = components.removeFirst()
         outputSize = Parser.string.toInt(hexString: headByteSyzeString)
       }

@@ -1,7 +1,7 @@
 # OBD2 Swift
 
 [![GitHub Release](https://img.shields.io/badge/release-none-red.svg)](https://github.com/lemberg/obd2-swift-lib)
-[![Swift Version](https://img.shields.io/badge/Swift-4.0%2B-orange.svg?style=flat)](http://cocoapods.org/pods/obd2-swift-lib) 
+[![Swift Version](https://img.shields.io/badge/Swift-4.0%2B-orange.svg?style=flat)](https://github.com/lemberg/obd2-swift-lib) 
 [![GitHub Platforms](https://img.shields.io/badge/platform-ios%20%7C%20macos%20-brightgreen.svg)](https://github.com/lemberg/obd2-swift-lib)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/lemberg/obd2-swift-lib/blob/dev/LICENSE) 
 [![By](https://img.shields.io/badge/By-Lemberg%20Solutions%20Limited-blue.svg?style=flat)](http://cocoapods.org/pods/PermissionsService)

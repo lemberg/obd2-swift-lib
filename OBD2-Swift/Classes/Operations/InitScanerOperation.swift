@@ -150,12 +150,16 @@ class InitScanerOperation: StreamHandleOperation {
                 return
             }
             var searchIndex = 0
+            
             if Parser.string.isAuto(response) {
                 searchIndex += 1
+                let index = reader.readBuffer[searchIndex] - 0x4E
+                self.`protocol` = elmProtocolMap[Int(index)]
+            } else {
+                let index = reader.readBuffer[searchIndex] ^ 0x40
+                self.`protocol` = elmProtocolMap[Int(index)]
             }
             
-            let index = reader.readBuffer[searchIndex] - 0x4E
-            self.`protocol` = elmProtocolMap[Int(index)]
             break
         case .search:
             let buffer = reader.readBuffer

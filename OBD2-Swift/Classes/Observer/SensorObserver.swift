@@ -23,7 +23,7 @@ public class Observer<T : CommandType> : ObserverType {
     public func observe(command : T, block : @escaping (_ descriptor : T.Descriptor?)->()){
         let key = command.hashValue
         let array = observers[key] ?? []
-        let flatAray = array.flatMap({$0})
+        let flatAray = array.compactMap({$0})
         observers[key] = flatAray
         observers[key]?.append(block)
     }

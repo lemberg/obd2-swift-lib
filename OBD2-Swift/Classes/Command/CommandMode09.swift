@@ -10,7 +10,7 @@ import Foundation
 
 
 public extension Command {
-  public enum Mode09 : CommandType {
+  enum Mode09 : CommandType {
     
     public typealias Descriptor = Mode09Descriptor
     
@@ -24,8 +24,8 @@ public extension Command {
       return lhs.hashValue == rhs.hashValue
     }
     
-    public var hashValue: Int {
-      return Int(mode.rawValue ^ pid)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(Int(mode.rawValue ^ pid))
     }
     
     public var mode : Mode {

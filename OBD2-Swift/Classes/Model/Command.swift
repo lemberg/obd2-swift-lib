@@ -39,8 +39,8 @@ public struct Command {
     case readDeviceIdentifier
     case setDeviceIdentifier(String)
     
-    public var hashValue: Int {
-      return Int(mode.rawValue ^ mode.rawValue)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(Int(mode.rawValue ^ mode.rawValue))
     }
     
     public static func == (lhs: AT, rhs: AT) -> Bool {
@@ -86,8 +86,8 @@ public struct Command {
     case string(String)
     case digit(mode : Int, pid : Int)
     
-    public var hashValue: Int {
-      return Int(mode.rawValue ^ pid)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(Int(mode.rawValue ^ pid))
     }
     
     public static func == (lhs: Custom, rhs: Custom) -> Bool {

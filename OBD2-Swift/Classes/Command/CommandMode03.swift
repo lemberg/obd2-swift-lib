@@ -10,12 +10,12 @@ import Foundation
 
 public extension Command {
   
-  public enum Mode03 : CommandType {
+  enum Mode03 : CommandType {
     
     public typealias Descriptor = Mode03Descriptor
     
-    public var hashValue: Int {
-      return Int(mode.rawValue) ^ 0
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(Int(mode.rawValue) ^ 0)
     }
     
     public static func == (lhs: Mode03, rhs: Mode03) -> Bool {

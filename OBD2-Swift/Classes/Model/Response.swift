@@ -21,8 +21,8 @@ public struct Response : Hashable, Equatable {
     self.timestamp = Date()
   }
   
-  public var hashValue: Int {
-    return Int(mode.rawValue ^ pid)
+  public func hash(into hasher: inout Hasher) {
+      hasher.combine(Int(mode.rawValue ^ pid))
   }
   
   public static func ==(lhs: Response, rhs: Response) -> Bool {

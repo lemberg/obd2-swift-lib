@@ -52,8 +52,7 @@ extension DataRequest: Equatable {
 }
 
 extension DataRequest: Hashable {
-    
-    public var hashValue: Int {
-        return description.hash
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(description.hash)
     }
 }

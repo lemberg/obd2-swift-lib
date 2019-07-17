@@ -18,8 +18,8 @@ class CommandOperation: StreamHandleOperation {
     private(set) var reader: StreamReader
     private var readCompleted = false {
         didSet {
-            self.input.remove(from: .current, forMode: .defaultRunLoopMode)
-            self.output.remove(from: .current, forMode: .defaultRunLoopMode)
+            self.input.remove(from: .current, forMode: RunLoop.Mode.default)
+            self.output.remove(from: .current, forMode: RunLoop.Mode.default)
         }
     }
 

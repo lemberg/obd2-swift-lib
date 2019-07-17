@@ -48,8 +48,8 @@ class StreamHolder: NSObject {
         self.inputStream.delegate = nil
         self.outputStream.delegate = nil
         
-        self.inputStream.remove(from: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
-        self.outputStream.remove(from: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        self.inputStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
+        self.outputStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
         
         self.inputStream.close()
         self.outputStream.close()

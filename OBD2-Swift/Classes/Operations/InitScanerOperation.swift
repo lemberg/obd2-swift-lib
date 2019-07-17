@@ -56,8 +56,8 @@ class InitScanerOperation: StreamHandleOperation {
     private var state: Scanner.State = .unknown {
         didSet{
             if state == .complete {
-                input.remove(from: .current, forMode: .defaultRunLoopMode)
-                output.remove(from: .current, forMode: .defaultRunLoopMode)
+                input.remove(from: .current, forMode: RunLoop.Mode.default)
+                output.remove(from: .current, forMode: RunLoop.Mode.default)
             }
         }
     }
